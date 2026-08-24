@@ -19,7 +19,7 @@ This is an evidence ledger, not a roadmap checkbox list.
 | Swift | 6.0.2 |
 | SDK/runtime | iOS Simulator 18.1 |
 | Simulator | iPhone 16 Pro, iOS 18.1 |
-| Extension | Tidy 0.2.0, Manifest V3 |
+| Extension | Tidy 0.3.0, Manifest V3 |
 
 Results from this Safari 18.1 environment must not be generalized to later
 Safari releases.
@@ -38,6 +38,8 @@ Safari releases.
 | T5 | Bulk full cleanup | Dashboard confirmation and temporary active tab | Passed | Automated UI test on simulator | Removed 9 storage objects and 3 script-visible cookies; failures 0; all displayed counts re-scanned to zero. |
 | T6 | Cleanup of cataloged/dormant origins | Short-lived tab loaded from stored origin | Passed for controlled origin | Simulator-provisional | Workflow no longer depends on a previously open, scriptable tab. Multi-origin and physical-device runs remain. |
 | T7 | Inactive-tab direct cleanup | `tabs.sendMessage` / `scripting.executeScript` | Failed | Simulator-provisional | Safari returned no cleanup result or “Tab not found.” This motivated T5's temporary-tab workflow. |
+| T8 | Explainable purpose classification | 2,261 Open Cookie Database rules plus conservative local heuristics | Passed | Automated | Each item receives purpose, confidence, rationale, source, and a keep/remove decision; values are not inputs. |
+| T9 | Removal safety policy | Evidence and confidence gate | Passed | Automated | Name-only heuristics never authorize deletion; mixed session/tracking signals fail to unknown/kept. |
 | B1 | Enumerate `localStorage` names in popup | Paired fixture keys | Passed | Simulator-provisional | 2 names; values did not cross the boundary. |
 | B2 | Enumerate `sessionStorage` names in popup | Paired fixture keys | Passed | Simulator-provisional | 2 names. |
 | B3 | Enumerate IndexedDB names | `indexedDB.databases()` | Passed | Simulator-provisional | 2 names. |
@@ -48,6 +50,7 @@ Safari releases.
 | C1 | Script-visible cookie cleanup | `document.cookie` name-only fallback | Passed with limitation | Simulator-provisional | Dashboard run removed 3 accessible cookies without persisting names or values. |
 | C2 | Enumerate HttpOnly cookies | Server-set fixture plus Cookies API | Inconclusive | Unverified | Server proved the HttpOnly cookie was sent, but the Cookies API returned 0. |
 | C3 | Delete HttpOnly cookies | Server-set fixture | Not run | Unverified | Cannot claim until C2 yields an accessible cookie object. |
+| C4 | Real-site Reddit sample | 12 script-visible names supplied by simulator run | Passed for classification | Simulator-provisional | `_gcl_au` and domain-matched `edgebucket` are removable marketing evidence; CSRF/session ambiguity remains protected. The generated classifier also passed the controlled popup cleanup UI regression. |
 | D1 | Synthetic DNR rule | Strengthened first-party-readiness A/B harness | Permission-coupled / reopened | Simulator-provisional | The earlier Phase 0 “pass” did not wait for the enabled navigation. With readiness proof added, toggling the extension allowed the request; Safari's website grant is reset/coupled in this flow. Do not claim permission-free blocking. |
 | L1 | Timed observation | 750 ms and 2.5 s captures | Passed for foreground fixture | Simulator-provisional | Background and suspension behavior is not implied. |
 | L2 | `pagehide` capture | Observer hook | Implemented, not isolated | Unverified | Needs a dedicated lifecycle fixture. |

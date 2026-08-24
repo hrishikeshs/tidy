@@ -120,16 +120,16 @@ final class Janitor_LabUITests: XCTestCase {
         let namesAndClassifications = safari.buttons["Names and classifications"].firstMatch
         XCTAssertTrue(namesAndClassifications.waitForExistence(timeout: 5))
         namesAndClassifications.tap()
-        XCTAssertTrue(safari.staticTexts["_janitor_tracker_id — known-fixture-tracker"].waitForExistence(timeout: 5))
-        XCTAssertTrue(safari.staticTexts["janitor_login_preference — unknown"].exists)
-        XCTAssertTrue(safari.staticTexts["_janitor_tracker_session — known-fixture-tracker"].exists)
-        XCTAssertTrue(safari.staticTexts["janitor_draft — unknown"].exists)
-        XCTAssertTrue(safari.staticTexts["janitor-tracker-db — unknown"].exists)
-        XCTAssertTrue(safari.staticTexts["janitor-functional-db — unknown"].exists)
-        XCTAssertTrue(safari.staticTexts["janitor-tracker-cache — unknown"].exists)
-        XCTAssertTrue(safari.staticTexts["janitor-functional-cache — unknown"].exists)
-        XCTAssertTrue(safari.staticTexts["_janitor_tracker — known-fixture-tracker"].exists)
-        XCTAssertTrue(safari.staticTexts["janitor_login — unknown"].exists)
+        XCTAssertTrue(safari.staticTexts["_janitor_tracker_id — Marketing · high confidence · removable"].waitForExistence(timeout: 5))
+        XCTAssertTrue(safari.staticTexts["janitor_login_preference — Functional · medium confidence · kept"].exists)
+        XCTAssertTrue(safari.staticTexts["_janitor_tracker_session — Marketing · high confidence · removable"].exists)
+        XCTAssertTrue(safari.staticTexts["janitor_draft — Unknown · kept"].exists)
+        XCTAssertTrue(safari.staticTexts["janitor-tracker-db — Marketing · high confidence · removable"].exists)
+        XCTAssertTrue(safari.staticTexts["janitor-functional-db — Unknown · kept"].exists)
+        XCTAssertTrue(safari.staticTexts["janitor-tracker-cache — Marketing · high confidence · removable"].exists)
+        XCTAssertTrue(safari.staticTexts["janitor-functional-cache — Unknown · kept"].exists)
+        XCTAssertTrue(safari.staticTexts["_janitor_tracker — Marketing · high confidence · removable"].exists)
+        XCTAssertTrue(safari.staticTexts["janitor_login — Functional · medium confidence · kept"].exists)
         let cookieFallbackNote = safari.staticTexts.containing(
             NSPredicate(format: "label CONTAINS %@", "HttpOnly cookies may still be inaccessible.")
         ).firstMatch
@@ -138,7 +138,7 @@ final class Janitor_LabUITests: XCTestCase {
 
         let extensionWebView = safari.webViews["Tidy"].firstMatch
         extensionWebView.swipeUp()
-        let cleanTrackers = safari.buttons["Clean tracker fixture"]
+        let cleanTrackers = safari.buttons["Clean 5 likely tracking items"]
         XCTAssertTrue(cleanTrackers.waitForExistence(timeout: 5))
         cleanTrackers.tap()
 
@@ -149,16 +149,16 @@ final class Janitor_LabUITests: XCTestCase {
         XCTAssertTrue(cleanupResult.label.contains("Removed: 4 storage items"))
 
         namesAndClassifications.tap()
-        XCTAssertTrue(safari.staticTexts["janitor_login_preference — unknown"].exists)
-        XCTAssertTrue(safari.staticTexts["janitor_draft — unknown"].exists)
-        XCTAssertTrue(safari.staticTexts["janitor-functional-db — unknown"].exists)
-        XCTAssertTrue(safari.staticTexts["janitor-functional-cache — unknown"].exists)
-        XCTAssertFalse(safari.staticTexts["_janitor_tracker_id — known-fixture-tracker"].exists)
-        XCTAssertFalse(safari.staticTexts["_janitor_tracker_session — known-fixture-tracker"].exists)
-        XCTAssertFalse(safari.staticTexts["janitor-tracker-db — unknown"].exists)
-        XCTAssertFalse(safari.staticTexts["janitor-tracker-cache — unknown"].exists)
-        XCTAssertFalse(safari.staticTexts["_janitor_tracker — known-fixture-tracker"].exists)
-        XCTAssertTrue(safari.staticTexts["janitor_login — unknown"].exists)
+        XCTAssertTrue(safari.staticTexts["janitor_login_preference — Functional · medium confidence · kept"].exists)
+        XCTAssertTrue(safari.staticTexts["janitor_draft — Unknown · kept"].exists)
+        XCTAssertTrue(safari.staticTexts["janitor-functional-db — Unknown · kept"].exists)
+        XCTAssertTrue(safari.staticTexts["janitor-functional-cache — Unknown · kept"].exists)
+        XCTAssertFalse(safari.staticTexts["_janitor_tracker_id — Marketing · high confidence · removable"].exists)
+        XCTAssertFalse(safari.staticTexts["_janitor_tracker_session — Marketing · high confidence · removable"].exists)
+        XCTAssertFalse(safari.staticTexts["janitor-tracker-db — Marketing · high confidence · removable"].exists)
+        XCTAssertFalse(safari.staticTexts["janitor-tracker-cache — Marketing · high confidence · removable"].exists)
+        XCTAssertFalse(safari.staticTexts["_janitor_tracker — Marketing · high confidence · removable"].exists)
+        XCTAssertTrue(safari.staticTexts["janitor_login — Functional · medium confidence · kept"].exists)
 
         namesAndClassifications.tap()
         extensionWebView.swipeUp()
@@ -175,11 +175,11 @@ final class Janitor_LabUITests: XCTestCase {
         ).firstMatch
         XCTAssertTrue(fullCleanupResult.waitForExistence(timeout: 8))
         namesAndClassifications.tap()
-        XCTAssertFalse(safari.staticTexts["janitor_login_preference — unknown"].exists)
-        XCTAssertFalse(safari.staticTexts["janitor_draft — unknown"].exists)
-        XCTAssertFalse(safari.staticTexts["janitor-functional-db — unknown"].exists)
-        XCTAssertFalse(safari.staticTexts["janitor-functional-cache — unknown"].exists)
-        XCTAssertFalse(safari.staticTexts["janitor_login — unknown"].exists)
+        XCTAssertFalse(safari.staticTexts["janitor_login_preference — Functional · medium confidence · kept"].exists)
+        XCTAssertFalse(safari.staticTexts["janitor_draft — Unknown · kept"].exists)
+        XCTAssertFalse(safari.staticTexts["janitor-functional-db — Unknown · kept"].exists)
+        XCTAssertFalse(safari.staticTexts["janitor-functional-cache — Unknown · kept"].exists)
+        XCTAssertFalse(safari.staticTexts["janitor_login — Functional · medium confidence · kept"].exists)
         let emptyCategories = safari.staticTexts.matching(
             NSPredicate(format: "label == %@", "None observed")
         )

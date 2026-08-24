@@ -1,9 +1,8 @@
 import "../shared/catalog.js";
 import {
-  FIXTURE_TRACKER_DEFINITION,
   classifyCookie,
   cookieRemovalURL,
-  isKnownFixtureCookie
+  removableSelection
 } from "../shared/tracker-definitions.js";
 
 const api = globalThis.browser ?? globalThis.chrome;
@@ -199,10 +198,9 @@ async function ensureInspector(tabId) {
   throw lastError ?? new Error("Safari did not load the selected site.");
 }
 
-async function removeAPICookies(mode, tab) {
-  const rawCookies = await api.cookies.getAll({ url: tab.url });
-  const cookies = rawCookies.map((cookie) => classifyCookie({ ...cookie, source: "cookies-api" }));
-  const selected = cookies.filter((cookie) => mode === "all" || isKnownFixtureCookie(cookie.name));
+async function removeAPICookies(mode, tab, cookies, selection) {
+  const selectedNames = new Set(selection.cookieNames);
+  const selected = cookies.filter((cookie) => mode === "all" || selectedNames.has(cookie.name));
   const result = { attempted: selected.length, removed: 0, failures: [] };
   for (const cookie of selected) {
     try {
@@ -217,19 +215,36 @@ async function removeAPICookies(mode, tab) {
       });
     }
   }
-  return { result, cookies };
+  return result;
 }
 
 async function cleanOrigin(origin, mode) {
   const tab = await api.tabs.create({ url: origin, active: true });
   try {
-    await ensureInspector(tab.id);
-    const { result: cookieResult, cookies } = await removeAPICookies(mode, tab);
+    const inspection = await ensureInspector(tab.id);
+    const rawCookies = await api.cookies.getAll({ url: tab.url });
+    const apiCookies = rawCookies.map((cookie) => classifyCookie(
+      { ...cookie, source: "cookies-api" },
+      { origin }
+    ));
+    const apiCookieNames = new Set(apiCookies.map(({ name }) => name));
+    const fallbackCookies = (inspection.scriptVisibleCookieNames ?? [])
+      .filter((name) => !apiCookieNames.has(name))
+      .map((name) => classifyCookie({
+        name,
+        domain: new URL(origin).hostname,
+        path: "/",
+        secure: new URL(origin).protocol === "https:",
+        httpOnly: false,
+        source: "document.cookie"
+      }, { origin }));
+    const selection = removableSelection(inspection, [...apiCookies, ...fallbackCookies]);
+    const cookieResult = await removeAPICookies(mode, tab, apiCookies, selection);
     const storage = await api.tabs.sendMessage(tab.id, {
       type: "tidy.clean",
       mode,
-      definition: FIXTURE_TRACKER_DEFINITION,
-      cookieNamesExposedByAPI: cookies.map(({ name }) => name)
+      selection,
+      cookieNamesExposedByAPI: apiCookies.map(({ name }) => name)
     });
     if (!storage?.removedCounts) throw new Error("Safari did not return a cleanup result.");
     const removedStorage = Object.values(storage.removedCounts)

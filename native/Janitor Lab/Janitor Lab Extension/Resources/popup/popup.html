@@ -30,6 +30,7 @@
         <h2>Accessible state</h2>
         <div id="summary" class="grid"></div>
         <p id="cookie-note" class="note" hidden></p>
+        <p id="classifier-note" class="classifier-note"></p>
         <details>
           <summary>Names and classifications</summary>
           <div id="details"></div>
@@ -37,7 +38,7 @@
       </section>
 
       <section id="actions" hidden>
-        <button id="clean" class="primary">Clean tracker fixture</button>
+        <button id="clean" class="primary">Clean likely tracking items</button>
         <button id="forget" class="danger">Forget accessible site data…</button>
       </section>
 
@@ -53,7 +54,7 @@
       <section id="result" class="result" hidden aria-live="polite"></section>
       <p id="error" class="error" hidden aria-live="assertive"></p>
 
-      <footer>Values are never displayed or persisted by this build.</footer>
+      <footer>Values are never displayed or persisted. Purpose labels express evidence and confidence, not certainty.</footer>
     </main>
     <script type="module" src="popup.js"></script>
   </body>

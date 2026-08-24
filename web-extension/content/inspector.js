@@ -12,13 +12,35 @@
   }
 
   function scriptVisibleCookieNames() {
-    return document.cookie
+    const names = document.cookie
       .split(";")
       .map((part) => part.trim())
       .filter(Boolean)
       .map((part) => part.split("=", 1)[0])
-      .filter(Boolean)
-      .sort();
+      .filter(Boolean);
+    return [...new Set(names)].sort();
+  }
+
+  function expireScriptVisibleCookie(name) {
+    const pathParts = location.pathname.split("/").filter(Boolean);
+    const paths = new Set(["/", location.pathname || "/"]);
+    while (pathParts.length > 0) {
+      paths.add(`/${pathParts.join("/")}`);
+      pathParts.pop();
+    }
+
+    const hostnameParts = location.hostname.split(".").filter(Boolean);
+    const domains = new Set([""]);
+    for (let index = 0; index <= hostnameParts.length - 2; index += 1) {
+      domains.add(hostnameParts.slice(index).join("."));
+    }
+
+    for (const path of paths) {
+      for (const domain of domains) {
+        const domainAttribute = domain ? `; Domain=${domain}` : "";
+        document.cookie = `${name}=; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Path=${path}${domainAttribute}; SameSite=Lax`;
+      }
+    }
   }
 
   async function inspectStorage() {
@@ -115,10 +137,22 @@
     });
   }
 
-  async function cleanStorage({ mode, definition, cookieNamesExposedByAPI = [] }) {
+  async function cleanStorage({
+    mode,
+    definition,
+    selection,
+    cookieNamesExposedByAPI = []
+  }) {
     const full = mode === "all";
-    const matchesPrefix = (name) =>
-      definition.storageKeyPrefixes.some((prefix) => name.startsWith(prefix));
+    const selectedNames = (field) => new Set(selection?.[field] ?? []);
+    const selectedCookies = selectedNames("cookieNames");
+    const selectedLocalStorage = selectedNames("localStorageKeys");
+    const selectedSessionStorage = selectedNames("sessionStorageKeys");
+    const selectedDatabases = selectedNames("indexedDBNames");
+    const selectedCaches = selectedNames("cacheNames");
+    const selectedWorkers = selectedNames("serviceWorkerScopes");
+    const legacyMatchesPrefix = (name) =>
+      definition?.storageKeyPrefixes?.some((prefix) => name.startsWith(prefix));
     const result = {
       attemptedTypes: [],
       removedCounts: {
@@ -136,10 +170,12 @@
     try {
       const apiCookieNames = new Set(cookieNamesExposedByAPI);
       const cookieNames = scriptVisibleCookieNames().filter((name) => !apiCookieNames.has(name));
-      const selected = cookieNames.filter((name) => full || definition.cookieNames.includes(name));
+      const selected = cookieNames.filter((name) =>
+        full || selectedCookies.has(name) || definition?.cookieNames?.includes(name)
+      );
       result.scriptVisibleCookies.attempted = selected.length;
       for (const name of selected) {
-        document.cookie = `${name}=; Max-Age=0; Path=/; SameSite=Lax`;
+        expireScriptVisibleCookie(name);
         if (!scriptVisibleCookieNames().includes(name)) {
           result.scriptVisibleCookies.removed += 1;
         } else {
@@ -155,7 +191,7 @@
     try {
       const keys = Object.keys(localStorage);
       for (const key of keys) {
-        if (full || matchesPrefix(key)) {
+        if (full || selectedLocalStorage.has(key) || legacyMatchesPrefix(key)) {
           localStorage.removeItem(key);
           result.removedCounts.localStorage += 1;
         }
@@ -169,7 +205,7 @@
     try {
       const keys = Object.keys(sessionStorage);
       for (const key of keys) {
-        if (full || matchesPrefix(key)) {
+        if (full || selectedSessionStorage.has(key) || legacyMatchesPrefix(key)) {
           sessionStorage.removeItem(key);
           result.removedCounts.sessionStorage += 1;
         }
@@ -185,7 +221,7 @@
         const databases = await indexedDB.databases();
         const names = databases.map(({ name }) => name).filter(Boolean);
         for (const name of names) {
-          if (full || definition.indexedDBNames.includes(name)) {
+          if (full || selectedDatabases.has(name) || definition?.indexedDBNames?.includes(name)) {
             try {
               await deleteDatabase(name);
               result.removedCounts.indexedDB += 1;
@@ -207,7 +243,7 @@
       try {
         const names = await caches.keys();
         for (const name of names) {
-          if (full || definition.cacheNames.includes(name)) {
+          if (full || selectedCaches.has(name) || definition?.cacheNames?.includes(name)) {
             if (await caches.delete(name)) result.removedCounts.cacheStorage += 1;
           }
         }
@@ -219,13 +255,15 @@
       result.inaccessibleTypes.push("cacheStorage");
     }
 
-    if (full) {
+    if (full || selectedWorkers.size > 0) {
       result.attemptedTypes.push("serviceWorkers");
       if (navigator.serviceWorker) {
         try {
           const registrations = await navigator.serviceWorker.getRegistrations();
           for (const registration of registrations) {
-            if (await registration.unregister()) result.removedCounts.serviceWorkers += 1;
+            if ((full || selectedWorkers.has(registration.scope)) && await registration.unregister()) {
+              result.removedCounts.serviceWorkers += 1;
+            }
           }
         } catch (error) {
           result.inaccessibleTypes.push("serviceWorkers");

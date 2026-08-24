@@ -1,15 +1,17 @@
 import {
   FIXTURE_TRACKER_DEFINITION,
+  classificationLabel,
   classifyCookie,
+  classifyStorageItem,
   cookieRemovalURL,
-  isKnownFixtureCookie,
-  permissionPatternFor
+  permissionPatternFor,
+  removableSelection
 } from "../shared/tracker-definitions.js";
 import "../shared/catalog.js";
 
 const api = globalThis.browser ?? globalThis.chrome;
 const elements = Object.fromEntries(
-  ["domain", "permission", "dashboard", "grant", "inspect", "inventory", "summary", "cookie-note", "details", "actions", "clean", "forget", "confirmation", "cancel-forget", "confirm-forget", "result", "error"]
+  ["domain", "permission", "dashboard", "grant", "inspect", "inventory", "summary", "cookie-note", "classifier-note", "details", "actions", "clean", "forget", "confirmation", "cancel-forget", "confirm-forget", "result", "error"]
     .map((id) => [id, document.getElementById(id)])
 );
 
@@ -37,7 +39,7 @@ function metric(label, value) {
   return node;
 }
 
-function renderNames(title, entries, classify = () => "unknown") {
+function renderNames(title, entries) {
   const wrapper = document.createElement("section");
   const heading = document.createElement("strong");
   heading.textContent = title;
@@ -46,8 +48,11 @@ function renderNames(title, entries, classify = () => "unknown") {
   const list = document.createElement("ul");
   for (const entry of entries) {
     const item = document.createElement("li");
-    const name = typeof entry === "string" ? entry : entry.name;
-    item.textContent = `${name} — ${classify(entry)}`;
+    const label = document.createElement("span");
+    label.textContent = `${entry.name} — ${classificationLabel(entry)}`;
+    const rationale = document.createElement("small");
+    rationale.textContent = `${entry.reason} Source: ${entry.source}${entry.controller ? ` (${entry.controller})` : ""}.`;
+    item.append(label, rationale);
     list.append(item);
   }
   if (entries.length === 0) {
@@ -76,7 +81,32 @@ async function injectInspector() {
 
 async function accessibleCookies() {
   const cookies = await api.cookies.getAll({ url: currentTab.url });
-  return cookies.map((cookie) => classifyCookie({ ...cookie, source: "cookies-api" }));
+  return cookies.map((cookie) => classifyCookie(
+    { ...cookie, source: "cookies-api" },
+    { origin: currentTab.url }
+  ));
+}
+
+function combinedCookies(storage, apiCookies) {
+  const apiCookieNames = new Set(apiCookies.map(({ name }) => name));
+  const fallbackCookies = storage.scriptVisibleCookieNames
+    .filter((name) => !apiCookieNames.has(name))
+    .map((name) => classifyCookie({
+      name,
+      domain: new URL(currentTab.url).hostname,
+      path: "/",
+      secure: new URL(currentTab.url).protocol === "https:",
+      httpOnly: false,
+      source: "document.cookie"
+    }, { origin: currentTab.url }));
+  return {
+    fallbackCookies,
+    cookies: [...apiCookies, ...fallbackCookies].sort((a, b) => a.name.localeCompare(b.name))
+  };
+}
+
+function classifiedNames(type, names, origin) {
+  return names.map((name) => classifyStorageItem(type, name, { origin }));
 }
 
 async function inspect({ preserveMessages = false } = {}) {
@@ -90,23 +120,28 @@ async function inspect({ preserveMessages = false } = {}) {
     type: "tidy.observe",
     snapshot: globalThis.TidyCatalog.summaryFromInspection(storage)
   });
-  const apiCookieNames = new Set(apiCookies.map(({ name }) => name));
-  const fallbackCookies = storage.scriptVisibleCookieNames
-    .filter((name) => !apiCookieNames.has(name))
-    .map((name) => classifyCookie({
-      name,
-      domain: new URL(currentTab.url).hostname,
-      path: "/",
-      secure: new URL(currentTab.url).protocol === "https:",
-      httpOnly: false,
-      source: "document.cookie"
-    }));
-  const cookies = [...apiCookies, ...fallbackCookies].sort((a, b) => a.name.localeCompare(b.name));
+  const { fallbackCookies, cookies } = combinedCookies(storage, apiCookies);
+  const classified = {
+    localStorage: classifiedNames("localStorage", storage.localStorageKeys, storage.origin),
+    sessionStorage: classifiedNames("sessionStorage", storage.sessionStorageKeys, storage.origin),
+    indexedDB: classifiedNames("indexedDB", storage.indexedDBNames, storage.origin),
+    cacheStorage: classifiedNames("cacheStorage", storage.cacheNames, storage.origin),
+    serviceWorkers: classifiedNames("serviceWorker", storage.serviceWorkerScopes, storage.origin)
+  };
+  const removableCount = [cookies, ...Object.values(classified)]
+    .flat()
+    .filter(({ safeToRemove }) => safeToRemove)
+    .length;
 
   elements["cookie-note"].hidden = fallbackCookies.length === 0;
   elements["cookie-note"].textContent = fallbackCookies.length === 0
     ? ""
     : `Showing ${fallbackCookies.length} script-visible cookie name(s) that Safari's Cookies API did not expose. HttpOnly cookies may still be inaccessible.`;
+  elements["classifier-note"].textContent = removableCount === 0
+    ? "No evidence-backed tracking items are eligible for automatic cleanup. Low-confidence guesses stay put."
+    : `${removableCount} evidence-backed tracking item(s) are eligible for automatic cleanup. Low-confidence guesses stay put.`;
+  elements.clean.textContent = `Clean ${removableCount} likely tracking item${removableCount === 1 ? "" : "s"}`;
+  elements.clean.disabled = removableCount === 0;
 
   const categories = [
     ["Cookies", cookies.length],
@@ -119,24 +154,21 @@ async function inspect({ preserveMessages = false } = {}) {
   elements.summary.replaceChildren(...categories.map(([label, value]) => metric(label, value)));
 
   elements.details.replaceChildren(
-    renderNames("Cookies", cookies, ({ classification }) => classification),
-    renderNames("localStorage", storage.localStorageKeys, (key) =>
-      key.startsWith("_janitor_tracker") ? "known-fixture-tracker" : "unknown"
-    ),
-    renderNames("sessionStorage", storage.sessionStorageKeys, (key) =>
-      key.startsWith("_janitor_tracker") ? "known-fixture-tracker" : "unknown"
-    ),
-    renderNames("IndexedDB", storage.indexedDBNames),
-    renderNames("Cache Storage", storage.cacheNames),
-    renderNames("Service workers", storage.serviceWorkerScopes)
+    renderNames("Cookies", cookies),
+    renderNames("localStorage", classified.localStorage),
+    renderNames("sessionStorage", classified.sessionStorage),
+    renderNames("IndexedDB", classified.indexedDB),
+    renderNames("Cache Storage", classified.cacheStorage),
+    renderNames("Service workers", classified.serviceWorkers)
   );
 
   elements.inventory.hidden = false;
   elements.actions.hidden = false;
 }
 
-async function removeCookies(mode, cookies) {
-  const selected = cookies.filter((cookie) => mode === "all" || isKnownFixtureCookie(cookie.name));
+async function removeCookies(mode, cookies, selection) {
+  const selectedNames = new Set(selection.cookieNames);
+  const selected = cookies.filter((cookie) => mode === "all" || selectedNames.has(cookie.name));
   const result = { attempted: selected.length, removed: 0, failures: [] };
 
   for (const cookie of selected) {
@@ -161,16 +193,20 @@ async function removeCookies(mode, cookies) {
 
 async function clean(mode) {
   clearMessages();
-  const apiCookies = await accessibleCookies();
   await injectInspector();
+  const apiCookies = await accessibleCookies();
+  const inspection = await api.tabs.sendMessage(currentTab.id, { type: "tidy.inspect" });
+  const { cookies: allCookies } = combinedCookies(inspection, apiCookies);
+  const selection = removableSelection(inspection, allCookies);
   const [storage, cookies] = await Promise.all([
     api.tabs.sendMessage(currentTab.id, {
       type: "janitor.clean",
       mode,
       definition: FIXTURE_TRACKER_DEFINITION,
+      selection,
       cookieNamesExposedByAPI: apiCookies.map(({ name }) => name)
     }),
-    removeCookies(mode, apiCookies)
+    removeCookies(mode, apiCookies, selection)
   ]);
 
   const removedStorage = Object.values(storage.removedCounts).reduce((sum, value) => sum + value, 0);

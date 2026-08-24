@@ -10,7 +10,7 @@ npm run check
 npm run build:simulator
 ```
 
-`check` runs nine JavaScript tests, syntax checks every extension script, and
+`check` runs the JavaScript model/classifier tests, syntax checks every extension script, and
 validates the manifest and referenced resources. `build:simulator` synchronizes
 the canonical `web-extension/` tree into the Xcode project before building.
 

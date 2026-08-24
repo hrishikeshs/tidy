@@ -1,11 +1,14 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
+  classificationLabel,
   classifyCookie,
+  classifyStorageItem,
   cookieRemovalURL,
   isKnownFixtureCookie,
   isKnownFixtureStorageKey,
-  permissionPatternFor
+  permissionPatternFor,
+  removableSelection
 } from "../web-extension/shared/tracker-definitions.js";
 
 test("fixture classification fails conservative for unknown names", () => {
@@ -27,8 +30,71 @@ test("cookie classification drops values", () => {
     sameSite: "lax"
   });
 
-  assert.equal(classified.classification, "known-fixture-tracker");
+  assert.equal(classified.purpose, "marketing");
+  assert.equal(classified.confidence, "high");
+  assert.equal(classified.safeToRemove, true);
   assert.equal("value" in classified, false);
+});
+
+test("public rules classify common Reddit cookies with contextual confidence", () => {
+  const googleAds = classifyCookie({ name: "_gcl_au", domain: ".reddit.com" }, {
+    origin: "https://www.reddit.com"
+  });
+  const redditAds = classifyCookie({ name: "edgebucket", domain: ".reddit.com" }, {
+    origin: "https://www.reddit.com"
+  });
+
+  assert.equal(googleAds.purpose, "marketing");
+  assert.equal(googleAds.confidence, "medium");
+  assert.equal(googleAds.safeToRemove, true);
+  assert.equal(redditAds.purpose, "marketing");
+  assert.equal(redditAds.confidence, "high");
+  assert.equal(redditAds.safeToRemove, true);
+});
+
+test("safety and mixed-signal names fail conservative", () => {
+  const csrf = classifyCookie({ name: "csrf_token", domain: "reddit.com" });
+  const mixed = classifyCookie({ name: "session_tracker", domain: "reddit.com" });
+  const suggestive = classifyCookie({ name: "ads_cookie", domain: "reddit.com" });
+  const preference = classifyCookie({ name: "compact", domain: "reddit.com" });
+  const recaptcha = classifyStorageItem("localStorage", "_grecaptcha");
+
+  assert.equal(csrf.purpose, "security");
+  assert.equal(csrf.safeToRemove, false);
+  assert.equal(mixed.purpose, "unknown");
+  assert.equal(mixed.safeToRemove, false);
+  assert.equal(suggestive.purpose, "marketing");
+  assert.equal(suggestive.confidence, "low");
+  assert.equal(suggestive.safeToRemove, false);
+  assert.equal(preference.purpose, "preferences");
+  assert.equal(classificationLabel(preference), "Preferences · low confidence · kept");
+  assert.equal(recaptcha.purpose, "security");
+  assert.equal(recaptcha.safeToRemove, false);
+});
+
+test("automatic selection includes evidence-backed tracking and protects heuristics", () => {
+  const cookies = [
+    classifyCookie({ name: "edgebucket", domain: ".reddit.com" }, { origin: "https://www.reddit.com" }),
+    classifyCookie({ name: "csrf_token", domain: ".reddit.com" }, { origin: "https://www.reddit.com" }),
+    classifyCookie({ name: "ads_cookie", domain: ".reddit.com" }, { origin: "https://www.reddit.com" })
+  ];
+  const inspection = {
+    origin: "https://www.reddit.com",
+    localStorageKeys: ["_gcl_ls", "_janitor_tracker_id", "account"],
+    sessionStorageKeys: [],
+    indexedDBNames: ["keyval-store"],
+    cacheNames: []
+  };
+
+  assert.deepEqual(removableSelection(inspection, cookies), {
+    cookieNames: ["edgebucket"],
+    localStorageKeys: ["_janitor_tracker_id"],
+    sessionStorageKeys: [],
+    indexedDBNames: [],
+    cacheNames: [],
+    serviceWorkerScopes: []
+  });
+  assert.equal(classifyStorageItem("localStorage", "_gcl_ls").safeToRemove, false);
 });
 
 test("permissions are requested for a host, not a browsing URL", () => {

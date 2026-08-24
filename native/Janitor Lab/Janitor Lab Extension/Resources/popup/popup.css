@@ -56,6 +56,8 @@ button {
   font-weight: 650;
 }
 
+button:disabled { opacity: 0.48; }
+
 .primary { background: #2563eb; color: white; }
 .secondary { background: color-mix(in srgb, CanvasText 9%, Canvas); color: CanvasText; }
 .danger { background: color-mix(in srgb, #dc2626 12%, Canvas); color: #dc2626; }
@@ -87,9 +89,13 @@ button {
 .metric span { color: #64748b; font-size: 10px; }
 
 .note { color: #a16207; font-size: 11px; }
+.classifier-note { color: #64748b; font-size: 11px; }
 
 details { margin-top: 10px; font-size: 12px; }
 details ul { margin: 6px 0 10px; padding-left: 18px; }
+details li { margin-bottom: 7px; }
+details li span { display: block; }
+details li small { display: block; margin-top: 2px; color: #64748b; line-height: 1.3; }
 
 .result {
   margin-top: 12px;

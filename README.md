@@ -15,6 +15,8 @@ Xcode 16.1 and the iOS 18.1 simulator.
 - Content scripts observe visited origins and record counts for cookies,
   `localStorage`, `sessionStorage`, IndexedDB, Cache Storage, and service
   workers.
+- Cookie and storage names inspected on demand receive a purpose, confidence,
+  rationale, and keep/remove decision from an offline 2,261-rule classifier.
 - The dashboard shows the local catalog, open-origin state, aggregate counts,
   cleanup history, and a global Safari Cookies API probe.
 - Per-site and bulk cleanup briefly open each selected origin, remove accessible
@@ -32,6 +34,12 @@ stores origins, hostnames, timestamps, category counts, inaccessible-category
 flags, and cleanup outcomes. It deliberately does not store cookie names,
 storage keys, URL paths, values, or detailed error text. Unit tests enforce
 that boundary.
+
+Classification is also entirely local. Tidy combines the Apache-2.0 Open
+Cookie Database with conservative safety and name heuristics. Only high- or
+medium-confidence analytics/marketing matches backed by the public database or
+the controlled fixture are eligible for automatic cleanup. A suggestive name
+alone is labeled for review and kept. See [classifier design](docs/classifier.md).
 
 Tidy does not have analytics, an account, a server, or a network client of its
 own. Cleaning a site necessarily loads that site in a short-lived Safari tab;
@@ -87,7 +95,8 @@ Then install the built app, enable Tidy in Safari, choose access for every
 website, and visit `http://127.0.0.1:8765` before opening the dashboard.
 
 See the [simulator protocol](docs/test-protocol.md), [capability
-matrix](docs/capability-matrix.md), and [dated evidence](docs/evidence/2026-08-23/README.md).
+matrix](docs/capability-matrix.md), [initial dashboard evidence](docs/evidence/2026-08-23/README.md),
+and [classifier evidence](docs/evidence/2026-08-24/classifier-observations.md).
 
 ## Platform references
 
