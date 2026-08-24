@@ -1,0 +1,1 @@
+Clear-all finished. Cleaned 2 of 2 observed site(s); removed 9 storage item(s), 9 site cookie(s), and 0 remaining globally exposed cookie(s). Site failures: 0; item failures: 0. Safari history, saved passwords, and inaccessible internal data were not touched.

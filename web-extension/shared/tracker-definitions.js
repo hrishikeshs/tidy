@@ -335,3 +335,11 @@ export function cookieRemovalURL(cookie, rawPageURL) {
 
   return `${scheme}//${cookie.domain.replace(/^\./, "")}${cookiePath}`;
 }
+
+export function globalCookieRemovalURL(cookie) {
+  const hostname = String(cookie?.domain ?? "").replace(/^\./, "");
+  if (!hostname) throw new TypeError("A cookie domain is required for global removal.");
+  const scheme = cookie.secure ? "https:" : "http:";
+  const cookiePath = cookie.path?.startsWith("/") ? cookie.path : "/";
+  return `${scheme}//${hostname}${cookiePath}`;
+}

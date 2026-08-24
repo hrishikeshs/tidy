@@ -27,11 +27,18 @@ Xcode 16.1 and the iOS 18.1 simulator.
   cleanup history, and a global Safari Cookies API probe.
 - Per-site and bulk cleanup briefly open each selected origin, remove accessible
   site data, close the temporary tab, and return to the dashboard.
+- **Clear all saved website data** does the same for every observed origin,
+  continues past individual site failures, and then removes every cookie
+  Safari exposes globally. It warns that the user will probably be signed out
+  and reports site, item, and cookie-sweep outcomes separately.
 - The popup retains the controlled selective-cleanup fixture for testing
   tracker-like state separately from functional state.
 
 The simulator UI test removed 9 storage objects and 3 script-visible cookies,
 returned to Tidy, and re-scanned every displayed category to zero.
+The clear-all test then exercised an accumulated two-origin catalog (Reddit and
+the controlled fixture), removed 9 storage objects and 9 site cookies, and
+reported zero site or item failures.
 
 ## Local-data model
 
@@ -50,6 +57,11 @@ alone is labeled for review and kept. See [classifier design](docs/classifier.md
 Tidy does not have analytics, an account, a server, or a network client of its
 own. Cleaning a site necessarily loads that site in a short-lived Safari tab;
 the confirmation UI says so before doing it.
+
+The clear-all action retains Tidy's value-free catalog as local cleanup history.
+It does not clear Safari history or saved passwords, and it cannot remove data
+that Safari keeps inaccessible to extensions. Those boundaries are stated next
+to the action and repeated in its cleanup receipt.
 
 Learning Clean is the explicitly value-aware path. The native app reads cookie
 values (including HttpOnly cookies visible to its own `WKHTTPCookieStore`) and
@@ -124,7 +136,8 @@ Physical-device forks must register or substitute the app-group identifier
 See the [simulator protocol](docs/test-protocol.md), [capability
 matrix](docs/capability-matrix.md), [initial dashboard evidence](docs/evidence/2026-08-23/README.md),
 [classifier evidence](docs/evidence/2026-08-24/classifier-observations.md), and
-[Learning Clean evidence](docs/evidence/2026-08-24/learning-clean-observations.md).
+[Learning Clean evidence](docs/evidence/2026-08-24/learning-clean-observations.md),
+and [clear-all evidence](docs/evidence/2026-08-24/clear-all-observations.md).
 
 ## Platform references
 

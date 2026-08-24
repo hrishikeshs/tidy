@@ -31,6 +31,16 @@
         <div id="cookie-domains" class="domain-cloud"></div>
       </section>
 
+      <section class="clean-slate" aria-labelledby="clean-slate-title">
+        <div class="clean-slate-copy">
+          <p class="eyebrow">CLEAN SLATE</p>
+          <h2 id="clean-slate-title">Start over across Safari</h2>
+          <p id="clear-all-summary">Clear accessible storage from every site Tidy has observed, then remove every cookie Safari exposes globally.</p>
+          <p class="boundary">You will probably be signed out. Safari history, saved passwords, and website data hidden from extensions are not touched.</p>
+        </div>
+        <button id="clear-all" class="destructive">Clear all saved website data</button>
+      </section>
+
       <section class="catalog-heading">
         <div>
           <p class="eyebrow">OBSERVED ORIGINS</p>
@@ -59,6 +69,17 @@
           <button id="cancel-clean" class="secondary">Cancel</button>
           <button id="confirm-clean" class="danger">Remove accessible data</button>
         </div>
+      </section>
+
+      <section id="cleanup-progress" class="progress-card" hidden aria-live="polite">
+        <div class="progress-copy">
+          <span class="spinner" aria-hidden="true"></span>
+          <div>
+            <strong>Cleaning in progress</strong>
+            <p id="progress-status">Preparing…</p>
+          </div>
+        </div>
+        <progress id="progress-meter" max="1" value="0"></progress>
       </section>
 
       <p id="result" class="result" hidden aria-live="polite"></p>

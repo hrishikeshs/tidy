@@ -43,11 +43,14 @@ a slow Safari first launch from being mistaken for a blocked request.
    2 IndexedDB, 2 caches, and 1 service worker.
 3. Run the global cookie probe and retain its exact result. Zero is not treated
    as proof that Safari's cookie jar is empty.
-4. Select the fixture origin and choose **Forget selected…**.
-5. Confirm the disclosure that Tidy briefly opens the origin.
-6. Remove accessible data and verify Tidy returns, reports 9 storage objects
-   plus the accessible cookie count, reports zero failures, and re-scans all
-   displayed categories to zero.
+4. Choose **Clear all saved website data**.
+5. Confirm the sign-out warning and disclosure that Tidy briefly opens each
+   observed origin before sweeping every cookie Safari exposes globally.
+6. Confirm the destructive action and verify Tidy returns, reports 9 storage
+   objects plus the accessible cookie count, separates site and item failures,
+   and re-scans all displayed categories to zero.
+7. Confirm the receipt repeats that Safari history, saved passwords, and
+   inaccessible internal data were not touched.
 
 ## 5. Automated UI paths
 
@@ -59,7 +62,7 @@ xcodebuild test \
   -project "native/Janitor Lab/Janitor Lab.xcodeproj" \
   -scheme "Janitor Lab" \
   -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.1' \
-  -only-testing:'Janitor LabUITests/Janitor_LabUITests/testDashboardCatalogCookieProbeAndBulkCleanup'
+  -only-testing:'Janitor LabUITests/Janitor_LabUITests/testDashboardClearAllSavedWebsiteData'
 
 xcodebuild test \
   -project "native/Janitor Lab/Janitor Lab.xcodeproj" \
@@ -69,9 +72,10 @@ xcodebuild test \
 ```
 
 The first test covers install/enable, Safari permission UI, catalog inventory,
-global cookie probing, transient-tab cleanup, return to dashboard, and zeroed
-re-scan. The second preserves regression coverage for conservative selective
-cleanup and functional-state survivors.
+global cookie probing, clear-all confirmation, transient-tab cleanup, the final
+global cookie sweep, return to dashboard, and zeroed re-scan. The second
+preserves regression coverage for conservative selective cleanup and
+functional-state survivors.
 
 ## 6. Learning Clean
 

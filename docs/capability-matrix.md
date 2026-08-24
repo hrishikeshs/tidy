@@ -19,7 +19,7 @@ This is an evidence ledger, not a roadmap checkbox list.
 | Swift | 6.0.2 |
 | SDK/runtime | iOS Simulator 18.1 |
 | Simulator | iPhone 16 Pro, iOS 18.1 |
-| Extension | Tidy 0.4.0, Manifest V3 |
+| Extension | Tidy 0.5.0, Manifest V3 |
 
 Results from this Safari 18.1 environment must not be generalized to later
 Safari releases.
@@ -46,6 +46,7 @@ Safari releases.
 | T13 | Learned-policy minimization | Codable policy and encoding test | Passed | Automated | Policy contains origin/route, identity fingerprint, names/scopes, outcomes, dates, algorithm version, and trial count; snapshot values are absent. |
 | T14 | Native policy bridge | App group + `nativeMessaging` + Safari popup | Passed | Automated UI test on simulator | Safari received the fresh 3/3 policy, removed 2 optional storage values plus 1 optional cookie, preserved required state, and then reported 0 matching removable items. |
 | T15 | Learned-policy aging | 14-day expiry and algorithm-version filter | Implemented | Automated model coverage | Expired policies are pruned by the app and rejected by the native handler. Scheduled background refresh is not implemented. |
+| T16 | Global clear-all workflow | Every cataloged origin followed by `cookies.getAll({})` removal sweep | Passed | Automated UI test on simulator | Across the accumulated Reddit + fixture catalog, the destructive dashboard action warned about sign-out, cleaned 2/2 sites, removed 9 fixture storage objects and 9 site cookies, found 0 additional globally exposed cookies, reported zero failures, and re-scanned displayed counts to zero. Safari history, passwords, and inaccessible internal data remain out of scope. |
 | B1 | Enumerate `localStorage` names in popup | Paired fixture keys | Passed | Simulator-provisional | 2 names; values did not cross the boundary. |
 | B2 | Enumerate `sessionStorage` names in popup | Paired fixture keys | Passed | Simulator-provisional | 2 names. |
 | B3 | Enumerate IndexedDB names | `indexedDB.databases()` | Passed | Simulator-provisional | 2 names. |

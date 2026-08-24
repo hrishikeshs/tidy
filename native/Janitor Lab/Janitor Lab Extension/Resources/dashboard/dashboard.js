@@ -2,6 +2,7 @@ import "../shared/catalog.js";
 import {
   classifyCookie,
   cookieRemovalURL,
+  globalCookieRemovalURL,
   removableSelection
 } from "../shared/tracker-definitions.js";
 
@@ -12,13 +13,15 @@ const elements = Object.fromEntries(
     "overview", "refresh-open", "scan-cookies", "cookie-status", "cookie-domains",
     "select-all", "clean-trackers", "forget-selected", "catalog-note", "site-list",
     "empty-state", "confirmation", "confirmation-title", "confirmation-copy",
-    "cancel-clean", "confirm-clean", "result", "error"
+    "cancel-clean", "confirm-clean", "clear-all", "clear-all-summary",
+    "cleanup-progress", "progress-status", "progress-meter", "result", "error"
   ].map((id) => [id, document.getElementById(id)])
 );
 
 let catalog = catalogTools.emptyCatalog();
 let tabsByOrigin = new Map();
 let pendingCleanup;
+let isBusy = false;
 
 function httpOrigin(rawURL) {
   try {
@@ -58,8 +61,26 @@ function selectedOrigins() {
 
 function updateBulkActions() {
   const count = selectedOrigins().length;
-  elements["clean-trackers"].disabled = count === 0;
-  elements["forget-selected"].disabled = count === 0;
+  elements["clean-trackers"].disabled = isBusy || count === 0;
+  elements["forget-selected"].disabled = isBusy || count === 0;
+  elements["select-all"].disabled = isBusy;
+  elements["clear-all"].disabled = isBusy;
+  elements["refresh-open"].disabled = isBusy;
+  elements["scan-cookies"].disabled = isBusy;
+  for (const button of elements["site-list"].querySelectorAll("button")) button.disabled = isBusy;
+}
+
+function setBusy(busy) {
+  isBusy = busy;
+  document.querySelector("main").setAttribute("aria-busy", String(busy));
+  updateBulkActions();
+}
+
+function showProgress(message, current = 0, total = 1) {
+  elements["progress-status"].textContent = message;
+  elements["progress-meter"].max = Math.max(1, total);
+  elements["progress-meter"].value = Math.min(current, Math.max(1, total));
+  elements["cleanup-progress"].hidden = false;
 }
 
 function renderSite(site) {
@@ -142,6 +163,9 @@ function render() {
 
   const sites = Object.values(catalog.sites ?? {})
     .sort((left, right) => String(right.lastSeenAt).localeCompare(String(left.lastSeenAt)));
+  elements["clear-all-summary"].textContent = sites.length === 0
+    ? "Remove every cookie Safari exposes globally. No observed sites are currently in Tidy’s catalog."
+    : `Clear accessible storage from all ${sites.length} observed site${sites.length === 1 ? "" : "s"}, then remove every cookie Safari exposes globally.`;
   elements["site-list"].replaceChildren(...sites.map(renderSite));
   elements["empty-state"].hidden = sites.length !== 0;
   elements["site-list"].hidden = sites.length === 0;
@@ -166,6 +190,8 @@ async function loadCatalog() {
 function showError(error) {
   elements.error.textContent = error instanceof Error ? error.message : String(error);
   elements.error.hidden = false;
+  elements["cleanup-progress"].hidden = true;
+  setBusy(false);
 }
 
 function showResult(message) {
@@ -267,14 +293,23 @@ async function cleanOrigin(origin, mode) {
   }
 }
 
-async function cleanOrigins(origins, mode) {
+async function cleanOrigins(origins, mode, { report = true, onProgress } = {}) {
   elements.confirmation.hidden = true;
   elements.result.hidden = true;
   const results = [];
   const [dashboardTab] = await api.tabs.query({ active: true, currentWindow: true });
   try {
-    for (const origin of origins) {
-      results.push(await cleanOrigin(origin, mode));
+    for (const [index, origin] of origins.entries()) {
+      onProgress?.(origin, index, origins.length);
+      try {
+        results.push(await cleanOrigin(origin, mode));
+      } catch (error) {
+        results.push({
+          origin,
+          status: "failed",
+          code: error instanceof Error ? error.name || "Error" : "Error"
+        });
+      }
     }
   } finally {
     if (dashboardTab?.id) {
@@ -285,20 +320,133 @@ async function cleanOrigins(origins, mode) {
   const cleaned = results.filter(({ status }) => status === "cleaned");
   const removedStorage = cleaned.reduce((sum, result) => sum + result.removedStorage, 0);
   const removedCookies = cleaned.reduce((sum, result) => sum + result.removedCookies, 0);
-  const failures = cleaned.reduce((sum, result) => sum + result.failureCount, 0);
-  showResult(
-    `Cleaned ${cleaned.length} site(s): removed ${removedStorage} storage item(s) and ${removedCookies} cookie(s). `
-    + `Failures: ${failures}.`
-  );
-  await new Promise((resolve) => setTimeout(resolve, 200));
-  await loadCatalog();
+  const itemFailures = cleaned.reduce((sum, result) => sum + result.failureCount, 0);
+  const siteFailures = results.filter(({ status }) => status === "failed").length;
+  const summary = {
+    attemptedSites: origins.length,
+    cleanedSites: cleaned.length,
+    siteFailures,
+    itemFailures,
+    removedStorage,
+    removedCookies
+  };
+  if (report) {
+    showResult(
+      `Cleaned ${summary.cleanedSites} of ${summary.attemptedSites} site(s): removed ${removedStorage} storage item(s) and ${removedCookies} cookie(s). `
+      + `Site failures: ${siteFailures}; item failures: ${itemFailures}.`
+    );
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    await loadCatalog();
+  }
+  return summary;
 }
 
 function showConfirmation(origins) {
-  pendingCleanup = { origins, mode: "all" };
+  pendingCleanup = { kind: "origins", origins, mode: "all" };
+  elements.confirmation.classList.remove("is-destructive");
   elements["confirmation-title"].textContent = `Forget ${origins.length} selected site${origins.length === 1 ? "" : "s"}?`;
   elements["confirmation-copy"].textContent = "Tidy will briefly open each selected origin, remove accessible cookies and storage, close it, and return here.";
+  elements["confirm-clean"].textContent = "Remove accessible data";
+  elements["confirm-clean"].removeAttribute("aria-label");
+  elements["confirm-clean"].className = "danger";
   elements.confirmation.hidden = false;
+}
+
+function showClearAllConfirmation() {
+  const origins = Object.keys(catalog.sites ?? {});
+  pendingCleanup = { kind: "all", origins, mode: "all" };
+  elements.confirmation.classList.add("is-destructive");
+  elements["confirmation-title"].textContent = "Clear all saved website data?";
+  elements["confirmation-copy"].textContent = origins.length === 0
+    ? "This removes every cookie Safari exposes globally. You will probably be signed out. It cannot be undone."
+    : `Tidy will briefly open ${origins.length} observed site${origins.length === 1 ? "" : "s"}, clear accessible storage, and remove every cookie Safari exposes globally. You will probably be signed out. It cannot be undone.`;
+  elements["confirm-clean"].textContent = "Clear all saved website data";
+  elements["confirm-clean"].setAttribute("aria-label", "Confirm clear all saved website data");
+  elements["confirm-clean"].className = "destructive";
+  elements.confirmation.hidden = false;
+  elements.confirmation.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+async function removeAllGlobalCookies() {
+  let cookies;
+  try {
+    cookies = await api.cookies.getAll({});
+  } catch (error) {
+    return {
+      attempted: 0,
+      removed: 0,
+      failures: 1,
+      available: false,
+      code: error instanceof Error ? error.name || "Error" : "Error"
+    };
+  }
+
+  const result = { attempted: cookies.length, removed: 0, failures: 0, available: true };
+  for (const cookie of cookies) {
+    try {
+      const details = { url: globalCookieRemovalURL(cookie), name: cookie.name };
+      if (cookie.storeId) details.storeId = cookie.storeId;
+      if (await api.cookies.remove(details)) result.removed += 1;
+      else result.failures += 1;
+    } catch {
+      result.failures += 1;
+    }
+  }
+  return result;
+}
+
+async function clearAllSavedWebsiteData(origins) {
+  elements.confirmation.hidden = true;
+  elements.result.hidden = true;
+  elements.error.hidden = true;
+  setBusy(true);
+  try {
+    const totalSteps = origins.length + 1;
+    const siteSummary = await cleanOrigins(origins, "all", {
+      report: false,
+      onProgress(origin, index) {
+        showProgress(`Clearing ${new URL(origin).hostname} · site ${index + 1} of ${origins.length}`, index, totalSteps);
+      }
+    });
+    showProgress("Removing every cookie Safari exposes globally…", origins.length, totalSteps);
+    const cookieSummary = await removeAllGlobalCookies();
+    showProgress("Refreshing the local cleanup receipt…", totalSteps, totalSteps);
+
+    try {
+      catalog = await api.runtime.sendMessage({ type: "tidy.cookies.scan" });
+    } catch {
+      // The cleanup result remains useful when Safari refuses a follow-up probe.
+    }
+    await loadCatalog();
+
+    const cookieScope = cookieSummary.available
+      ? `${cookieSummary.removed} remaining globally exposed cookie(s)`
+      : "Safari refused the global cookie sweep";
+    showResult(
+      `Clear-all finished. Cleaned ${siteSummary.cleanedSites} of ${siteSummary.attemptedSites} observed site(s); `
+      + `removed ${siteSummary.removedStorage} storage item(s), ${siteSummary.removedCookies} site cookie(s), and ${cookieScope}. `
+      + `Site failures: ${siteSummary.siteFailures}; item failures: ${siteSummary.itemFailures + cookieSummary.failures}. `
+      + "Safari history, saved passwords, and inaccessible internal data were not touched."
+    );
+  } finally {
+    elements["cleanup-progress"].hidden = true;
+    setBusy(false);
+  }
+}
+
+async function runOriginCleanup(origins, mode) {
+  setBusy(true);
+  elements.error.hidden = true;
+  try {
+    return await cleanOrigins(origins, mode, {
+      onProgress(origin, index, total) {
+        showProgress(`Cleaning ${new URL(origin).hostname} · site ${index + 1} of ${total}`, index, total);
+      }
+    });
+  } finally {
+    elements["cleanup-progress"].hidden = true;
+    setBusy(false);
+  }
 }
 
 elements["refresh-open"].addEventListener("click", async () => {
@@ -343,18 +491,20 @@ elements["select-all"].addEventListener("click", () => {
 });
 
 elements["clean-trackers"].addEventListener("click", () => {
-  cleanOrigins(selectedOrigins(), "trackers").catch(showError);
+  runOriginCleanup(selectedOrigins(), "trackers").catch(showError);
 });
 elements["forget-selected"].addEventListener("click", () => showConfirmation(selectedOrigins()));
+elements["clear-all"].addEventListener("click", showClearAllConfirmation);
 elements["cancel-clean"].addEventListener("click", () => {
   pendingCleanup = undefined;
   elements.confirmation.hidden = true;
 });
 elements["confirm-clean"].addEventListener("click", () => {
   if (!pendingCleanup) return;
-  const { origins, mode } = pendingCleanup;
+  const { kind, origins, mode } = pendingCleanup;
   pendingCleanup = undefined;
-  cleanOrigins(origins, mode).catch(showError);
+  if (kind === "all") clearAllSavedWebsiteData(origins).catch(showError);
+  else runOriginCleanup(origins, mode).catch(showError);
 });
 
 api.storage.onChanged.addListener((changes, areaName) => {

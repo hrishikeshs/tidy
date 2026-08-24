@@ -11,6 +11,10 @@ cookies, local/session storage, IndexedDB, and Cache Storage, plus a service
 worker. The names are repository-owned and intentionally obvious so selective
 cleanup can be tested without claiming a real-world classifier is ready.
 
+Add `?tidy_reset=1` for destructive UI tests. The fixture clears accessible
+storage for its own controlled origin before reseeding the exact paired state,
+so a run is independent of earlier simulator experiments.
+
 The first-party and tracker servers keep independent in-memory counters. Read
 `http://127.0.0.1:8765/status` to prove Safari completed the top-level
 navigation, and `http://127.0.0.1:8766/status` to count embedded pixel requests.

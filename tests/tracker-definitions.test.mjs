@@ -5,6 +5,7 @@ import {
   classifyCookie,
   classifyStorageItem,
   cookieRemovalURL,
+  globalCookieRemovalURL,
   isKnownFixtureCookie,
   isKnownFixtureStorageKey,
   learnedPolicySelection,
@@ -151,4 +152,16 @@ test("host-only cookie removal preserves the fixture port", () => {
     ),
     "http://127.0.0.1:8765/settings"
   );
+});
+
+test("global cookie removal derives a URL without opening its site", () => {
+  assert.equal(
+    globalCookieRemovalURL({ secure: true, domain: ".example.com", path: "/account" }),
+    "https://example.com/account"
+  );
+  assert.equal(
+    globalCookieRemovalURL({ secure: false, domain: "localhost", path: "invalid" }),
+    "http://localhost/"
+  );
+  assert.throws(() => globalCookieRemovalURL({}), /domain/);
 });

@@ -49,6 +49,28 @@ const page = `<!doctype html>
         });
       }
 
+      async function deleteDatabase(name) {
+        return new Promise((resolve) => {
+          const request = indexedDB.deleteDatabase(name);
+          request.onsuccess = () => resolve();
+          request.onerror = () => resolve();
+          request.onblocked = () => resolve();
+        });
+      }
+
+      async function resetAccessibleState() {
+        localStorage.clear();
+        sessionStorage.clear();
+        if (typeof indexedDB.databases === "function") {
+          const databases = await indexedDB.databases();
+          await Promise.all(databases.map(({ name }) => name ? deleteDatabase(name) : undefined));
+        }
+        await Promise.all((await caches.keys()).map((name) => caches.delete(name)));
+        if ("serviceWorker" in navigator) {
+          await Promise.all((await navigator.serviceWorker.getRegistrations()).map((registration) => registration.unregister()));
+        }
+      }
+
       async function seed() {
         localStorage.setItem("janitor_login_preference", "functional-value");
         localStorage.setItem("_janitor_tracker_id", "tracker-value");
@@ -84,7 +106,11 @@ const page = `<!doctype html>
         document.querySelector("#pixel-status").textContent = "Blocked or failed — check the tracker server counter for proof.";
       });
       document.querySelector("#reseed").addEventListener("click", () => seed());
-      seed().catch((error) => {
+      const parameters = new URLSearchParams(location.search);
+      const initialSeed = parameters.get("tidy_reset") === "1"
+        ? resetAccessibleState().then(seed)
+        : seed();
+      initialSeed.catch((error) => {
         document.querySelector("#status").textContent = error.name + ": " + error.message;
       });
     </script>

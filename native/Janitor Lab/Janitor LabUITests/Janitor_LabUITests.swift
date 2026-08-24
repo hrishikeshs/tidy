@@ -180,10 +180,20 @@ final class Janitor_LabUITests: XCTestCase {
         containingApp.launch()
         XCTAssertTrue(containingApp.wait(for: .runningForeground, timeout: 5))
 
-        // The fixture URL is opened by the test protocol before this test.
+        // Seed the fixture inside this simulator clone so prior destructive runs cannot leak in.
         let safari = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
         safari.activate()
         XCTAssertTrue(safari.wait(for: .runningForeground, timeout: 5))
+
+        let address = safari.textFields["Address"]
+        XCTAssertTrue(address.waitForExistence(timeout: 5))
+        address.tap()
+        address.typeText("http://127.0.0.1:8765/?tidy_reset=1\n")
+        XCTAssertTrue(safari.staticTexts["Storage and blocking fixture"].waitForExistence(timeout: 10))
+        let seededFixture = safari.staticTexts.containing(
+            NSPredicate(format: "label CONTAINS %@", "Service worker: registration attempted")
+        ).firstMatch
+        XCTAssertTrue(seededFixture.waitForExistence(timeout: 10))
 
         openTidyPopup(in: safari)
         grantAndInspectIfNeeded(in: safari)
@@ -268,7 +278,7 @@ final class Janitor_LabUITests: XCTestCase {
     }
 
     @MainActor
-    func testDashboardCatalogCookieProbeAndBulkCleanup() throws {
+    func testDashboardClearAllSavedWebsiteData() throws {
         let containingApp = XCUIApplication()
         containingApp.launch()
         XCTAssertTrue(containingApp.wait(for: .runningForeground, timeout: 5))
@@ -276,6 +286,16 @@ final class Janitor_LabUITests: XCTestCase {
         let safari = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
         safari.activate()
         XCTAssertTrue(safari.wait(for: .runningForeground, timeout: 5))
+
+        let address = safari.textFields["Address"]
+        XCTAssertTrue(address.waitForExistence(timeout: 5))
+        address.tap()
+        address.typeText("http://127.0.0.1:8765/?tidy_reset=1\n")
+        XCTAssertTrue(safari.staticTexts["Storage and blocking fixture"].waitForExistence(timeout: 10))
+        let seededFixture = safari.staticTexts.containing(
+            NSPredicate(format: "label CONTAINS %@", "Service worker: registration attempted")
+        ).firstMatch
+        XCTAssertTrue(seededFixture.waitForExistence(timeout: 10))
 
         openTidyPopup(in: safari)
         grantAndInspectIfNeeded(in: safari)
@@ -300,22 +320,30 @@ final class Janitor_LabUITests: XCTestCase {
         ).firstMatch
         XCTAssertTrue(cookieResult.waitForExistence(timeout: 8))
 
-        let siteSelection = safari.switches["Select 127.0.0.1"]
-        XCTAssertTrue(siteSelection.waitForExistence(timeout: 5))
-        siteSelection.tap()
-
-        let forgetSelected = safari.buttons["Forget selected…"]
-        XCTAssertTrue(forgetSelected.isEnabled)
-        forgetSelected.tap()
-        XCTAssertTrue(safari.staticTexts["Forget 1 selected site?"].waitForExistence(timeout: 5))
-        safari.buttons["Remove accessible data"].tap()
+        XCTAssertTrue(safari.staticTexts["Start over across Safari"].waitForExistence(timeout: 5))
+        let clearAll = safari.buttons["Clear all saved website data"]
+        XCTAssertTrue(clearAll.waitForExistence(timeout: 5))
+        clearAll.tap()
+        XCTAssertTrue(safari.staticTexts["Clear all saved website data?"].waitForExistence(timeout: 5))
+        let signOutWarning = safari.staticTexts.containing(
+            NSPredicate(format: "label CONTAINS %@", "probably be signed out")
+        ).firstMatch
+        XCTAssertTrue(signOutWarning.waitForExistence(timeout: 5))
+        safari.buttons["Confirm clear all saved website data"].tap()
 
         let cleanupResult = safari.staticTexts.containing(
-            NSPredicate(format: "label BEGINSWITH %@", "Cleaned 1 site")
+            NSPredicate(format: "label BEGINSWITH %@", "Clear-all finished")
         ).firstMatch
-        XCTAssertTrue(cleanupResult.waitForExistence(timeout: 10))
-        XCTAssertFalse(safari.staticTexts["Forget 1 selected site?"].exists)
+        XCTAssertTrue(cleanupResult.waitForExistence(timeout: 15))
+        XCTAssertFalse(safari.staticTexts["Clear all saved website data?"].exists)
+        let receipt = XCTAttachment(string: cleanupResult.label)
+        receipt.name = "Tidy clear-all receipt"
+        receipt.lifetime = .keepAlways
+        add(receipt)
+        XCTAssertTrue(cleanupResult.label.contains("observed site(s)"))
         XCTAssertTrue(cleanupResult.label.contains("removed 9 storage item(s)"))
+        XCTAssertTrue(cleanupResult.label.contains("Site failures:"))
+        XCTAssertTrue(cleanupResult.label.contains("item failures:"))
         XCTAssertTrue(safari.staticTexts["0 local"].waitForExistence(timeout: 5))
         XCTAssertTrue(safari.staticTexts["0 session"].exists)
         XCTAssertTrue(safari.staticTexts["0 IDB"].exists)
@@ -323,12 +351,12 @@ final class Janitor_LabUITests: XCTestCase {
         XCTAssertTrue(safari.staticTexts["0 workers"].exists)
 
         let hierarchy = XCTAttachment(string: safari.debugDescription)
-        hierarchy.name = "Tidy dashboard full cleanup hierarchy"
+        hierarchy.name = "Tidy dashboard clear-all hierarchy"
         hierarchy.lifetime = .keepAlways
         add(hierarchy)
 
         let screenshot = XCTAttachment(screenshot: safari.screenshot())
-        screenshot.name = "Tidy dashboard after full cleanup"
+        screenshot.name = "Tidy dashboard after clear all"
         screenshot.lifetime = .keepAlways
         add(screenshot)
     }
