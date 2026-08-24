@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Janitor Lab",
-  "description": "Evidence-first Safari storage inspection and selective cleanup laboratory.",
-  "version": "0.1.0",
+  "name": "Tidy",
+  "description": "A local, all-sites maintenance dashboard for Safari.",
+  "version": "0.2.0",
   "icons": {
     "48": "images/icon-48.png",
     "96": "images/icon-96.png",
@@ -12,13 +12,14 @@
   },
   "background": {
     "scripts": [
+      "shared/catalog.js",
       "background/background.js"
     ],
     "persistent": false
   },
   "action": {
     "default_popup": "popup/popup.html",
-    "default_title": "Inspect this site",
+    "default_title": "Open Tidy",
     "default_icon": "images/toolbar-icon.svg"
   },
   "permissions": [
@@ -26,11 +27,26 @@
     "cookies",
     "declarativeNetRequest",
     "scripting",
-    "storage"
+    "storage",
+    "tabs"
   ],
-  "optional_host_permissions": [
-    "http://*/*",
-    "https://*/*"
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "shared/catalog.js",
+        "content/inspector.js",
+        "content/observer.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
   ],
   "declarative_net_request": {
     "rule_resources": [

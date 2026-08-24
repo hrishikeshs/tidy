@@ -28,6 +28,7 @@
 		745DECF8303BA98700FB6BBA /* shared in Resources */ = {isa = PBXBuildFile; fileRef = 745DECF1303BA98700FB6BBA /* shared */; };
 		745DECF9303BA98700FB6BBA /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 745DECF2303BA98700FB6BBA /* manifest.json */; };
 		745DECFA303BA98700FB6BBA /* rules in Resources */ = {isa = PBXBuildFile; fileRef = 745DECF3303BA98700FB6BBA /* rules */; };
+		745DECFC303BA98700FB6BBA /* dashboard in Resources */ = {isa = PBXBuildFile; fileRef = 745DECFB303BA98700FB6BBA /* dashboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		745DECF1303BA98700FB6BBA /* shared */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shared; path = Resources/shared; sourceTree = "<group>"; };
 		745DECF2303BA98700FB6BBA /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = Resources/manifest.json; sourceTree = "<group>"; };
 		745DECF3303BA98700FB6BBA /* rules */ = {isa = PBXFileReference; lastKnownFileType = folder; name = rules; path = Resources/rules; sourceTree = "<group>"; };
+		745DECFB303BA98700FB6BBA /* dashboard */ = {isa = PBXFileReference; lastKnownFileType = folder; name = dashboard; path = Resources/dashboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				745DECED303BA98700FB6BBA /* background */,
+				745DECFB303BA98700FB6BBA /* dashboard */,
 				745DECEE303BA98700FB6BBA /* popup */,
 				745DECEF303BA98700FB6BBA /* images */,
 				745DECF0303BA98700FB6BBA /* content */,
@@ -382,6 +385,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				745DECFA303BA98700FB6BBA /* rules in Resources */,
+				745DECFC303BA98700FB6BBA /* dashboard in Resources */,
 				745DECF8303BA98700FB6BBA /* shared in Resources */,
 				745DECF6303BA98700FB6BBA /* images in Resources */,
 				745DECF4303BA98700FB6BBA /* background in Resources */,
@@ -603,7 +607,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Janitor Lab Extension/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Janitor Lab Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "Tidy Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -632,7 +636,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Janitor Lab Extension/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Janitor Lab Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "Tidy Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -663,7 +667,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Janitor Lab/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Janitor Lab";
+				INFOPLIST_KEY_CFBundleDisplayName = Tidy;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -698,7 +702,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Janitor Lab/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Janitor Lab";
+				INFOPLIST_KEY_CFBundleDisplayName = Tidy;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

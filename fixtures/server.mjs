@@ -3,6 +3,7 @@ import http from "node:http";
 const FIRST_PARTY_PORT = 8765;
 const TRACKER_PORT = 8766;
 let trackerRequests = 0;
+let pageRequests = 0;
 
 const page = `<!doctype html>
 <html lang="en">
@@ -102,6 +103,7 @@ const firstParty = http.createServer((request, response) => {
   const url = new URL(request.url, `http://127.0.0.1:${FIRST_PARTY_PORT}`);
 
   if (url.pathname === "/") {
+    pageRequests += 1;
     response.setHeader("Set-Cookie", [
       "janitor_login=fixture-functional; Path=/; SameSite=Lax",
       "_janitor_tracker=fixture-tracker; Path=/; SameSite=Lax",
@@ -109,6 +111,19 @@ const firstParty = http.createServer((request, response) => {
     ]);
     response.writeHead(200, { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" });
     response.end(page);
+    return;
+  }
+
+  if (url.pathname === "/status") {
+    response.writeHead(200, { "Content-Type": "application/json", "Cache-Control": "no-store" });
+    response.end(JSON.stringify({ pageRequests }));
+    return;
+  }
+
+  if (url.pathname === "/reset" && request.method === "POST") {
+    pageRequests = 0;
+    response.writeHead(200, { "Content-Type": "application/json", "Cache-Control": "no-store" });
+    response.end(JSON.stringify({ pageRequests }));
     return;
   }
 

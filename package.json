@@ -1,6 +1,6 @@
 {
-  "name": "janitor-lab",
-  "version": "0.1.0",
+  "name": "tidy",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,6 +9,6 @@
     "sync:extension": "./scripts/sync-web-extension.sh",
     "build:simulator": "./scripts/build-simulator.sh",
     "test:dnr": "./scripts/test-dnr-simulator.sh",
-    "check": "node --test && node --check web-extension/background/background.js && node --check web-extension/content/inspector.js && node --check web-extension/popup/popup.js && node --check web-extension/shared/tracker-definitions.js && node scripts/validate-extension.mjs"
+    "check": "node --test && node --check web-extension/background/background.js && node --check web-extension/content/inspector.js && node --check web-extension/content/observer.js && node --check web-extension/dashboard/dashboard.js && node --check web-extension/popup/popup.js && node --check web-extension/shared/catalog.js && node --check web-extension/shared/tracker-definitions.js && node scripts/validate-extension.mjs"
   }
 }

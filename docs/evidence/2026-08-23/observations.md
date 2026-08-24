@@ -1,77 +1,100 @@
-# Phase 0 simulator observations
+# Tidy simulator observations
 
 ## Environment
 
-- Date: 2026-08-23
+- Run: 2026-08-23 through 2026-08-24
 - Xcode: 16.1 (16B40)
 - Swift: 6.0.2
 - Device: iPhone 16 Pro simulator
 - Runtime and Safari: iOS 18.1
-- Extension: Janitor Lab 0.1.0, Manifest V3
+- Extension: Tidy 0.2.0, Manifest V3
 
 These observations apply to this environment only.
 
-## Results
+## Dashboard result
 
-### Build and DNR
+The end-to-end test enabled Tidy through Safari's Manage Extensions UI, took
+the permanent all-websites permission branch, inspected the controlled origin,
+opened the dashboard, and observed:
 
-- The iOS containing app and extension built, installed, and launched.
-- Controlled DNR A/B result: extension disabled produced 1 tracker request;
-  extension enabled produced 0 additional requests.
-- The harness had to reboot the simulator after each extension-state change and
-  launch the containing app before Safari for the enabled leg.
+| Category | Count before | Count after |
+|---|---:|---:|
+| Script-visible cookies | 3 | 0 |
+| localStorage | 2 | 0 |
+| sessionStorage | 2 | 0 |
+| IndexedDB | 2 | 0 |
+| Cache Storage | 2 | 0 |
+| Service workers | 1 | 0 |
 
-### Permission prompt
+The global Cookies API probe returned zero and the UI retained the warning that
+this does not prove the cookie jar is empty.
 
-- Before permission, the popup reported: “Shield only. Page contents are not
-  accessible.”
-- The popup requested the current host only.
-- Safari's prompt named `127.0.0.1` and offered **Allow for One Day**,
-  **Always Allow**, and **Don't Allow**.
-
-### Inspection
-
-The seeded origin produced:
-
-| Category | Accessible count |
-|---|---:|
-| Cookies API | 0 |
-| Script-visible cookie fallback | 2 |
-| localStorage | 2 |
-| sessionStorage | 2 |
-| IndexedDB | 2 |
-| Cache Storage | 2 |
-| Service workers | 1 |
-
-The first-party page and server showed four cookies were sent, including the
-server-set HttpOnly fixture cookie, while Safari's Cookies API returned zero.
-The fallback therefore exposes only `document.cookie` names and displays an
-explicit HttpOnly warning. No cookie values cross the extension boundary.
-
-### Cleanup
-
-- Selective cleanup removed 4 tracker-named storage items and the
-  script-visible tracker cookie. The paired functional local/session storage,
-  IndexedDB, Cache Storage, and cookie names survived the re-scan.
-- Full cleanup required an explicit in-popup confirmation, removed the 5
-  remaining storage items and 2 script-visible cookies, and re-scanned all 6
-  accessible categories as empty.
-
-### Automated UI evidence
-
-`testPhaseZeroPermissionInspectionAndSelectiveCleanup` passed in 28.396 seconds.
-The retained accessibility hierarchy records the final result:
+After explicit confirmation, Tidy created a short-lived active tab for the
+origin, cleaned it, closed it, returned to the dashboard, and reported:
 
 ```text
-Attempted: 5 storage categories and 2 cookies.
-Removed: 5 storage items and 2 cookies.
-Inaccessible: none reported. Failed: 0.
+Cleaned 1 site(s): removed 9 storage item(s) and 3 cookie(s). Failures: 0.
 ```
+
+`testDashboardCatalogCookieProbeAndBulkCleanup` passed in 44.459 seconds in the
+final retained run. The confirmation panel was hidden after completion and all
+category pills re-scanned to zero.
 
 Artifacts:
 
-- [Full-cleanup screenshot](ui-test/439093B9-5390-443B-B69D-6E7B768753C0.png)
-- [Full-cleanup accessibility hierarchy](ui-test/9DEABBA6-26EB-401A-94B1-DF2F8A566FC6.txt)
-- [Xcode attachment export manifest](ui-test/manifest.json)
+- [Dashboard full-clean screenshot](dashboard-ui-test-final/7E06B98C-FB7F-4744-8853-F4ED9374E838.png)
+- [Dashboard accessibility hierarchy](dashboard-ui-test-final/42910F2B-EFF1-4CF2-9394-95E805750BB9.txt)
+- [Attachment manifest](dashboard-ui-test-final/manifest.json)
 
-No captured evidence includes cookie or storage values.
+## Safari boundary probes
+
+### Inactive tabs
+
+Direct cleanup of an already open but inactive fixture tab failed in two ways:
+
+```text
+Invalid call to scripting.executeScript(). Could not execute script on this tab.
+Invalid call to scripting.executeScript(). Tab not found.
+```
+
+In another run `tabs.sendMessage` resolved without the cleaner's result. Briefly
+activating the old tab did not make its identifier reliably scriptable. Creating
+a fresh active tab from the cataloged origin did; that is the workflow in Tidy.
+
+### Message responders
+
+Safari returned the wrong empty response when both the inspector and observer
+registered content-message listeners. Removing the observer's listener and
+keeping one request/response owner made cleanup deterministic. Timed and
+`pagehide` observation still run without a second message listener.
+
+### Cookies
+
+The controlled page/server proved cookies existed, including an HttpOnly
+fixture, while `cookies.getAll` returned zero in this simulator. Tidy therefore
+uses a name-only `document.cookie` fallback for accessible cookies and makes no
+HttpOnly claim. No captured artifact contains cookie or storage values.
+
+### Declarative rule correction
+
+The original Phase 0 DNR harness waited for the disabled request but did not
+prove the enabled page had loaded before declaring success. The revised fixture
+adds a first-party navigation counter and waits up to 30 seconds for both legs.
+With that correction, toggling the extension through `pluginkit` allowed the
+tracker request in the enabled leg, consistent with Safari coupling the rule to
+website-access state. The old permission-free-blocking claim is withdrawn.
+
+## Popup regression
+
+`testPhaseZeroPermissionInspectionAndSelectiveCleanup` passed in 45.522 seconds.
+It still verifies tracker-named local/session/IndexedDB/cache cleanup while the
+paired functional items survive, followed by explicit full cleanup and an empty
+re-scan.
+
+## Chrome iOS conclusion
+
+Chrome on iOS does not provide an installable extension surface equivalent to
+Safari Web Extensions, and an unrelated app cannot reach Chrome's website-data
+store across the iOS sandbox. Switching browsers would reduce, not improve,
+Tidy's current capability. iOS 26 URL Filters remain an interesting future
+system-wide request-filtering branch, but not a storage-cleaning substitute.

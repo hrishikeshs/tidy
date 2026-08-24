@@ -1,0 +1,127 @@
+Attributes: Application, 0x1017ae540, pid: 55952, label: 'Safari'
+Element subtree:
+ →Application, 0x1017ae540, pid: 55952, label: 'Safari'
+    Window (Main), 0x1017ae660, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x1017a9610, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x1017a9730, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x1017ae780, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'SafariWindow?View=Narrow&BarsKeptMinimized=false&UUID=7221B3B3-0A27-45E9-B94F-A30F365DDC05&SupportsTabBar=false&UsingLoweredBar=true&UsingUnifiedBar=false'
+            Other, 0x1017ae8a0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x1017a9850, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x1017a9970, {{0.0, 0.0}, {402.0, 62.0}}
+                  Other, 0x1017a9a90, {{0.0, 0.0}, {402.0, 62.0}}
+                    Other, 0x1017a9bb0, {{0.0, 0.0}, {402.0, 62.0}}
+                Other, 0x1017a9cd0, {{0.0, 0.0}, {402.0, 62.0}}
+                ScrollView, 0x1017a9df0, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x1017a9f10, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'TabDocument?IsLoadedUsingDesktopUserAgent=false&InReaderMode=false&UUID=7C18BF4A-04B4-4CB4-B45C-45ADAD4E498F&IsPrivate=false&IsPageLoaded=true&WebViewProcessID=55961'
+                    WebView, 0x1017aa030, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'WebView'
+                      WebView, 0x1017aa150, {{0.0, 0.0}, {402.0, 874.0}}
+                        WebView, 0x1017aa270, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x1017aa390, {{0.0, 0.0}, {402.0, 874.0}}
+                            Other, 0x1017aa4b0, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x1017aa5d0, {{0.0, -508.0}, {402.0, 874.0}}
+                                Other, 0x1017aa6f0, {{0.0, -508.0}, {402.0, 1355.0}}, label: 'Tidy dashboard', Focused
+                                  Other, 0x1017aa810, {{11.0, -508.0}, {380.0, 1355.0}}, label: 'main', Focused
+                                    Other, 0x1017aa930, {{11.0, -482.0}, {380.0, 16.0}}, Focused
+                                      StaticText, 0x1017aaa50, {{11.0, -481.0}, {265.0, 14.0}}, label: 'TIDY · LOCAL SAFARI MAINTENANCE', value: TIDY · LOCAL SAFAR..., Focused
+                                    Other, 0x1017aab70, {{11.0, -463.0}, {380.0, 42.0}}, label: 'Your web, under control.', value: 1, Focused
+                                      StaticText, 0x1017aac90, {{11.0, -463.0}, {338.0, 42.0}}, label: 'Your web, under control.', value: Your web, under co..., Focused
+                                    Other, 0x1017aadb0, {{11.0, -415.0}, {380.0, 46.0}}, Focused
+                                      StaticText, 0x1017aaed0, {{11.0, -414.0}, {366.0, 43.0}}, label: 'A value-free catalog of storage observed on sites you visit. Nothing leaves this device.', value: A value-free catal..., Focused
+                                    Button, 0x1017aaff0, {{11.0, -353.0}, {174.0, 45.0}}, label: 'Refresh open sites', Focused
+                                    Button, 0x1017ab110, {{193.0, -353.0}, {191.0, 45.0}}, label: 'Probe global cookies', Focused
+                                    Other, 0x1017ab230, {{11.0, -280.0}, {380.0, 218.0}}, label: 'Catalog overview, region', Focused
+                                      Other, 0x1017ab350, {{30.0, -261.0}, {146.0, 42.0}}, Focused
+                                        StaticText, 0x1017ab470, {{30.0, -259.0}, {14.0, 37.0}}, label: '1', value: 1, Focused
+                                      StaticText, 0x1017ab590, {{30.0, -215.0}, {92.0, 17.0}}, label: 'Observed sites', value: Observed sites, Focused
+                                      Other, 0x1017ab6b0, {{226.0, -261.0}, {146.0, 42.0}}, Focused
+                                        StaticText, 0x1017ab7d0, {{226.0, -259.0}, {32.0, 37.0}}, label: '19', value: 19, Focused
+                                      StaticText, 0x1017ab8f0, {{226.0, -215.0}, {62.0, 17.0}}, label: 'Open now', value: Open now, Focused
+                                      Other, 0x1017aba10, {{30.0, -146.0}, {146.0, 42.0}}, Focused
+                                        StaticText, 0x1017abb30, {{30.0, -144.0}, {19.0, 37.0}}, label: '0', value: 0, Focused
+                                      StaticText, 0x1017abc50, {{30.0, -100.0}, {97.0, 17.0}}, label: 'Observed items', value: Observed items, Focused
+                                      Other, 0x1017abd70, {{226.0, -146.0}, {146.0, 42.0}}, Focused
+                                        StaticText, 0x1017abe90, {{226.0, -144.0}, {19.0, 37.0}}, label: '0', value: 0, Focused
+                                      StaticText, 0x1017abfb0, {{226.0, -100.0}, {74.0, 17.0}}, label: 'Cookies API', value: Cookies API, Focused
+                                    Other, 0x1017ac0d0, {{32.0, -27.0}, {338.0, 16.0}}, Focused
+                                      StaticText, 0x1017ac1f0, {{32.0, -26.0}, {152.0, 14.0}}, label: 'SAFARI COOKIES API', value: SAFARI COOKIES API, Focused
+                                    Other, 0x1017ac310, {{32.0, -3.0}, {338.0, 27.0}}, label: 'Global cookie visibility', value: 2, Focused
+                                      StaticText, 0x1017ac430, {{32.0, -2.0}, {195.0, 24.0}}, label: 'Global cookie visibility', value: Global cookie visi..., Focused
+                                    Other, 0x1017ac550, {{32.0, 31.0}, {338.0, 69.0}}, Focused
+                                      StaticText, 0x1017ac670, {{32.0, 32.0}, {337.0, 66.0}}, label: 'Safari exposed 0 cookies globally · probed just now. This does not prove the cookie jar is empty.', value: Safari exposed 0 c..., Focused
+                                    Other, 0x1017ac790, {{11.0, 181.0}, {380.0, 16.0}}, Focused
+                                      StaticText, 0x1017ac8b0, {{11.0, 182.0}, {143.0, 14.0}}, label: 'OBSERVED ORIGINS', value: OBSERVED ORIGINS, Focused
+                                    Other, 0x1017ac9d0, {{11.0, 205.0}, {380.0, 39.0}}, label: 'Site catalog', value: 2, Focused
+                                      StaticText, 0x1017acaf0, {{11.0, 208.0}, {144.0, 33.0}}, label: 'Site catalog', value: Site catalog, Focused
+                                    Button, 0x1017acc10, {{11.0, 260.0}, {101.0, 45.0}}, label: 'Select all', Focused
+                                    Button, 0x1017acd30, {{120.0, 260.0}, {177.0, 45.0}}, label: 'Clean tracker state', Focused, Disabled
+                                    Button, 0x1017ace50, {{11.0, 314.0}, {166.0, 45.0}}, label: 'Forget selected…', Focused, Disabled
+                                    Other, 0x1017acf70, {{11.0, 369.0}, {380.0, 38.0}}, Focused
+                                      StaticText, 0x1017ad090, {{11.0, 369.0}, {361.0, 37.0}}, label: 'For cleanup, Tidy briefly opens each selected origin, removes accessible site data, closes it, and returns here.', value: For cleanup, Tidy ..., Focused
+                                    Other, 0x1017ad1b0, {{11.0, 421.0}, {380.0, 200.0}}, label: 'article', Focused
+                                      Switch, 0x1017ad2d0, {{32.0, 448.0}, {19.0, 20.0}}, label: 'Select 127.0.0.1', value: 0, Focused
+                                      Other, 0x1017ad3f0, {{69.0, 438.0}, {303.0, 23.0}}, Focused
+                                        StaticText, 0x1017ad510, {{69.0, 439.0}, {67.0, 20.0}}, label: '127.0.0.1', value: 127.0.0.1, Focused
+                                      StaticText, 0x1017ad630, {{69.0, 462.0}, {203.0, 15.0}}, label: 'http://127.0.0.1:8765 · seen just now', value: http://127.0.0.1:8..., Focused
+                                      StaticText, 0x1017ad750, {{77.0, 500.0}, {54.0, 15.0}}, label: '0 cookies', value: 0 cookies, Focused
+                                      StaticText, 0x1017ad870, {{152.0, 500.0}, {38.0, 15.0}}, label: '0 local', value: 0 local, Focused
+                                      StaticText, 0x1017ad990, {{211.0, 500.0}, {54.0, 15.0}}, label: '0 session', value: 0 session, Focused
+                                      StaticText, 0x1017adab0, {{286.0, 500.0}, {32.0, 15.0}}, label: '0 IDB', value: 0 IDB, Focused
+                                      StaticText, 0x1017adbd0, {{77.0, 533.0}, {51.0, 15.0}}, label: '0 caches', value: 0 caches, Focused
+                                      StaticText, 0x1017adcf0, {{149.0, 533.0}, {56.0, 15.0}}, label: '0 workers', value: 0 workers, Focused
+                                      StaticText, 0x1017ade10, {{69.0, 580.0}, {34.0, 14.0}}, label: 'OPEN', value: OPEN, Focused
+                                      Button, 0x1017a84d0, {{110.0, 570.0}, {68.0, 34.0}}, label: 'Clean…', Focused
+                                    Other, 0x1017a85f0, {{11.0, 635.0}, {380.0, 76.0}}, Focused
+                                      StaticText, 0x1017a8710, {{28.0, 651.0}, {322.0, 43.0}}, label: 'Cleaned 1 site(s): removed 9 storage item(s) and 3 cookie(s). Failures: 0.', value: Cleaned 1 site(s):..., Focused
+                                    Other, 0x1017a8830, {{11.0, 727.0}, {380.0, 68.0}}, label: 'footer', Focused
+                                      StaticText, 0x1017a8950, {{25.0, 760.0}, {352.0, 34.0}}, label: 'Tidy stores origins, timestamps, counts, and cleanup results locally. It does not store cookie or storage values.', value: Tidy stores origin..., Focused
+                        Other, 0x1017a8a70, {{369.0, 62.0}, {30.0, 679.0}}, label: 'Vertical scroll bar, 2 pages', value: 84%
+                          Other, 0x1017a8b90, {{396.0, 330.7}, {3.0, 407.3}}
+                        Other, 0x1017a8cb0, {{0.0, 708.0}, {402.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                          Other, 0x1017a8dd0, {{3.0, 735.0}, {393.0, 3.0}}
+                        Other, 0x1017a8ef0, {{369.0, 62.0}, {30.0, 679.0}}, label: 'Vertical scroll bar, 2 pages', value: 84%
+                          Other, 0x1017a9010, {{396.0, 330.7}, {3.0, 407.3}}
+                        Other, 0x1017a9130, {{0.0, 708.0}, {402.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                          Other, 0x1017a9250, {{3.0, 735.0}, {393.0, 3.0}}
+                  Other, 0x1017a9370, {{56.0, 841.0}, {290.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                    Other, 0x1017af840, {{336.0, 868.0}, {7.0, 3.0}}
+                  Other, 0x1017af960, {{56.0, 841.0}, {290.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                    Other, 0x1017afa80, {{336.0, 868.0}, {7.0, 3.0}}
+            Other, 0x1017afba0, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'CapsuleViewController'
+              Other, 0x1017afcc0, {{0.0, 0.0}, {402.0, 874.0}}
+                Image, 0x1017afde0, {{-384.0, 689.0}, {462.0, 163.0}}, identifier: 'capsule_with_toolbar_shadow'
+                Image, 0x1017aff00, {{-30.0, 689.0}, {462.0, 163.0}}, identifier: 'capsule_with_toolbar_shadow'
+                Other, 0x1017b0020, {{0.0, 740.0}, {402.0, 134.0}}
+                  Other, 0x1017b0140, {{0.0, 740.0}, {402.0, 134.0}}
+                  Other, 0x1017b0260, {{0.0, 740.0}, {402.0, 134.0}}
+                    Other, 0x1017b0380, {{0.0, 740.0}, {402.0, 0.3}}
+                Other, 0x1017b04a0, {{28.0, 748.0}, {346.0, 45.0}}
+                  Other, 0x1017b05c0, {{28.0, 748.0}, {346.0, 45.0}}
+                    Other, 0x1017b06e0, {{28.0, 748.0}, {346.0, 45.0}}
+                    Other, 0x1017b0800, {{28.0, 748.0}, {346.0, 45.0}}
+                    Other, 0x1017b0920, {{28.0, 748.0}, {346.0, 45.0}}
+                  Other, 0x1017b0a40, {{28.0, 748.0}, {346.0, 45.0}}
+                    Other, 0x1017b0b60, {{28.0, 748.0}, {346.0, 45.0}}, identifier: 'CapsuleNavigationBar?isSelected=true', Selected
+                      Button, 0x1017b0c80, {{28.0, 748.0}, {50.3, 45.0}}, identifier: 'PageFormatMenuButton', label: 'Page Menu'
+                        StaticText, 0x1017b0da0, {{28.0, 748.0}, {0.0, 0.0}}
+                      TextField, 0x1017b0ec0, {{80.3, 759.3}, {250.3, 22.3}}, identifier: 'TabBarItemTitle', label: 'Address', placeholderValue: 'Search or enter website name'
+                        Image, 0x1017b0fe0, {{80.3, 759.0}, {12.3, 22.3}}, identifier: 'lock.fill', label: 'lock'
+                      Button, 0x1017b1100, {{343.7, 760.3}, {17.3, 20.3}}, identifier: 'VoiceSearchButton', label: 'Voice Search'
+                Toolbar, 0x1017b1220, {{0.0, 796.0}, {402.0, 44.0}}, identifier: 'BottomBrowserToolbar', label: 'Toolbar'
+                  Other, 0x1017b1340, {{0.0, 796.0}, {402.0, 44.0}}
+                    Other, 0x1017b1460, {{0.0, 796.0}, {402.0, 44.0}}
+                      Button, 0x1017b1580, {{0.0, 796.0}, {60.0, 44.0}}, identifier: 'BackButton', label: 'Back', Disabled
+                      Button, 0x1017b16a0, {{85.7, 796.0}, {60.0, 44.0}}, identifier: 'ForwardButton', label: 'Forward', Disabled
+                      Button, 0x1017b17c0, {{171.0, 796.0}, {60.0, 44.0}}, identifier: 'ShareButton', label: 'Share'
+                      Button, 0x1017b18e0, {{256.0, 796.0}, {61.0, 44.0}}, identifier: 'SidebarButton', label: 'Show Bookmarks'
+                      Button, 0x1017b1a00, {{342.0, 796.0}, {60.0, 44.0}}, identifier: 'TabOverviewButton', label: 'Tabs'
+              Other, 0x1017b1b20, {{0.0, 748.0}, {402.0, 126.0}}
+    Window, 0x1017b1c40, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x1017b1d60, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x1017b1e80, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x1017ae540, pid: 55952, label: 'Safari'
+Query chain:
+ →Find: Application 'com.apple.mobilesafari'
+  Output: {
+    Application, 0x102272f50, pid: 55952, label: 'Safari'
+  }

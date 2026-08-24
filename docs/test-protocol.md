@@ -1,18 +1,18 @@
 # Simulator test protocol
 
 This protocol targets Xcode 16.1 and the iOS 18.1 iPhone 16 Pro simulator used
-for the 2026-08-23 evidence run.
+for the 2026-08-23/24 evidence run.
 
-## 1. Automated gate
+## 1. Automated and build gates
 
 ```sh
 npm run check
 npm run build:simulator
 ```
 
-`build:simulator` synchronizes the canonical `web-extension/` tree into the
-generated Xcode project, then builds scheme `Janitor Lab` with code signing
-disabled.
+`check` runs nine JavaScript tests, syntax checks every extension script, and
+validates the manifest and referenced resources. `build:simulator` synchronizes
+the canonical `web-extension/` tree into the Xcode project before building.
 
 ## 2. Start the controlled origins
 
@@ -21,59 +21,46 @@ npm run fixture
 ```
 
 - First party: `http://127.0.0.1:8765`
+- First-party readiness: `http://127.0.0.1:8765/status`
 - Synthetic tracker: `http://127.0.0.1:8766`
 - Tracker counter: `http://127.0.0.1:8766/status`
 
-The tracker server counter is evidence for a request, independent of whether
-Safari renders the one-pixel response.
+Both servers send `Cache-Control: no-store`. Their independent counters prevent
+a slow Safari first launch from being mistaken for a blocked request.
 
-## 3. DNR A/B
+## 3. Onboard Tidy
 
-Install the containing app on a booted iPhone simulator, then run:
+1. Install and launch the containing app.
+2. In Safari, open Page Menu → Manage Extensions and enable Tidy.
+3. Open Tidy on `http://127.0.0.1:8765`.
+4. Choose Safari's permanent access for every website.
+5. Confirm the popup says all-sites access is granted, then inspect once.
 
-```sh
-npm run test:dnr
-```
+## 4. Dashboard cleanup
 
-The harness resets the tracker counter and compares extension-disabled and
-extension-enabled legs. It reboots the simulator for each leg because extension
-enablement did not take effect reliably in the running Safari process. It also
-launches the containing app before the enabled leg.
+1. Open the dashboard from the popup.
+2. Confirm the catalog shows the paired fixture counts: 2 local, 2 session,
+   2 IndexedDB, 2 caches, and 1 service worker.
+3. Run the global cookie probe and retain its exact result. Zero is not treated
+   as proof that Safari's cookie jar is empty.
+4. Select the fixture origin and choose **Forget selected…**.
+5. Confirm the disclosure that Tidy briefly opens the origin.
+6. Remove accessible data and verify Tidy returns, reports 9 storage objects
+   plus the accessible cookie count, reports zero failures, and re-scans all
+   displayed categories to zero.
 
-Expected output:
+## 5. Automated UI paths
 
-```text
-DNR A/B passed: disabled=1 request, enabled=0 additional requests.
-```
-
-## 4. Permission separation
-
-1. Open `http://127.0.0.1:8765` in simulator Safari.
-2. Open Page Menu → Janitor Lab with no host permission.
-3. Confirm the popup says page contents are inaccessible while the fixture
-   shield remains enabled.
-4. Choose **Grant access to this site**.
-5. Record that Safari's prompt names `127.0.0.1`, not all websites, and exposes
-   the one-day/always choices.
-
-## 5. Inspection and cleanup
-
-1. Inspect and compare names with the fixture page. Never capture values.
-2. Record the Cookies API count separately from any explicitly labelled
-   script-visible fallback. Do not infer HttpOnly coverage from `document.cookie`.
-3. Choose **Clean tracker fixture** and verify tracker-named state disappears
-   while functional state survives the automatic re-scan.
-4. Choose **Forget accessible site data…**, verify the explicit confirmation
-   panel, and remove the remaining accessible state.
-5. Confirm the result distinguishes attempted, removed, inaccessible, and
-   failed work, and that all reported categories re-scan empty.
-
-## 6. Automated UI path
-
-With the fixture running, the extension installed and enabled, and Safari open
-on the seeded fixture:
+Run the destructive paths separately so each receives a newly seeded simulator
+clone:
 
 ```sh
+xcodebuild test \
+  -project "native/Janitor Lab/Janitor Lab.xcodeproj" \
+  -scheme "Janitor Lab" \
+  -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.1' \
+  -only-testing:'Janitor LabUITests/Janitor_LabUITests/testDashboardCatalogCookieProbeAndBulkCleanup'
+
 xcodebuild test \
   -project "native/Janitor Lab/Janitor Lab.xcodeproj" \
   -scheme "Janitor Lab" \
@@ -81,17 +68,29 @@ xcodebuild test \
   -only-testing:'Janitor LabUITests/Janitor_LabUITests/testPhaseZeroPermissionInspectionAndSelectiveCleanup'
 ```
 
-The test covers the host permission branch, paired inventory, selective cleanup
-with survivor assertions, explicit full-clean confirmation, and empty re-scan.
+The first test covers install/enable, Safari permission UI, catalog inventory,
+global cookie probing, transient-tab cleanup, return to dashboard, and zeroed
+re-scan. The second preserves regression coverage for conservative selective
+cleanup and functional-state survivors.
+
+## 6. DNR diagnostic
+
+`npm run test:dnr` is now a diagnostic, not a release gate. The strengthened
+harness proves both Safari navigations completed. On iOS 18.1, toggling the
+extension with `pluginkit` also loses or bypasses the website-access state the
+rule needs, so a request in the enabled leg must not be interpreted as a broken
+dashboard. A production blocker needs a separate post-consent test and a real,
+maintained ruleset.
 
 ## 7. Physical-device gates
 
-Before making product claims, repeat on the current shipping Safari and a named
+Before product claims, repeat on the current shipping Safari and a named
 physical device:
 
-- Cookies API enumeration and deletion, especially HttpOnly cookies
-- `pagehide`, background suspension, memory pressure, locking, and force-quit
+- Cookies API enumeration/deletion, especially HttpOnly cookies
+- multi-origin bulk cleanup and temporary-tab behavior
+- `pagehide`, suspension, memory pressure, locking, and force-quit
 - Safari Profiles and Private Browsing isolation
-- current manifest/converter warnings and App Review behavior
+- current converter warnings and App Review behavior
 
-Simulator evidence is not promoted to device-verified evidence.
+Simulator evidence is never promoted to device-verified evidence.

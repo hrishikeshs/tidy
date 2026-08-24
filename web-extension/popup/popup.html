@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Janitor Lab</title>
+    <title>Tidy</title>
     <link rel="stylesheet" href="popup.css">
   </head>
   <body>
     <main>
       <header>
-        <p class="eyebrow">JANITOR LAB · PHASE 0</p>
+        <p class="eyebrow">TIDY · LOCAL-ONLY</p>
         <h1 id="domain">Current site</h1>
         <p id="permission" class="status">Checking access…</p>
       </header>
@@ -17,12 +17,13 @@
       <section class="shield">
         <div>
           <span class="dot" aria-hidden="true"></span>
-          <strong>Fixture shield enabled</strong>
+          <strong>Fixture rule installed</strong>
         </div>
         <p>Blocking is declarative and does not inspect page content.</p>
       </section>
 
-      <button id="grant" class="primary" hidden>Grant access to this site</button>
+      <button id="dashboard" class="primary">Open Tidy dashboard</button>
+      <button id="grant" class="secondary" hidden>Grant access to all websites</button>
       <button id="inspect" class="secondary" hidden>Inspect accessible state</button>
 
       <section id="inventory" hidden>

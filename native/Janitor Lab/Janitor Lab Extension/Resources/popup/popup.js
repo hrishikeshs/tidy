@@ -5,10 +5,11 @@ import {
   isKnownFixtureCookie,
   permissionPatternFor
 } from "../shared/tracker-definitions.js";
+import "../shared/catalog.js";
 
 const api = globalThis.browser ?? globalThis.chrome;
 const elements = Object.fromEntries(
-  ["domain", "permission", "grant", "inspect", "inventory", "summary", "cookie-note", "details", "actions", "clean", "forget", "confirmation", "cancel-forget", "confirm-forget", "result", "error"]
+  ["domain", "permission", "dashboard", "grant", "inspect", "inventory", "summary", "cookie-note", "details", "actions", "clean", "forget", "confirmation", "cancel-forget", "confirm-forget", "result", "error"]
     .map((id) => [id, document.getElementById(id)])
 );
 
@@ -59,7 +60,11 @@ function renderNames(title, entries, classify = () => "unknown") {
 }
 
 async function hasPermission() {
-  return api.permissions.contains({ origins: [currentPattern] });
+  const [allSites, currentSite] = await Promise.all([
+    api.permissions.contains({ origins: ["<all_urls>"] }),
+    api.permissions.contains({ origins: [currentPattern] })
+  ]);
+  return { allSites, currentSite: allSites || currentSite };
 }
 
 async function injectInspector() {
@@ -81,6 +86,10 @@ async function inspect({ preserveMessages = false } = {}) {
     api.tabs.sendMessage(currentTab.id, { type: "janitor.inspect" }),
     accessibleCookies()
   ]);
+  await api.runtime.sendMessage({
+    type: "tidy.observe",
+    snapshot: globalThis.TidyCatalog.summaryFromInspection(storage)
+  });
   const apiCookieNames = new Set(apiCookies.map(({ name }) => name));
   const fallbackCookies = storage.scriptVisibleCookieNames
     .filter((name) => !apiCookieNames.has(name))
@@ -186,20 +195,26 @@ async function initialize() {
   elements.domain.textContent = url.hostname || url.protocol;
   currentPattern = permissionPatternFor(currentTab.url);
 
-  const allowed = await hasPermission();
-  elements.permission.textContent = allowed
-    ? "Site access granted. Nothing is inspected until you ask."
-    : "Shield only. Page contents are not accessible.";
-  elements.grant.hidden = allowed;
-  elements.inspect.hidden = !allowed;
+  const access = await hasPermission();
+  elements.permission.textContent = access.allSites
+    ? "All-sites access granted. Observations stay on this device."
+    : access.currentSite
+      ? "This site is accessible. Grant all-sites access for the full dashboard."
+      : "Shield only. Page contents are not accessible.";
+  elements.grant.hidden = access.allSites;
+  elements.inspect.hidden = !access.currentSite;
 }
+
+elements.dashboard.addEventListener("click", () => {
+  api.tabs.create({ url: api.runtime.getURL("dashboard/dashboard.html") }).catch(showError);
+});
 
 elements.grant.addEventListener("click", async () => {
   clearMessages();
   try {
-    const granted = await api.permissions.request({ origins: [currentPattern] });
-    if (!granted) throw new Error("Safari did not grant access to this site.");
-    elements.permission.textContent = "Site access granted. Nothing is inspected until you ask.";
+    const granted = await api.permissions.request({ origins: ["<all_urls>"] });
+    if (!granted) throw new Error("Safari did not grant access to all websites.");
+    elements.permission.textContent = "All-sites access granted. Observations stay on this device.";
     elements.grant.hidden = true;
     elements.inspect.hidden = false;
     await inspect();

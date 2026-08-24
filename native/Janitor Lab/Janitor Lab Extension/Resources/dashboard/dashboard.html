@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tidy dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+  </head>
+  <body>
+    <main>
+      <header class="hero">
+        <div>
+          <p class="eyebrow">TIDY · LOCAL SAFARI MAINTENANCE</p>
+          <h1>Your web, under control.</h1>
+          <p class="lede">A value-free catalog of storage observed on sites you visit. Nothing leaves this device.</p>
+        </div>
+        <div class="hero-actions">
+          <button id="refresh-open" class="secondary">Refresh open sites</button>
+          <button id="scan-cookies" class="primary">Probe global cookies</button>
+        </div>
+      </header>
+
+      <section id="overview" class="metrics" aria-label="Catalog overview"></section>
+
+      <section class="panel cookie-panel">
+        <div>
+          <p class="eyebrow">SAFARI COOKIES API</p>
+          <h2>Global cookie visibility</h2>
+          <p id="cookie-status" class="muted">Not probed yet.</p>
+        </div>
+        <div id="cookie-domains" class="domain-cloud"></div>
+      </section>
+
+      <section class="catalog-heading">
+        <div>
+          <p class="eyebrow">OBSERVED ORIGINS</p>
+          <h2>Site catalog</h2>
+        </div>
+        <div class="bulk-actions">
+          <button id="select-all" class="quiet">Select all</button>
+          <button id="clean-trackers" class="secondary" disabled>Clean tracker state</button>
+          <button id="forget-selected" class="danger" disabled>Forget selected…</button>
+        </div>
+      </section>
+
+      <p id="catalog-note" class="note">For cleanup, Tidy briefly opens each selected origin, removes accessible site data, closes it, and returns here.</p>
+      <section id="site-list" class="site-list"></section>
+      <section id="empty-state" class="empty" hidden>
+        <h2>No sites observed yet</h2>
+        <p>Browse with Tidy enabled for All Websites, then refresh this dashboard.</p>
+      </section>
+
+      <section id="confirmation" class="confirmation" hidden>
+        <div>
+          <strong id="confirmation-title">Forget selected sites?</strong>
+          <p id="confirmation-copy">This removes accessible cookies and storage and may sign you out.</p>
+        </div>
+        <div>
+          <button id="cancel-clean" class="secondary">Cancel</button>
+          <button id="confirm-clean" class="danger">Remove accessible data</button>
+        </div>
+      </section>
+
+      <p id="result" class="result" hidden aria-live="polite"></p>
+      <p id="error" class="error" hidden aria-live="assertive"></p>
+
+      <footer>
+        Tidy stores origins, timestamps, counts, and cleanup results locally. It does not store cookie or storage values.
+      </footer>
+    </main>
+    <script type="module" src="dashboard.js"></script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "CA8F7500-CB1B-4DD2-A944-238AC3CD4544",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "7E06B98C-FB7F-4744-8853-F4ED9374E838.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "Tidy dashboard after full cleanup_0_48BAD276-84AA-48B9-B27E-99E4FE27D2CE.png",
+        "timestamp" : 1787557192.464
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "CA8F7500-CB1B-4DD2-A944-238AC3CD4544",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "42910F2B-EFF1-4CF2-9394-95E805750BB9.txt",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "Tidy dashboard full cleanup hierarchy_0_5A891D48-D1AB-4D4D-9379-1781D5EB9791.txt",
+        "timestamp" : 1787557192.382
+      }
+    ],
+    "testIdentifier" : "Janitor_LabUITests/testDashboardCatalogCookieProbeAndBulkCleanup()"
+  }
+]

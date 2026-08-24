@@ -239,9 +239,16 @@
     return result;
   }
 
+  globalThis.__tidyInspectStorage = inspectStorage;
+  globalThis.__tidyCleanStorage = cleanStorage;
+
   api.runtime.onMessage.addListener((message) => {
-    if (message?.type === "janitor.inspect") return inspectStorage();
-    if (message?.type === "janitor.clean") return cleanStorage(message);
+    if (message?.type === "janitor.inspect" || message?.type === "tidy.inspect") {
+      return inspectStorage();
+    }
+    if (message?.type === "janitor.clean" || message?.type === "tidy.clean") {
+      return cleanStorage(message);
+    }
     return undefined;
   });
 })();
