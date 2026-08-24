@@ -18,5 +18,13 @@ Reset either counter with `POST /reset`. Keeping the readiness and tracker
 signals separate prevents a slow Safari launch from being mistaken for a DNR
 block.
 
-Values exist only to prove that deletion targets names rather than empty data.
-The extension itself must never display or persist them.
+`/learning?tidy_seed=1` is a separate delta-debugging fixture. It seeds six
+cookie/Web Storage values and exposes an explicit health oracle that requires
+exactly three. The required cookie is HttpOnly so the native Learning Clean lab
+must copy it through `WKHTTPCookieStore`; the other required values live in
+`localStorage` and `sessionStorage`.
+
+The Safari extension's ordinary inspection and classification paths remain
+name-only. Learning Clean is intentionally different: after the user starts a
+learning run, its native isolated profiles may copy values locally. Snapshot
+values are not part of the persisted learned-policy schema.

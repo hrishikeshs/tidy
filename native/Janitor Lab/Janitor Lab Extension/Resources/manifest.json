@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Tidy",
   "description": "A local, all-sites maintenance dashboard for Safari.",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "icons": {
     "48": "images/icon-48.png",
     "96": "images/icon-96.png",
@@ -26,6 +26,7 @@
     "activeTab",
     "cookies",
     "declarativeNetRequest",
+    "nativeMessaging",
     "scripting",
     "storage",
     "tabs"

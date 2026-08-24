@@ -7,6 +7,7 @@ import {
   cookieRemovalURL,
   isKnownFixtureCookie,
   isKnownFixtureStorageKey,
+  learnedPolicySelection,
   permissionPatternFor,
   removableSelection
 } from "../web-extension/shared/tracker-definitions.js";
@@ -95,6 +96,43 @@ test("automatic selection includes evidence-backed tracking and protects heurist
     serviceWorkerScopes: []
   });
   assert.equal(classifyStorageItem("localStorage", "_gcl_ls").safeToRemove, false);
+});
+
+test("learned selection removes only proven names still present", () => {
+  const inspection = {
+    origin: "https://www.reddit.com",
+    localStorageKeys: ["required_local", "optional_local", "new_local"],
+    sessionStorageKeys: ["required_session", "optional_session"],
+    indexedDBNames: ["untested-db"],
+    cacheNames: ["untested-cache"]
+  };
+  const cookies = [
+    { name: "required_cookie" },
+    { name: "optional_cookie" },
+    { name: "new_cookie" }
+  ];
+  const policy = {
+    origin: inspection.origin,
+    required: [
+      { kind: "cookie", name: "required_cookie" },
+      { kind: "localStorage", name: "required_local" }
+    ],
+    removable: [
+      { kind: "cookie", name: "optional_cookie" },
+      { kind: "cookie", name: "no_longer_present" },
+      { kind: "localStorage", name: "optional_local" },
+      { kind: "sessionStorage", name: "optional_session" }
+    ]
+  };
+
+  assert.deepEqual(learnedPolicySelection(inspection, cookies, policy), {
+    cookieNames: ["optional_cookie"],
+    localStorageKeys: ["optional_local"],
+    sessionStorageKeys: ["optional_session"],
+    indexedDBNames: [],
+    cacheNames: [],
+    serviceWorkerScopes: []
+  });
 });
 
 test("permissions are requested for a host, not a browsing URL", () => {

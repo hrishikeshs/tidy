@@ -4,6 +4,7 @@ import {
   classifyCookie,
   classifyStorageItem,
   cookieRemovalURL,
+  learnedPolicySelection,
   permissionPatternFor,
   removableSelection
 } from "../shared/tracker-definitions.js";
@@ -11,12 +12,23 @@ import "../shared/catalog.js";
 
 const api = globalThis.browser ?? globalThis.chrome;
 const elements = Object.fromEntries(
-  ["domain", "permission", "dashboard", "grant", "inspect", "inventory", "summary", "cookie-note", "classifier-note", "details", "actions", "clean", "forget", "confirmation", "cancel-forget", "confirm-forget", "result", "error"]
+  ["domain", "permission", "dashboard", "grant", "inspect", "learning-lab", "inventory", "summary", "cookie-note", "classifier-note", "learning-note", "details", "actions", "clean", "learning-clean", "forget", "confirmation", "cancel-forget", "confirm-forget", "result", "error"]
     .map((id) => [id, document.getElementById(id)])
 );
 
 let currentTab;
 let currentPattern;
+let currentLearnedPolicy = null;
+
+async function learningPolicyFor(url) {
+  if (typeof api.runtime.sendNativeMessage !== "function") return null;
+  const response = await api.runtime.sendNativeMessage("io.hrishi.Janitor-Lab", {
+    action: "learningPolicy",
+    origin: url.origin,
+    route: url.pathname || "/"
+  });
+  return response?.available ? response.policy : null;
+}
 
 function showError(error) {
   elements.error.textContent = error instanceof Error ? error.message : String(error);
@@ -132,6 +144,13 @@ async function inspect({ preserveMessages = false } = {}) {
     .flat()
     .filter(({ safeToRemove }) => safeToRemove)
     .length;
+  try {
+    currentLearnedPolicy = await learningPolicyFor(new URL(currentTab.url));
+  } catch {
+    currentLearnedPolicy = null;
+  }
+  const learnedSelection = learnedPolicySelection(storage, cookies, currentLearnedPolicy);
+  const learnedCount = Object.values(learnedSelection).flat().length;
 
   elements["cookie-note"].hidden = fallbackCookies.length === 0;
   elements["cookie-note"].textContent = fallbackCookies.length === 0
@@ -142,6 +161,13 @@ async function inspect({ preserveMessages = false } = {}) {
     : `${removableCount} evidence-backed tracking item(s) are eligible for automatic cleanup. Low-confidence guesses stay put.`;
   elements.clean.textContent = `Clean ${removableCount} likely tracking item${removableCount === 1 ? "" : "s"}`;
   elements.clean.disabled = removableCount === 0;
+  elements["learning-clean"].hidden = !currentLearnedPolicy;
+  elements["learning-clean"].disabled = learnedCount === 0;
+  elements["learning-clean"].textContent = `Clean ${learnedCount} learned removable item${learnedCount === 1 ? "" : "s"}`;
+  elements["learning-note"].hidden = !currentLearnedPolicy;
+  elements["learning-note"].textContent = currentLearnedPolicy
+    ? `A fresh Tidy Lab policy found ${currentLearnedPolicy.required.length} required and ${currentLearnedPolicy.removable.length} removable item(s) for this route. Only matching, previously tested names will be removed; new state stays put.`
+    : "";
 
   const categories = [
     ["Cookies", cookies.length],
@@ -197,7 +223,9 @@ async function clean(mode) {
   const apiCookies = await accessibleCookies();
   const inspection = await api.tabs.sendMessage(currentTab.id, { type: "tidy.inspect" });
   const { cookies: allCookies } = combinedCookies(inspection, apiCookies);
-  const selection = removableSelection(inspection, allCookies);
+  const selection = mode === "learned"
+    ? learnedPolicySelection(inspection, allCookies, currentLearnedPolicy)
+    : removableSelection(inspection, allCookies);
   const [storage, cookies] = await Promise.all([
     api.tabs.sendMessage(currentTab.id, {
       type: "janitor.clean",
@@ -229,6 +257,9 @@ async function initialize() {
 
   const url = new URL(currentTab.url);
   elements.domain.textContent = url.hostname || url.protocol;
+  const learningURL = new URL("tidy://learn");
+  learningURL.searchParams.set("url", currentTab.url);
+  elements["learning-lab"].href = learningURL.href;
   currentPattern = permissionPatternFor(currentTab.url);
 
   const access = await hasPermission();
@@ -261,6 +292,7 @@ elements.grant.addEventListener("click", async () => {
 
 elements.inspect.addEventListener("click", () => inspect().catch(showError));
 elements.clean.addEventListener("click", () => clean("trackers").catch(showError));
+elements["learning-clean"].addEventListener("click", () => clean("learned").catch(showError));
 elements.forget.addEventListener("click", () => {
   clearMessages();
   elements.confirmation.hidden = false;

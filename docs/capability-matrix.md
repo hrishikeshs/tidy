@@ -19,7 +19,7 @@ This is an evidence ledger, not a roadmap checkbox list.
 | Swift | 6.0.2 |
 | SDK/runtime | iOS Simulator 18.1 |
 | Simulator | iPhone 16 Pro, iOS 18.1 |
-| Extension | Tidy 0.3.0, Manifest V3 |
+| Extension | Tidy 0.4.0, Manifest V3 |
 
 Results from this Safari 18.1 environment must not be generalized to later
 Safari releases.
@@ -40,6 +40,12 @@ Safari releases.
 | T7 | Inactive-tab direct cleanup | `tabs.sendMessage` / `scripting.executeScript` | Failed | Simulator-provisional | Safari returned no cleanup result or “Tab not found.” This motivated T5's temporary-tab workflow. |
 | T8 | Explainable purpose classification | 2,261 Open Cookie Database rules plus conservative local heuristics | Passed | Automated | Each item receives purpose, confidence, rationale, source, and a keep/remove decision; values are not inputs. |
 | T9 | Removal safety policy | Evidence and confidence gate | Passed | Automated | Name-only heuristics never authorize deletion; mixed session/tracking signals fail to unknown/kept. |
+| T10 | Learning Clean value capture | Six-item fixture in dedicated named WebKit profile | Passed | Automated UI test on simulator | Captured two cookies (including one HttpOnly), two localStorage values, and two sessionStorage values. Values remained in native memory/trial stores. |
+| T11 | Per-trial state isolation | Fresh `WKWebsiteDataStore.nonPersistent()` per candidate | Passed | Automated UI test on simulator | The live named Tidy profile remained intact. A full-state reconstruction guard now runs before any removal candidate. |
+| T12 | Delta-debugging result | Fixture requires exactly one cookie, one local item, and one session item | Passed | Automated + simulator-provisional | Found 3 required and 3 removable items; pure tests also prove a 1-minimal result for interacting sets. |
+| T13 | Learned-policy minimization | Codable policy and encoding test | Passed | Automated | Policy contains origin/route, identity fingerprint, names/scopes, outcomes, dates, algorithm version, and trial count; snapshot values are absent. |
+| T14 | Native policy bridge | App group + `nativeMessaging` + Safari popup | Passed | Automated UI test on simulator | Safari received the fresh 3/3 policy, removed 2 optional storage values plus 1 optional cookie, preserved required state, and then reported 0 matching removable items. |
+| T15 | Learned-policy aging | 14-day expiry and algorithm-version filter | Implemented | Automated model coverage | Expired policies are pruned by the app and rejected by the native handler. Scheduled background refresh is not implemented. |
 | B1 | Enumerate `localStorage` names in popup | Paired fixture keys | Passed | Simulator-provisional | 2 names; values did not cross the boundary. |
 | B2 | Enumerate `sessionStorage` names in popup | Paired fixture keys | Passed | Simulator-provisional | 2 names. |
 | B3 | Enumerate IndexedDB names | `indexedDB.databases()` | Passed | Simulator-provisional | 2 names. |
@@ -51,6 +57,7 @@ Safari releases.
 | C2 | Enumerate HttpOnly cookies | Server-set fixture plus Cookies API | Inconclusive | Unverified | Server proved the HttpOnly cookie was sent, but the Cookies API returned 0. |
 | C3 | Delete HttpOnly cookies | Server-set fixture | Not run | Unverified | Cannot claim until C2 yields an accessible cookie object. |
 | C4 | Real-site Reddit sample | 12 script-visible names supplied by simulator run | Passed for classification | Simulator-provisional | `_gcl_au` and domain-matched `edgebucket` are removable marketing evidence; CSRF/session ambiguity remains protected. The generated classifier also passed the controlled popup cleanup UI regression. |
+| C5 | Native WebKit HttpOnly capture/seed | Learning Clean fixture + `WKHTTPCookieStore` | Passed for Tidy profile | Automated UI test on simulator | This validates the app-owned WebKit store only; it does not upgrade C2/C3 for Safari's cookie jar. |
 | D1 | Synthetic DNR rule | Strengthened first-party-readiness A/B harness | Permission-coupled / reopened | Simulator-provisional | The earlier Phase 0 “pass” did not wait for the enabled navigation. With readiness proof added, toggling the extension allowed the request; Safari's website grant is reset/coupled in this flow. Do not claim permission-free blocking. |
 | L1 | Timed observation | 750 ms and 2.5 s captures | Passed for foreground fixture | Simulator-provisional | Background and suspension behavior is not implied. |
 | L2 | `pagehide` capture | Observer hook | Implemented, not isolated | Unverified | Needs a dedicated lifecycle fixture. |
@@ -68,5 +75,12 @@ catalog and performs cleanup in short-lived active tabs. It does not expose an
 omnipotent browser-history/site-data deletion API, and the iOS 18.1 Cookies API
 and inactive-tab behavior are materially weaker than the idealized design.
 
+For state minimization, a dedicated Tidy WebKit profile is the workable safety
+boundary. It can reconstruct value-bearing candidates in fresh ephemeral stores
+and pass a names-only policy back to Safari. The result is 1-minimal relative to
+the oracle—not a unique exact set—and currently excludes IndexedDB, caches, and
+service workers.
+
 The retained artifacts are under
-[`docs/evidence/2026-08-23`](evidence/2026-08-23/README.md).
+[`docs/evidence/2026-08-23`](evidence/2026-08-23/README.md) and
+[`docs/evidence/2026-08-24`](evidence/2026-08-24/learning-clean-observations.md).

@@ -280,6 +280,42 @@ export function removableSelection(inspection, cookies = []) {
   };
 }
 
+export function learnedPolicySelection(inspection, cookies = [], policy = null) {
+  const empty = {
+    cookieNames: [],
+    localStorageKeys: [],
+    sessionStorageKeys: [],
+    indexedDBNames: [],
+    cacheNames: [],
+    serviceWorkerScopes: []
+  };
+  if (!policy || policy.origin !== inspection.origin || !Array.isArray(policy.removable)) {
+    return empty;
+  }
+
+  const observed = {
+    cookie: new Set(cookies.map(({ name }) => name)),
+    localStorage: new Set(inspection.localStorageKeys ?? []),
+    sessionStorage: new Set(inspection.sessionStorageKeys ?? [])
+  };
+  const selected = {
+    cookie: new Set(),
+    localStorage: new Set(),
+    sessionStorage: new Set()
+  };
+  for (const reference of policy.removable) {
+    if (selected[reference?.kind] && observed[reference.kind].has(reference.name)) {
+      selected[reference.kind].add(reference.name);
+    }
+  }
+  return {
+    ...empty,
+    cookieNames: [...selected.cookie].sort(),
+    localStorageKeys: [...selected.localStorage].sort(),
+    sessionStorageKeys: [...selected.sessionStorage].sort()
+  };
+}
+
 export function permissionPatternFor(rawURL) {
   const url = new URL(rawURL);
   if (url.protocol !== "http:" && url.protocol !== "https:") {

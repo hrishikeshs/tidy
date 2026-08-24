@@ -25,12 +25,14 @@
       <button id="dashboard" class="primary">Open Tidy dashboard</button>
       <button id="grant" class="secondary" hidden>Grant access to all websites</button>
       <button id="inspect" class="secondary" hidden>Inspect accessible state</button>
+      <a id="learning-lab" class="button secondary" href="tidy://learn">Open Learning Clean lab…</a>
 
       <section id="inventory" hidden>
         <h2>Accessible state</h2>
         <div id="summary" class="grid"></div>
         <p id="cookie-note" class="note" hidden></p>
         <p id="classifier-note" class="classifier-note"></p>
+        <p id="learning-note" class="learning-note" hidden></p>
         <details>
           <summary>Names and classifications</summary>
           <div id="details"></div>
@@ -39,6 +41,7 @@
 
       <section id="actions" hidden>
         <button id="clean" class="primary">Clean likely tracking items</button>
+        <button id="learning-clean" class="learned" hidden>Clean learned removable items</button>
         <button id="forget" class="danger">Forget accessible site data…</button>
       </section>
 
@@ -54,7 +57,7 @@
       <section id="result" class="result" hidden aria-live="polite"></section>
       <p id="error" class="error" hidden aria-live="assertive"></p>
 
-      <footer>Values are never displayed or persisted. Purpose labels express evidence and confidence, not certainty.</footer>
+      <footer>Inspection and classification remain name-only. Learning Clean may copy values into isolated on-device trials; Tidy has no backend. Purpose labels express evidence and confidence, not certainty.</footer>
     </main>
     <script type="module" src="popup.js"></script>
   </body>

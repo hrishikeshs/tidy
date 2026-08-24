@@ -46,7 +46,8 @@ p { line-height: 1.35; }
   background: #22c55e;
 }
 
-button {
+button, .button {
+  display: block;
   width: 100%;
   margin-top: 10px;
   padding: 11px 12px;
@@ -54,11 +55,14 @@ button {
   border-radius: 11px;
   font: inherit;
   font-weight: 650;
+  text-align: center;
+  text-decoration: none;
 }
 
 button:disabled { opacity: 0.48; }
 
 .primary { background: #2563eb; color: white; }
+.learned { background: #7c3aed; color: white; }
 .secondary { background: color-mix(in srgb, CanvasText 9%, Canvas); color: CanvasText; }
 .danger { background: color-mix(in srgb, #dc2626 12%, Canvas); color: #dc2626; }
 
@@ -90,6 +94,7 @@ button:disabled { opacity: 0.48; }
 
 .note { color: #a16207; font-size: 11px; }
 .classifier-note { color: #64748b; font-size: 11px; }
+.learning-note { color: #6d28d9; font-size: 11px; }
 
 details { margin-top: 10px; font-size: 12px; }
 details ul { margin: 6px 0 10px; padding-left: 18px; }

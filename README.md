@@ -17,6 +17,12 @@ Xcode 16.1 and the iOS 18.1 simulator.
   workers.
 - Cookie and storage names inspected on demand receive a purpose, confidence,
   rationale, and keep/remove decision from an offline 2,261-rule classifier.
+- Learning Clean opens a dedicated Tidy browser profile, captures cookie and Web
+  Storage values into memory, and delta-debugs fresh isolated trials to find a
+  1-minimal state set for the page's health oracle.
+- Learned names are shared with the Safari extension through an app group. For
+  14 days, the popup can remove only previously proven-removable names that are
+  still present while leaving new or untested state alone.
 - The dashboard shows the local catalog, open-origin state, aggregate counts,
   cleanup history, and a global Safari Cookies API probe.
 - Per-site and bulk cleanup briefly open each selected origin, remove accessible
@@ -29,7 +35,7 @@ returned to Tidy, and re-scanned every displayed category to zero.
 
 ## Local-data model
 
-The initial database is `browser.storage.local`, owned by the extension. It
+The dashboard database is `browser.storage.local`, owned by the extension. It
 stores origins, hostnames, timestamps, category counts, inaccessible-category
 flags, and cleanup outcomes. It deliberately does not store cookie names,
 storage keys, URL paths, values, or detailed error text. Unit tests enforce
@@ -45,6 +51,15 @@ Tidy does not have analytics, an account, a server, or a network client of its
 own. Cleaning a site necessarily loads that site in a short-lived Safari tab;
 the confirmation UI says so before doing it.
 
+Learning Clean is the explicitly value-aware path. The native app reads cookie
+values (including HttpOnly cookies visible to its own `WKHTTPCookieStore`) and
+`localStorage`/`sessionStorage` values, then copies them only into in-memory
+snapshots and non-persistent WebKit trial stores. The reusable policy contains
+origin, route, state-name fingerprint, required/removable names, timestamps,
+and trial count—never values—and is shared locally with the extension. The
+dedicated Tidy Lab profile itself persists the website's state on device like a
+normal browser profile. See [Learning Clean](docs/learning-clean.md).
+
 ## Honest boundaries
 
 - Safari does not expose a `browsingData`-style API here. Tidy cleans web
@@ -52,7 +67,17 @@ the confirmation UI says so before doing it.
   is available.
 - On the tested iOS 18.1 simulator, the Cookies API returned zero even while
   the controlled server proved cookies existed. Script-visible cookies are
-  handled with `document.cookie`; HttpOnly coverage is not claimed.
+  handled with `document.cookie`; the Safari extension still does not claim
+  HttpOnly coverage. The native Learning Clean profile has a separate,
+  validated WebKit cookie-store path, but it is not Safari's cookie jar.
+- Learning Clean does not safely clone an ordinary Safari tab. Trials run in
+  fresh non-persistent WebKit stores seeded from Tidy's separate profile.
+  Policies transfer names and outcomes to Safari, not session values.
+- The algorithm returns one 1-minimal passing set relative to the observed
+  page-health oracle. It cannot prove a unique or globally smallest “exact” set,
+  and a weak oracle can miss broken behavior.
+- The initial learner covers cookies, `localStorage`, and `sessionStorage`.
+  IndexedDB, Cache Storage, and service workers remain future learner work.
 - Inactive Safari tabs did not reliably accept script injection or return
   message results. Tidy's temporary active-tab workflow is the validated
   workaround.
@@ -93,14 +118,20 @@ npm run build:simulator
 
 Then install the built app, enable Tidy in Safari, choose access for every
 website, and visit `http://127.0.0.1:8765` before opening the dashboard.
+Physical-device forks must register or substitute the app-group identifier
+`group.io.hrishi.tidy` for both the app and extension signing targets.
 
 See the [simulator protocol](docs/test-protocol.md), [capability
 matrix](docs/capability-matrix.md), [initial dashboard evidence](docs/evidence/2026-08-23/README.md),
-and [classifier evidence](docs/evidence/2026-08-24/classifier-observations.md).
+[classifier evidence](docs/evidence/2026-08-24/classifier-observations.md), and
+[Learning Clean evidence](docs/evidence/2026-08-24/learning-clean-observations.md).
 
 ## Platform references
 
 - [Safari Web Extensions](https://developer.apple.com/safari/extensions/)
 - [Managing Safari Web Extension permissions](https://developer.apple.com/documentation/safariservices/managing-safari-web-extension-permissions)
+- [Messaging between a Safari Web Extension and its containing app](https://developer.apple.com/documentation/safariservices/messaging-between-the-app-and-javascript-in-a-safari-web-extension)
+- [`WKWebsiteDataStore`](https://developer.apple.com/documentation/webkit/wkwebsitedatastore)
+- [`WKHTTPCookieStore`](https://developer.apple.com/documentation/webkit/wkhttpcookiestore)
 - [Chrome extension installation](https://support.google.com/chrome/answer/2664769)
 - [Apple URL Filters](https://developer.apple.com/documentation/networkextension/url-filters)

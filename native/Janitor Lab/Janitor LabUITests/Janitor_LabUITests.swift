@@ -14,6 +14,77 @@ final class Janitor_LabUITests: XCTestCase {
     }
 
     @MainActor
+    func testLearningCleanFindsMinimalFixtureState() throws {
+        let app = XCUIApplication()
+        app.launchEnvironment["TIDY_LEARNING_FIXTURE_URL"] = "http://127.0.0.1:8765/learning?tidy_seed=1"
+        app.launch()
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5))
+
+        XCTAssertTrue(app.navigationBars["Learning Clean"].waitForExistence(timeout: 8))
+        let health = app.staticTexts["All required state present"]
+        XCTAssertTrue(health.waitForExistence(timeout: 10))
+
+        let capture = app.buttons["learning.capture"]
+        XCTAssertTrue(capture.waitForExistence(timeout: 5))
+        capture.tap()
+
+        let result = app.textViews["learning.result"]
+        XCTAssertTrue(result.waitForExistence(timeout: 5))
+        let captured = NSPredicate(format: "value CONTAINS %@", "Captured 6 state items")
+        expectation(for: captured, evaluatedWith: result)
+        waitForExpectations(timeout: 8)
+
+        let learn = app.buttons["learning.run"]
+        XCTAssertTrue(learn.isEnabled)
+        learn.tap()
+
+        let learned = NSPredicate(format: "label CONTAINS %@", "Required 3, removable 3")
+        expectation(for: learned, evaluatedWith: result)
+        waitForExpectations(timeout: 40)
+        XCTAssertTrue(result.label.contains("tidy_required_auth"))
+        XCTAssertTrue(result.label.contains("tidy_optional_cookie"))
+
+        let screenshot = XCTAttachment(screenshot: app.screenshot())
+        screenshot.name = "Learning Clean minimal fixture state"
+        screenshot.lifetime = .keepAlways
+        add(screenshot)
+
+        app.terminate()
+        let safari = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
+        safari.activate()
+        XCTAssertTrue(safari.wait(for: .runningForeground, timeout: 5))
+        let address = safari.textFields["Address"]
+        XCTAssertTrue(address.waitForExistence(timeout: 5))
+        address.tap()
+        address.typeText("http://127.0.0.1:8765/learning?tidy_seed=1\n")
+        XCTAssertTrue(safari.staticTexts["All required state present"].waitForExistence(timeout: 10))
+
+        openTidyPopup(in: safari)
+        grantAndInspectIfNeeded(in: safari)
+
+        let learnedPolicyNote = safari.staticTexts.containing(
+            NSPredicate(format: "label CONTAINS %@", "3 required and 3 removable")
+        ).firstMatch
+        XCTAssertTrue(learnedPolicyNote.waitForExistence(timeout: 8))
+        let extensionWebView = safari.webViews["Tidy"].firstMatch
+        extensionWebView.swipeUp()
+        let cleanLearned = safari.buttons["Clean 3 learned removable items"]
+        XCTAssertTrue(cleanLearned.waitForExistence(timeout: 5))
+        cleanLearned.tap()
+
+        let cleanupResult = safari.staticTexts.containing(
+            NSPredicate(format: "label CONTAINS %@", "Removed: 2 storage items and 1 cookies")
+        ).firstMatch
+        XCTAssertTrue(cleanupResult.waitForExistence(timeout: 8))
+        XCTAssertTrue(safari.buttons["Clean 0 learned removable items"].isEnabled == false)
+
+        let bridgeScreenshot = XCTAttachment(screenshot: safari.screenshot())
+        bridgeScreenshot.name = "Learning Clean policy applied in Safari"
+        bridgeScreenshot.lifetime = .keepAlways
+        add(bridgeScreenshot)
+    }
+
+    @MainActor
     private func openTidyPopup(in safari: XCUIApplication) {
         let pageMenu = safari.buttons["PageFormatMenuButton"]
         XCTAssertTrue(pageMenu.waitForExistence(timeout: 5))

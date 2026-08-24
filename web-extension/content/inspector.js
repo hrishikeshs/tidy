@@ -144,6 +144,7 @@
     cookieNamesExposedByAPI = []
   }) {
     const full = mode === "all";
+    const legacyFixtureCleanup = mode === "trackers";
     const selectedNames = (field) => new Set(selection?.[field] ?? []);
     const selectedCookies = selectedNames("cookieNames");
     const selectedLocalStorage = selectedNames("localStorageKeys");
@@ -171,7 +172,7 @@
       const apiCookieNames = new Set(cookieNamesExposedByAPI);
       const cookieNames = scriptVisibleCookieNames().filter((name) => !apiCookieNames.has(name));
       const selected = cookieNames.filter((name) =>
-        full || selectedCookies.has(name) || definition?.cookieNames?.includes(name)
+        full || selectedCookies.has(name) || (legacyFixtureCleanup && definition?.cookieNames?.includes(name))
       );
       result.scriptVisibleCookies.attempted = selected.length;
       for (const name of selected) {
@@ -191,7 +192,7 @@
     try {
       const keys = Object.keys(localStorage);
       for (const key of keys) {
-        if (full || selectedLocalStorage.has(key) || legacyMatchesPrefix(key)) {
+        if (full || selectedLocalStorage.has(key) || (legacyFixtureCleanup && legacyMatchesPrefix(key))) {
           localStorage.removeItem(key);
           result.removedCounts.localStorage += 1;
         }
@@ -205,7 +206,7 @@
     try {
       const keys = Object.keys(sessionStorage);
       for (const key of keys) {
-        if (full || selectedSessionStorage.has(key) || legacyMatchesPrefix(key)) {
+        if (full || selectedSessionStorage.has(key) || (legacyFixtureCleanup && legacyMatchesPrefix(key))) {
           sessionStorage.removeItem(key);
           result.removedCounts.sessionStorage += 1;
         }
@@ -221,7 +222,7 @@
         const databases = await indexedDB.databases();
         const names = databases.map(({ name }) => name).filter(Boolean);
         for (const name of names) {
-          if (full || selectedDatabases.has(name) || definition?.indexedDBNames?.includes(name)) {
+          if (full || selectedDatabases.has(name) || (legacyFixtureCleanup && definition?.indexedDBNames?.includes(name))) {
             try {
               await deleteDatabase(name);
               result.removedCounts.indexedDB += 1;
@@ -243,7 +244,7 @@
       try {
         const names = await caches.keys();
         for (const name of names) {
-          if (full || selectedCaches.has(name) || definition?.cacheNames?.includes(name)) {
+          if (full || selectedCaches.has(name) || (legacyFixtureCleanup && definition?.cacheNames?.includes(name))) {
             if (await caches.delete(name)) result.removedCounts.cacheStorage += 1;
           }
         }

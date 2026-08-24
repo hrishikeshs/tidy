@@ -11,6 +11,7 @@ import WebKit
 class ViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler {
 
     @IBOutlet var webView: WKWebView!
+    private var didHandleLaunchEnvironment = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +29,32 @@ class ViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHan
     }
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        // Override point for customization.
+        guard message.name == "controller",
+              let payload = message.body as? [String: Any],
+              payload["action"] as? String == "openLearningLab",
+              let rawURL = payload["url"] as? String,
+              let url = URL(string: rawURL) else {
+            return
+        }
+        openLearningLab(url: url)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard !didHandleLaunchEnvironment else { return }
+        didHandleLaunchEnvironment = true
+        if let rawURL = ProcessInfo.processInfo.environment["TIDY_LEARNING_FIXTURE_URL"],
+           let url = URL(string: rawURL) {
+            openLearningLab(url: url)
+        }
+    }
+
+    func openLearningLab(url: URL) {
+        guard presentedViewController == nil else { return }
+        let learningLab = LearningLabViewController(initialURL: url)
+        let navigation = UINavigationController(rootViewController: learningLab)
+        navigation.modalPresentationStyle = .fullScreen
+        present(navigation, animated: true)
     }
 
 }

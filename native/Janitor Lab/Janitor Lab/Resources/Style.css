@@ -27,3 +27,28 @@ body {
     font: -apple-system-short-body;
     text-align: center;
 }
+
+h1, p { margin: 0; }
+
+.eyebrow {
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+}
+
+button {
+    border: 0;
+    border-radius: 12px;
+    padding: 12px 18px;
+    background: #2563eb;
+    color: white;
+    font: -apple-system-body;
+    font-weight: 650;
+}
+
+.note {
+    max-width: 340px;
+    color: #64748b;
+    font-size: 12px;
+}

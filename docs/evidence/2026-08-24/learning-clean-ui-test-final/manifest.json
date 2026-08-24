@@ -1,0 +1,25 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "CA8F7500-CB1B-4DD2-A944-238AC3CD4544",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "AEE0DD4F-5B0D-4468-BF60-1CF3F6BA72DA.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "Learning Clean policy applied in Safari_0_F7CBC357-2241-430F-B454-56A66BAFEBFF.png",
+        "timestamp" : 1787608270.354
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "CA8F7500-CB1B-4DD2-A944-238AC3CD4544",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "F2AC6EF4-9EF1-433B-BEFE-1CF9D1B7EB9B.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "Learning Clean minimal fixture state_0_53CCE5A2-3282-476C-96A7-49119534AA25.png",
+        "timestamp" : 1787608230.01
+      }
+    ],
+    "testIdentifier" : "Janitor_LabUITests/testLearningCleanFindsMinimalFixtureState()"
+  }
+]

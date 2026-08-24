@@ -29,6 +29,11 @@
 		745DECF9303BA98700FB6BBA /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 745DECF2303BA98700FB6BBA /* manifest.json */; };
 		745DECFA303BA98700FB6BBA /* rules in Resources */ = {isa = PBXBuildFile; fileRef = 745DECF3303BA98700FB6BBA /* rules */; };
 		745DECFC303BA98700FB6BBA /* dashboard in Resources */ = {isa = PBXBuildFile; fileRef = 745DECFB303BA98700FB6BBA /* dashboard */; };
+		A10000010000000000000001 /* LearningModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000110000000000000001 /* LearningModels.swift */; };
+		A10000020000000000000002 /* LearningMinimizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000120000000000000002 /* LearningMinimizer.swift */; };
+		A10000030000000000000003 /* LearningWebKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000130000000000000003 /* LearningWebKit.swift */; };
+		A10000040000000000000004 /* LearningLabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000140000000000000004 /* LearningLabViewController.swift */; };
+		A10000050000000000000005 /* Main.js in Resources */ = {isa = PBXBuildFile; fileRef = A10000150000000000000005 /* Main.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +102,11 @@
 		745DECF2303BA98700FB6BBA /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = Resources/manifest.json; sourceTree = "<group>"; };
 		745DECF3303BA98700FB6BBA /* rules */ = {isa = PBXFileReference; lastKnownFileType = folder; name = rules; path = Resources/rules; sourceTree = "<group>"; };
 		745DECFB303BA98700FB6BBA /* dashboard */ = {isa = PBXFileReference; lastKnownFileType = folder; name = dashboard; path = Resources/dashboard; sourceTree = "<group>"; };
+		A10000110000000000000001 /* LearningModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningModels.swift; sourceTree = "<group>"; };
+		A10000120000000000000002 /* LearningMinimizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningMinimizer.swift; sourceTree = "<group>"; };
+		A10000130000000000000003 /* LearningWebKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningWebKit.swift; sourceTree = "<group>"; };
+		A10000140000000000000004 /* LearningLabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningLabViewController.swift; sourceTree = "<group>"; };
+		A10000150000000000000005 /* Main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Main.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +169,10 @@
 				745DECA4303BA98700FB6BBA /* AppDelegate.swift */,
 				745DECAE303BA98700FB6BBA /* SceneDelegate.swift */,
 				745DECB0303BA98700FB6BBA /* ViewController.swift */,
+				A10000110000000000000001 /* LearningModels.swift */,
+				A10000120000000000000002 /* LearningMinimizer.swift */,
+				A10000130000000000000003 /* LearningWebKit.swift */,
+				A10000140000000000000004 /* LearningLabViewController.swift */,
 				745DECB2303BA98700FB6BBA /* LaunchScreen.storyboard */,
 				745DECB5303BA98700FB6BBA /* Main.storyboard */,
 				745DECB8303BA98700FB6BBA /* Assets.xcassets */,
@@ -172,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				745DECA7303BA98700FB6BBA /* Main.html */,
+				A10000150000000000000005 /* Main.js */,
 				745DECAA303BA98700FB6BBA /* Icon.png */,
 				745DECAC303BA98700FB6BBA /* Style.css */,
 			);
@@ -357,6 +372,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A10000050000000000000005 /* Main.js in Resources */,
 				745DECAB303BA98700FB6BBA /* Icon.png in Resources */,
 				745DECB7303BA98700FB6BBA /* Main.storyboard in Resources */,
 				745DECB4303BA98700FB6BBA /* LaunchScreen.storyboard in Resources */,
@@ -402,6 +418,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A10000010000000000000001 /* LearningModels.swift in Sources */,
+				A10000020000000000000002 /* LearningMinimizer.swift in Sources */,
+				A10000030000000000000003 /* LearningWebKit.swift in Sources */,
+				A10000040000000000000004 /* LearningLabViewController.swift in Sources */,
 				745DECB1303BA98700FB6BBA /* ViewController.swift in Sources */,
 				745DECA5303BA98700FB6BBA /* AppDelegate.swift in Sources */,
 				745DECAF303BA98700FB6BBA /* SceneDelegate.swift in Sources */,
@@ -603,6 +623,7 @@
 		745DECE0303BA98700FB6BBA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Janitor Lab Extension/Janitor Lab Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -615,7 +636,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.4.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -632,6 +653,7 @@
 		745DECE1303BA98700FB6BBA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Janitor Lab Extension/Janitor Lab Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -644,7 +666,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.4.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -663,6 +685,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Janitor Lab/Janitor Lab.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -678,7 +701,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.4.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -698,6 +721,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Janitor Lab/Janitor Lab.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -713,7 +737,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.4.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -736,7 +760,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.hrishi.Janitor-LabTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -754,7 +778,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.hrishi.Janitor-LabTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -770,7 +794,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.hrishi.Janitor-LabUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -786,7 +810,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.hrishi.Janitor-LabUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;

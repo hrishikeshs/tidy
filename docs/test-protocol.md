@@ -73,7 +73,39 @@ global cookie probing, transient-tab cleanup, return to dashboard, and zeroed
 re-scan. The second preserves regression coverage for conservative selective
 cleanup and functional-state survivors.
 
-## 6. DNR diagnostic
+## 6. Learning Clean
+
+Open `http://127.0.0.1:8765/learning?tidy_seed=1` in the Tidy Learning
+Clean profile, confirm **All required state present**, capture the baseline, and
+run the learner. The expected result is:
+
+- required: `tidy_required_auth`, `tidy_required_local`,
+  `tidy_required_session`
+- removable: `tidy_optional_cookie`, `tidy_optional_local`,
+  `tidy_optional_session`
+
+The fixture values are intentionally read and copied into isolated local trial
+stores. The saved policy and test attachments contain names/outcomes but no
+values.
+
+Run the full app-to-Safari path:
+
+```sh
+xcodebuild test \
+  -project "native/Janitor Lab/Janitor Lab.xcodeproj" \
+  -scheme "Janitor Lab" \
+  -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.1' \
+  -only-testing:'Janitor LabTests' \
+  -only-testing:'Janitor LabUITests/Janitor_LabUITests/testLearningCleanFindsMinimalFixtureState'
+```
+
+The UI test learns 3 required / 3 removable items, navigates Safari to a newly
+seeded copy, obtains the policy through native messaging, removes exactly 2 Web
+Storage items and 1 script-visible cookie, and verifies no learned removable
+items remain. Each trial makes ordinary network requests to the fixture, just
+as a real run necessarily contacts its target site.
+
+## 7. DNR diagnostic
 
 `npm run test:dnr` is now a diagnostic, not a release gate. The strengthened
 harness proves both Safari navigations completed. On iOS 18.1, toggling the
@@ -82,7 +114,7 @@ rule needs, so a request in the enabled leg must not be interpreted as a broken
 dashboard. A production blocker needs a separate post-consent test and a real,
 maintained ruleset.
 
-## 7. Physical-device gates
+## 8. Physical-device gates
 
 Before product claims, repeat on the current shipping Safari and a named
 physical device:
@@ -92,5 +124,7 @@ physical device:
 - `pagehide`, suspension, memory pressure, locking, and force-quit
 - Safari Profiles and Private Browsing isolation
 - current converter warnings and App Review behavior
+- Learning Clean named-store persistence, app-group signing, and the health
+  oracle under real network/lifecycle conditions
 
 Simulator evidence is never promoted to device-verified evidence.
