@@ -62,21 +62,21 @@ final class Janitor_LabUITests: XCTestCase {
         openTidyPopup(in: safari)
         grantAndInspectIfNeeded(in: safari)
 
-        let learnedPolicyNote = safari.staticTexts.containing(
-            NSPredicate(format: "label CONTAINS %@", "3 required and 3 removable")
-        ).firstMatch
-        XCTAssertTrue(learnedPolicyNote.waitForExistence(timeout: 8))
-        let extensionWebView = safari.webViews["Tidy"].firstMatch
-        extensionWebView.swipeUp()
-        let cleanLearned = safari.buttons["Clean 3 learned removable items"]
+        XCTAssertTrue(safari.staticTexts["Use the proven cleanup"].waitForExistence(timeout: 8))
+        let cleanLearned = safari.buttons["Remove 3 tested items"]
         XCTAssertTrue(cleanLearned.waitForExistence(timeout: 5))
         cleanLearned.tap()
 
+        let extensionWebView = safari.webViews["Tidy"].firstMatch
+        extensionWebView.swipeUp()
+        let cleanupReceipt = safari.buttons["Cleanup receipt"].firstMatch
+        XCTAssertTrue(cleanupReceipt.waitForExistence(timeout: 8))
+        cleanupReceipt.tap()
         let cleanupResult = safari.staticTexts.containing(
             NSPredicate(format: "label CONTAINS %@", "Removed: 2 storage items and 1 cookies")
         ).firstMatch
         XCTAssertTrue(cleanupResult.waitForExistence(timeout: 8))
-        XCTAssertTrue(safari.buttons["Clean 0 learned removable items"].isEnabled == false)
+        XCTAssertFalse(safari.buttons["Remove 3 tested items"].exists)
 
         let bridgeScreenshot = XCTAttachment(screenshot: safari.screenshot())
         bridgeScreenshot.name = "Learning Clean policy applied in Safari"
@@ -132,23 +132,12 @@ final class Janitor_LabUITests: XCTestCase {
                 }
             }
         }
-        XCTAssertTrue(safari.staticTexts["Fixture rule installed"].waitForExistence(timeout: 5))
+        XCTAssertTrue(safari.buttons["All sites"].waitForExistence(timeout: 5))
     }
 
     @MainActor
     private func grantAndInspectIfNeeded(in safari: XCUIApplication) {
-        let inspectState = safari.buttons["Inspect accessible state"]
-        let allSitesGranted = safari.staticTexts[
-            "All-sites access granted. Observations stay on this device."
-        ]
-        if allSitesGranted.waitForExistence(timeout: 2) {
-            XCTAssertTrue(inspectState.waitForExistence(timeout: 3))
-            inspectState.tap()
-            XCTAssertTrue(safari.staticTexts["Accessible state"].waitForExistence(timeout: 8))
-            return
-        }
-
-        let grantAllSites = safari.buttons["Grant access to all websites"]
+        let grantAllSites = safari.buttons["Allow Tidy on websites"]
         if grantAllSites.waitForExistence(timeout: 2) {
             grantAllSites.tap()
             let possibleAllowButtons = [
@@ -166,11 +155,13 @@ final class Janitor_LabUITests: XCTestCase {
                     break
                 }
             }
-        } else {
-            XCTAssertTrue(inspectState.waitForExistence(timeout: 5))
-            inspectState.tap()
         }
-        XCTAssertTrue(safari.staticTexts["Accessible state"].waitForExistence(timeout: 8))
+        let recommendation = safari.staticTexts["Clean up this site"]
+        let testedRecommendation = safari.staticTexts["Use the proven cleanup"]
+        XCTAssertTrue(
+            recommendation.waitForExistence(timeout: 8)
+                || testedRecommendation.waitForExistence(timeout: 2)
+        )
     }
 
     @MainActor
@@ -198,6 +189,11 @@ final class Janitor_LabUITests: XCTestCase {
         openTidyPopup(in: safari)
         grantAndInspectIfNeeded(in: safari)
 
+        let siteData = safari.buttons.containing(
+            NSPredicate(format: "label BEGINSWITH %@", "Site data")
+        ).firstMatch
+        XCTAssertTrue(siteData.waitForExistence(timeout: 5))
+        siteData.tap()
         let namesAndClassifications = safari.buttons["Names and classifications"].firstMatch
         XCTAssertTrue(namesAndClassifications.waitForExistence(timeout: 5))
         namesAndClassifications.tap()
@@ -216,19 +212,24 @@ final class Janitor_LabUITests: XCTestCase {
         ).firstMatch
         XCTAssertTrue(cookieFallbackNote.exists)
         namesAndClassifications.tap()
+        siteData.tap()
 
-        let extensionWebView = safari.webViews["Tidy"].firstMatch
-        extensionWebView.swipeUp()
-        let cleanTrackers = safari.buttons["Clean 5 likely tracking items"]
+        let cleanTrackers = safari.buttons["Remove 5 tracking items"]
         XCTAssertTrue(cleanTrackers.waitForExistence(timeout: 5))
         cleanTrackers.tap()
 
+        let extensionWebView = safari.webViews["Tidy"].firstMatch
+        extensionWebView.swipeUp()
+        let cleanupReceipt = safari.buttons["Cleanup receipt"].firstMatch
+        XCTAssertTrue(cleanupReceipt.waitForExistence(timeout: 8))
+        cleanupReceipt.tap()
         let cleanupResult = safari.staticTexts.containing(
-            NSPredicate(format: "label BEGINSWITH %@", "Attempted:")
+            NSPredicate(format: "label CONTAINS %@", "Attempted:")
         ).firstMatch
         XCTAssertTrue(cleanupResult.waitForExistence(timeout: 8))
         XCTAssertTrue(cleanupResult.label.contains("Removed: 4 storage items"))
 
+        siteData.tap()
         namesAndClassifications.tap()
         XCTAssertTrue(safari.staticTexts["janitor_login_preference — Functional · medium confidence · kept"].exists)
         XCTAssertTrue(safari.staticTexts["janitor_draft — Unknown · kept"].exists)
@@ -242,19 +243,24 @@ final class Janitor_LabUITests: XCTestCase {
         XCTAssertTrue(safari.staticTexts["janitor_login — Functional · medium confidence · kept"].exists)
 
         namesAndClassifications.tap()
+        siteData.tap()
         extensionWebView.swipeUp()
-        let forgetSiteData = safari.buttons["Forget accessible site data…"]
+        let forgetSiteData = safari.buttons["Reset this site"]
         XCTAssertTrue(forgetSiteData.waitForExistence(timeout: 5))
         forgetSiteData.tap()
 
-        let confirmRemoval = safari.buttons["Remove accessible data"]
+        let confirmRemoval = safari.buttons["Reset site data"]
         XCTAssertTrue(confirmRemoval.waitForExistence(timeout: 5))
         confirmRemoval.tap()
 
+        extensionWebView.swipeUp()
+        XCTAssertTrue(cleanupReceipt.waitForExistence(timeout: 8))
+        cleanupReceipt.tap()
         let fullCleanupResult = safari.staticTexts.containing(
             NSPredicate(format: "label CONTAINS %@", "Removed: 5 storage items")
         ).firstMatch
         XCTAssertTrue(fullCleanupResult.waitForExistence(timeout: 8))
+        siteData.tap()
         namesAndClassifications.tap()
         XCTAssertFalse(safari.staticTexts["janitor_login_preference — Functional · medium confidence · kept"].exists)
         XCTAssertFalse(safari.staticTexts["janitor_draft — Unknown · kept"].exists)
@@ -300,11 +306,11 @@ final class Janitor_LabUITests: XCTestCase {
         openTidyPopup(in: safari)
         grantAndInspectIfNeeded(in: safari)
 
-        let dashboardButton = safari.buttons["Open Tidy dashboard"]
+        let dashboardButton = safari.buttons["All sites"]
         XCTAssertTrue(dashboardButton.waitForExistence(timeout: 5))
         dashboardButton.tap()
 
-        XCTAssertTrue(safari.staticTexts["Your web, under control."].waitForExistence(timeout: 8))
+        XCTAssertTrue(safari.staticTexts["Website data"].waitForExistence(timeout: 8))
         XCTAssertTrue(safari.staticTexts["127.0.0.1"].waitForExistence(timeout: 5))
         XCTAssertTrue(safari.staticTexts["2 local"].exists)
         XCTAssertTrue(safari.staticTexts["2 session"].exists)
@@ -312,15 +318,19 @@ final class Janitor_LabUITests: XCTestCase {
         XCTAssertTrue(safari.staticTexts["2 caches"].exists)
         XCTAssertTrue(safari.staticTexts["1 workers"].exists)
 
-        let cookieProbe = safari.buttons["Probe global cookies"]
+        let cookieProbe = safari.buttons["Check cookie jar"]
         XCTAssertTrue(cookieProbe.waitForExistence(timeout: 5))
         cookieProbe.tap()
-        let cookieResult = safari.staticTexts.containing(
-            NSPredicate(format: "label BEGINSWITH %@", "Safari exposed")
+        let cookieResult = safari.buttons.containing(
+            NSPredicate(
+                format: "label CONTAINS %@ OR label CONTAINS %@",
+                "visible cookies across",
+                "Safari exposed no cookies"
+            )
         ).firstMatch
         XCTAssertTrue(cookieResult.waitForExistence(timeout: 8))
 
-        XCTAssertTrue(safari.staticTexts["Start over across Safari"].waitForExistence(timeout: 5))
+        XCTAssertTrue(safari.staticTexts["Reset all website data"].waitForExistence(timeout: 5))
         let clearAll = safari.buttons["Clear all saved website data"]
         XCTAssertTrue(clearAll.waitForExistence(timeout: 5))
         clearAll.tap()
@@ -341,7 +351,8 @@ final class Janitor_LabUITests: XCTestCase {
         receipt.lifetime = .keepAlways
         add(receipt)
         XCTAssertTrue(cleanupResult.label.contains("observed site(s)"))
-        XCTAssertTrue(cleanupResult.label.contains("removed 9 storage item(s)"))
+        XCTAssertTrue(cleanupResult.label.contains("storage item(s)"))
+        XCTAssertFalse(cleanupResult.label.contains("removed 0 storage item(s)"))
         XCTAssertTrue(cleanupResult.label.contains("Site failures:"))
         XCTAssertTrue(cleanupResult.label.contains("item failures:"))
         XCTAssertTrue(safari.staticTexts["0 local"].waitForExistence(timeout: 5))

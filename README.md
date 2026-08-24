@@ -23,6 +23,10 @@ Xcode 16.1 and the iOS 18.1 simulator.
 - Learned names are shared with the Safari extension through an app group. For
   14 days, the popup can remove only previously proven-removable names that are
   still present while leaving new or untested state alone.
+- Opening the Safari popup automatically checks the current website and leads
+  with one low-risk recommendation. Detailed names and classifications remain
+  available behind the Site data inspector, and every cleanup offers to reload
+  the page so stale banners or pop-ups can disappear immediately.
 - The dashboard shows the local catalog, open-origin state, aggregate counts,
   cleanup history, and a global Safari Cookies API probe.
 - Per-site and bulk cleanup briefly open each selected origin, remove accessible
@@ -31,8 +35,10 @@ Xcode 16.1 and the iOS 18.1 simulator.
   continues past individual site failures, and then removes every cookie
   Safari exposes globally. It warns that the user will probably be signed out
   and reports site, item, and cookie-sweep outcomes separately.
-- The popup retains the controlled selective-cleanup fixture for testing
-  tracker-like state separately from functional state.
+- **Clean tracking** removes only evidence-backed tracking state and keeps
+  sign-in, security, preference, and uncertain data. **Reset this site** is the
+  explicit escape hatch for a stuck page or persistent pop-up; it removes all
+  reachable site state after warning that sign-in and preferences may be lost.
 
 The simulator UI test removed 9 storage objects and 3 script-visible cookies,
 returned to Tidy, and re-scanned every displayed category to zero.

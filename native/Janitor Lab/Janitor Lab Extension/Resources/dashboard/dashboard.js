@@ -102,6 +102,11 @@ function renderSite(site) {
   origin.textContent = `${site.origin} · seen ${relativeTime(site.lastSeenAt)}`;
   identity.append(name, origin);
 
+  const icon = document.createElement("span");
+  icon.className = "site-icon";
+  icon.setAttribute("aria-hidden", "true");
+  icon.textContent = site.hostname.replace(/^www\./, "").charAt(0) || "—";
+
   const counts = document.createElement("div");
   counts.className = "site-counts";
   const labels = [
@@ -124,13 +129,14 @@ function renderSite(site) {
   const openTab = tabsByOrigin.get(site.origin);
   const state = document.createElement("span");
   state.className = openTab ? "open-state" : "closed-state";
-  state.textContent = openTab ? "OPEN" : "DORMANT";
+  state.textContent = openTab ? "Open in Safari" : "Not open";
   const action = document.createElement("button");
-  action.className = openTab ? "secondary" : "quiet";
-  action.textContent = "Clean…";
+  action.className = "quiet";
+  action.textContent = "Reset…";
+  action.setAttribute("aria-label", `Reset data for ${site.hostname}`);
   action.addEventListener("click", () => showConfirmation([site.origin]));
   actions.append(state, action);
-  row.append(checkbox, identity, counts, actions);
+  row.append(checkbox, icon, identity, counts, actions);
   return row;
 }
 
@@ -139,21 +145,21 @@ function render() {
   const storedItems = totals.cookies + totals.localStorage + totals.sessionStorage
     + totals.indexedDB + totals.cacheStorage + totals.serviceWorkers;
   elements.overview.replaceChildren(
-    metric("Observed sites", totals.sites),
-    metric("Open now", tabsByOrigin.size),
-    metric("Observed items", storedItems),
-    metric("Cookies API", catalog.cookieScan?.total ?? 0)
+    metric("Websites", totals.sites),
+    metric("Open in Safari", tabsByOrigin.size),
+    metric("Items observed", storedItems),
+    metric("Cookies visible", catalog.cookieScan?.total ?? 0)
   );
 
   const scan = catalog.cookieScan ?? {};
   if (scan.status === "ok") {
     elements["cookie-status"].textContent = scan.total === 0
-      ? `Safari exposed 0 cookies globally · probed ${relativeTime(scan.scannedAt)}. This does not prove the cookie jar is empty.`
-      : `Safari exposed ${scan.total} cookies across ${scan.domains.length} domains · probed ${relativeTime(scan.scannedAt)}.`;
+      ? `Safari exposed no cookies when checked ${relativeTime(scan.scannedAt)}. Some cookies may still be hidden from extensions.`
+      : `${scan.total} visible cookies across ${scan.domains.length} domains · checked ${relativeTime(scan.scannedAt)}.`;
   } else if (scan.status === "error") {
-    elements["cookie-status"].textContent = `Probe failed with ${scan.error}.`;
+    elements["cookie-status"].textContent = `Safari could not check the cookie jar (${scan.error}).`;
   } else {
-    elements["cookie-status"].textContent = "Not probed yet.";
+    elements["cookie-status"].textContent = "Not checked yet. Use Check cookie jar above for Safari's global view.";
   }
   elements["cookie-domains"].replaceChildren(...(scan.domains ?? []).slice(0, 20).map(({ domain, count }) => {
     const tag = document.createElement("span");
@@ -344,9 +350,9 @@ async function cleanOrigins(origins, mode, { report = true, onProgress } = {}) {
 function showConfirmation(origins) {
   pendingCleanup = { kind: "origins", origins, mode: "all" };
   elements.confirmation.classList.remove("is-destructive");
-  elements["confirmation-title"].textContent = `Forget ${origins.length} selected site${origins.length === 1 ? "" : "s"}?`;
-  elements["confirmation-copy"].textContent = "Tidy will briefly open each selected origin, remove accessible cookies and storage, close it, and return here.";
-  elements["confirm-clean"].textContent = "Remove accessible data";
+  elements["confirmation-title"].textContent = `Reset ${origins.length} selected website${origins.length === 1 ? "" : "s"}?`;
+  elements["confirmation-copy"].textContent = "Tidy will briefly open each website and remove accessible cookies and storage. You may be signed out, and saved preferences may be lost.";
+  elements["confirm-clean"].textContent = "Reset website data";
   elements["confirm-clean"].removeAttribute("aria-label");
   elements["confirm-clean"].className = "danger";
   elements.confirmation.hidden = false;

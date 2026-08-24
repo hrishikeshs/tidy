@@ -8,56 +8,122 @@
   </head>
   <body>
     <main>
-      <header>
-        <p class="eyebrow">TIDY · LOCAL-ONLY</p>
-        <h1 id="domain">Current site</h1>
-        <p id="permission" class="status">Checking access…</p>
+      <nav class="toolbar" aria-label="Tidy navigation">
+        <div class="brand" aria-label="Tidy">
+          <span class="brand-mark" aria-hidden="true">T</span>
+          <strong>Tidy</strong>
+        </div>
+        <button id="dashboard" class="toolbar-button">
+          All sites
+          <span aria-hidden="true">›</span>
+        </button>
+      </nav>
+
+      <header class="site-header">
+        <div id="site-icon" class="site-icon" aria-hidden="true">—</div>
+        <div class="site-identity">
+          <p class="overline">Current website</p>
+          <h1 id="domain">Checking Safari…</h1>
+          <p id="permission" class="status">Preparing a private, on-device inspection.</p>
+        </div>
       </header>
 
-      <section class="shield">
-        <div>
-          <span class="dot" aria-hidden="true"></span>
-          <strong>Fixture rule installed</strong>
-        </div>
-        <p>Blocking is declarative and does not inspect page content.</p>
+      <section id="loading" class="loading" aria-live="polite">
+        <span class="spinner" aria-hidden="true"></span>
+        <span>Checking this site…</span>
       </section>
 
-      <button id="dashboard" class="primary">Open Tidy dashboard</button>
-      <button id="grant" class="secondary" hidden>Grant access to all websites</button>
-      <button id="inspect" class="secondary" hidden>Inspect accessible state</button>
-      <a id="learning-lab" class="button secondary" href="tidy://learn">Open Learning Clean lab…</a>
+      <button id="grant" class="primary" hidden>Allow Tidy on websites</button>
+      <button id="inspect" class="secondary" hidden>Check this site</button>
 
       <section id="inventory" hidden>
-        <h2>Accessible state</h2>
-        <div id="summary" class="grid"></div>
-        <p id="cookie-note" class="note" hidden></p>
-        <p id="classifier-note" class="classifier-note"></p>
-        <p id="learning-note" class="learning-note" hidden></p>
-        <details>
-          <summary>Names and classifications</summary>
-          <div id="details"></div>
+        <h2 class="visually-hidden">Accessible state</h2>
+
+        <section id="recommendation" class="recommendation" aria-labelledby="recommendation-title">
+          <div class="recommendation-heading">
+            <span id="recommendation-icon" class="recommendation-icon" aria-hidden="true">✓</span>
+            <div>
+              <p id="recommendation-kicker" class="recommendation-kicker">Tidy recommendation</p>
+              <h2 id="recommendation-title">Checking what is safe to remove</h2>
+            </div>
+          </div>
+          <p id="recommendation-copy" class="recommendation-copy"></p>
+          <button id="learning-clean" class="primary" hidden>Remove tested items</button>
+          <button id="clean" class="primary">Clean up this site</button>
+        </section>
+
+        <details id="site-data" class="inspector">
+          <summary>
+            <span>
+              <strong>Site data</strong>
+              <small id="site-data-total">No items observed</small>
+            </span>
+            <span class="disclosure" aria-hidden="true">›</span>
+          </summary>
+          <div class="inspector-content">
+            <div id="summary" class="data-list"></div>
+            <p id="cookie-note" class="note" hidden></p>
+            <p id="classifier-note" class="classifier-note"></p>
+            <p id="learning-note" class="learning-note" hidden></p>
+
+            <details class="technical-details">
+              <summary>Names and classifications</summary>
+              <div id="details"></div>
+            </details>
+          </div>
+        </details>
+
+        <section id="actions" class="action-list" aria-label="More cleanup options">
+          <button id="forget" class="list-action danger-row" aria-label="Reset this site">
+            <span class="action-symbol" aria-hidden="true">↺</span>
+            <span>
+              <strong>Reset this site…</strong>
+              <small>Remove everything Tidy can reach</small>
+            </span>
+            <span class="disclosure" aria-hidden="true">›</span>
+          </button>
+          <a id="learning-lab" class="list-action" href="tidy://learn">
+            <span class="action-symbol" aria-hidden="true">⌁</span>
+            <span>
+              <strong>Test what this site needs</strong>
+              <small>Open Learning Clean</small>
+            </span>
+            <span class="disclosure" aria-hidden="true">›</span>
+          </a>
+        </section>
+      </section>
+
+      <section id="confirmation" class="confirmation" role="alertdialog" aria-modal="true" aria-labelledby="confirmation-title" hidden>
+        <span class="confirmation-symbol" aria-hidden="true">!</span>
+        <h2 id="confirmation-title">Reset this site?</h2>
+        <p id="confirmation-copy">This removes accessible cookies and site data. You may be signed out.</p>
+        <div class="confirmation-actions">
+          <button id="cancel-forget" class="secondary">Cancel</button>
+          <button id="confirm-forget" class="destructive">Reset site data</button>
+        </div>
+      </section>
+
+      <section id="result" class="result" hidden aria-live="polite">
+        <div class="result-heading">
+          <span class="result-symbol" aria-hidden="true">✓</span>
+          <div>
+            <strong id="result-title">Cleanup complete</strong>
+            <p id="result-copy"></p>
+          </div>
+        </div>
+        <button id="reload" class="primary">Reload site</button>
+        <details id="result-details" class="receipt">
+          <summary>Cleanup receipt</summary>
+          <p id="result-receipt"></p>
         </details>
       </section>
 
-      <section id="actions" hidden>
-        <button id="clean" class="primary">Clean likely tracking items</button>
-        <button id="learning-clean" class="learned" hidden>Clean learned removable items</button>
-        <button id="forget" class="danger">Forget accessible site data…</button>
-      </section>
-
-      <section id="confirmation" class="confirmation" hidden>
-        <strong>Forget this site?</strong>
-        <p>Remove every storage item this extension can access for this origin? This may sign you out.</p>
-        <div class="confirmation-actions">
-          <button id="cancel-forget" class="secondary">Cancel</button>
-          <button id="confirm-forget" class="danger">Remove accessible data</button>
-        </div>
-      </section>
-
-      <section id="result" class="result" hidden aria-live="polite"></section>
       <p id="error" class="error" hidden aria-live="assertive"></p>
 
-      <footer>Inspection and classification remain name-only. Learning Clean may copy values into isolated on-device trials; Tidy has no backend. Purpose labels express evidence and confidence, not certainty.</footer>
+      <footer>
+        <span aria-hidden="true">◆</span>
+        On-device. No account, analytics, or backend.
+      </footer>
     </main>
     <script type="module" src="popup.js"></script>
   </body>

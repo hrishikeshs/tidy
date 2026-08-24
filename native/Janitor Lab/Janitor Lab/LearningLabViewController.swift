@@ -14,10 +14,16 @@ final class LearningLabViewController: UIViewController, WKNavigationDelegate, U
 
     private lazy var addressField: UITextField = {
         let field = UITextField()
-        field.borderStyle = .roundedRect
+        field.borderStyle = .none
+        field.backgroundColor = .secondarySystemGroupedBackground
+        field.layer.cornerRadius = 10
+        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 1))
+        field.leftViewMode = .always
+        field.clearButtonMode = .whileEditing
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.keyboardType = .URL
+        field.textContentType = .URL
         field.returnKeyType = .go
         field.text = initialURL.absoluteString
         field.accessibilityIdentifier = "learning.address"
@@ -45,24 +51,30 @@ final class LearningLabViewController: UIViewController, WKNavigationDelegate, U
         label.font = .preferredFont(forTextStyle: .footnote)
         label.textColor = .secondaryLabel
         label.numberOfLines = 0
-        label.text = "Use the isolated browser until it represents the state you want to preserve."
+        label.text = "Use this private test browser until the page is in the state you want to preserve."
         label.accessibilityIdentifier = "learning.status"
         return label
     }()
 
     private let sentinelField: UITextField = {
         let field = UITextField()
-        field.borderStyle = .roundedRect
+        field.borderStyle = .none
+        field.backgroundColor = .secondarySystemGroupedBackground
+        field.layer.cornerRadius = 10
+        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 1))
+        field.leftViewMode = .always
+        field.clearButtonMode = .whileEditing
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
-        field.placeholder = "Optional CSS sentinel, e.g. [aria-label='Profile']"
+        field.placeholder = "Advanced: CSS health check (optional)"
         field.accessibilityIdentifier = "learning.sentinel"
         return field
     }()
 
     private let captureButton: UIButton = {
         var configuration = UIButton.Configuration.filled()
-        configuration.title = "Capture baseline"
+        configuration.title = "Capture current state"
+        configuration.cornerStyle = .medium
         let button = UIButton(configuration: configuration)
         button.accessibilityIdentifier = "learning.capture"
         return button
@@ -70,7 +82,8 @@ final class LearningLabViewController: UIViewController, WKNavigationDelegate, U
 
     private let learnButton: UIButton = {
         var configuration = UIButton.Configuration.tinted()
-        configuration.title = "Learn minimal state"
+        configuration.title = "Find what is required"
+        configuration.cornerStyle = .medium
         let button = UIButton(configuration: configuration)
         button.isEnabled = false
         button.accessibilityIdentifier = "learning.run"
@@ -88,7 +101,7 @@ final class LearningLabViewController: UIViewController, WKNavigationDelegate, U
         let view = UITextView()
         view.isEditable = false
         view.isScrollEnabled = true
-        view.backgroundColor = .secondarySystemBackground
+        view.backgroundColor = .secondarySystemGroupedBackground
         view.layer.cornerRadius = 12
         view.font = .preferredFont(forTextStyle: .footnote)
         view.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -109,7 +122,7 @@ final class LearningLabViewController: UIViewController, WKNavigationDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Learning Clean"
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemGroupedBackground
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,
@@ -154,7 +167,7 @@ final class LearningLabViewController: UIViewController, WKNavigationDelegate, U
             resultView
         ])
         controls.axis = .vertical
-        controls.spacing = 10
+        controls.spacing = 12
         controls.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(controls)
 
@@ -163,9 +176,18 @@ final class LearningLabViewController: UIViewController, WKNavigationDelegate, U
             controls.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -14),
             controls.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             controls.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            webView.heightAnchor.constraint(greaterThanOrEqualToConstant: 310),
-            resultView.heightAnchor.constraint(equalToConstant: 120)
+            addressField.heightAnchor.constraint(equalToConstant: 44),
+            loadButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44),
+            loadButton.heightAnchor.constraint(equalToConstant: 44),
+            sentinelField.heightAnchor.constraint(equalToConstant: 44),
+            captureButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 46),
+            learnButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 46),
+            webView.heightAnchor.constraint(greaterThanOrEqualToConstant: 280),
+            resultView.heightAnchor.constraint(equalToConstant: 128)
         ])
+
+        webView.layer.cornerRadius = 12
+        webView.clipsToBounds = true
     }
 
     @objc private func close() {
@@ -194,7 +216,7 @@ final class LearningLabViewController: UIViewController, WKNavigationDelegate, U
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         addressField.text = webView.url?.absoluteString
-        statusLabel.text = "Ready. Confirm that this page represents the signed-in experience you want to preserve, then capture it."
+        statusLabel.text = "Ready. Put the page in the state you want to keep, then capture its current state."
     }
 
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
@@ -227,7 +249,7 @@ final class LearningLabViewController: UIViewController, WKNavigationDelegate, U
                 Captured \(state.items.count) state items in memory.
                 Cookies: \(counts[.cookie, default: 0]) · localStorage: \(counts[.localStorage, default: 0]) · sessionStorage: \(counts[.sessionStorage, default: 0])
 
-                Values will be copied only into isolated on-device trials. Tap Learn minimal state to begin.
+                Values will be copied only into isolated on-device trials. Tap Find what is required to begin.
                 """
                 statusLabel.text = "Baseline captured. The live Tidy Lab profile will not be mutated by the trials."
             } catch {

@@ -34,14 +34,15 @@ a slow Safari first launch from being mistaken for a blocked request.
 2. In Safari, open Page Menu → Manage Extensions and enable Tidy.
 3. Open Tidy on `http://127.0.0.1:8765`.
 4. Choose Safari's permanent access for every website.
-5. Confirm the popup says all-sites access is granted, then inspect once.
+5. Confirm Tidy automatically checks the current website and presents its
+   cleanup recommendation. Expand **Site data** for the category inventory.
 
 ## 4. Dashboard cleanup
 
 1. Open the dashboard from the popup.
 2. Confirm the catalog shows the paired fixture counts: 2 local, 2 session,
    2 IndexedDB, 2 caches, and 1 service worker.
-3. Run the global cookie probe and retain its exact result. Zero is not treated
+3. Choose **Check cookie jar** and retain its exact result. Zero is not treated
    as proof that Safari's cookie jar is empty.
 4. Choose **Clear all saved website data**.
 5. Confirm the sign-out warning and disclosure that Tidy briefly opens each

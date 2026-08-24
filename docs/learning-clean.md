@@ -12,7 +12,7 @@ there until the page represents the experience they want to preserve.
 
 ## Flow
 
-1. Open **Learning Clean lab…** from Tidy's Safari popup. The current URL is
+1. Open **Test what this site needs** from Tidy's Safari popup. The current URL is
    passed to the app through the local `tidy://` URL scheme.
 2. In the Tidy profile, capture the baseline. The app reads same-site cookies
    through `WKHTTPCookieStore`, including HttpOnly cookies available to that
@@ -32,7 +32,7 @@ there until the page represents the experience they want to preserve.
 8. The Safari extension requests the newest matching origin-and-route policy
    from its native extension. The bridge uses the shared app group
    `group.io.hrishi.tidy` and Safari native messaging.
-9. **Clean learned removable items** intersects the policy with currently
+9. **Remove tested items** intersects the policy with currently
    observed names. Required, new, missing, expired, and untested state stays put.
 
 ## What “minimal” means

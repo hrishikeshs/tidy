@@ -8,59 +8,68 @@
   </head>
   <body>
     <main>
-      <header class="hero">
+      <nav class="app-bar" aria-label="Tidy">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">T</span>
+          <strong>Tidy</strong>
+        </div>
+        <span class="local-status"><span aria-hidden="true">◆</span> On-device</span>
+      </nav>
+
+      <header class="page-header">
         <div>
-          <p class="eyebrow">TIDY · LOCAL SAFARI MAINTENANCE</p>
-          <h1>Your web, under control.</h1>
-          <p class="lede">A value-free catalog of storage observed on sites you visit. Nothing leaves this device.</p>
+          <h1>Website data</h1>
+          <p class="lede">Review what websites have saved in Safari, clean likely tracking, or reset a site when it gets stuck.</p>
         </div>
         <div class="hero-actions">
-          <button id="refresh-open" class="secondary">Refresh open sites</button>
-          <button id="scan-cookies" class="primary">Probe global cookies</button>
+          <button id="refresh-open" class="primary">Refresh open websites</button>
+          <button id="scan-cookies" class="secondary">Check cookie jar</button>
         </div>
       </header>
 
       <section id="overview" class="metrics" aria-label="Catalog overview"></section>
 
-      <section class="panel cookie-panel">
+      <section class="section-heading catalog-heading">
         <div>
-          <p class="eyebrow">SAFARI COOKIES API</p>
-          <h2>Global cookie visibility</h2>
-          <p id="cookie-status" class="muted">Not probed yet.</p>
+          <h2>Recently observed</h2>
+          <p>Choose websites to clean together, or reset one website from its row.</p>
         </div>
-        <div id="cookie-domains" class="domain-cloud"></div>
+        <div class="bulk-actions">
+          <button id="select-all" class="quiet">Select all</button>
+          <button id="clean-trackers" class="secondary" disabled>Clean tracking</button>
+          <button id="forget-selected" class="danger" disabled>Reset selected…</button>
+        </div>
       </section>
 
-      <section class="clean-slate" aria-labelledby="clean-slate-title">
-        <div class="clean-slate-copy">
-          <p class="eyebrow">CLEAN SLATE</p>
-          <h2 id="clean-slate-title">Start over across Safari</h2>
+      <p id="catalog-note" class="note">During cleanup, Tidy briefly opens each website, makes the change, closes it, and returns here.</p>
+      <section id="site-list" class="site-list"></section>
+      <section id="empty-state" class="empty" hidden>
+        <span class="empty-symbol" aria-hidden="true">◇</span>
+        <h2>No websites yet</h2>
+        <p>Browse with Tidy enabled for All Websites, then refresh open websites.</p>
+      </section>
+
+      <details class="panel cookie-panel">
+        <summary>
+          <span>
+            <strong>Safari cookie jar</strong>
+            <small id="cookie-status">Not checked yet.</small>
+          </span>
+          <span class="disclosure" aria-hidden="true">›</span>
+        </summary>
+        <div id="cookie-domains" class="domain-list"></div>
+      </details>
+
+      <section class="danger-zone" aria-labelledby="clean-slate-title">
+        <div class="danger-zone-copy">
+          <h2 id="clean-slate-title">Reset all website data</h2>
           <p id="clear-all-summary">Clear accessible storage from every site Tidy has observed, then remove every cookie Safari exposes globally.</p>
-          <p class="boundary">You will probably be signed out. Safari history, saved passwords, and website data hidden from extensions are not touched.</p>
+          <p class="boundary">You will probably be signed out. History, saved passwords, and data hidden from extensions are not touched.</p>
         </div>
         <button id="clear-all" class="destructive">Clear all saved website data</button>
       </section>
 
-      <section class="catalog-heading">
-        <div>
-          <p class="eyebrow">OBSERVED ORIGINS</p>
-          <h2>Site catalog</h2>
-        </div>
-        <div class="bulk-actions">
-          <button id="select-all" class="quiet">Select all</button>
-          <button id="clean-trackers" class="secondary" disabled>Clean likely tracking</button>
-          <button id="forget-selected" class="danger" disabled>Forget selected…</button>
-        </div>
-      </section>
-
-      <p id="catalog-note" class="note">For cleanup, Tidy briefly opens each selected origin, removes accessible site data, closes it, and returns here.</p>
-      <section id="site-list" class="site-list"></section>
-      <section id="empty-state" class="empty" hidden>
-        <h2>No sites observed yet</h2>
-        <p>Browse with Tidy enabled for All Websites, then refresh this dashboard.</p>
-      </section>
-
-      <section id="confirmation" class="confirmation" hidden>
+      <section id="confirmation" class="confirmation" role="alertdialog" aria-modal="true" aria-labelledby="confirmation-title" hidden>
         <div>
           <strong id="confirmation-title">Forget selected sites?</strong>
           <p id="confirmation-copy">This removes accessible cookies and storage and may sign you out.</p>
@@ -86,7 +95,7 @@
       <p id="error" class="error" hidden aria-live="assertive"></p>
 
       <footer>
-        Tidy stores origins, timestamps, counts, and cleanup results locally. It does not store cookie or storage values.
+        Tidy keeps its catalog and cleanup receipts on this device. No account, analytics, or backend.
       </footer>
     </main>
     <script type="module" src="dashboard.js"></script>

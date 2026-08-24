@@ -1,20 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
-
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
     <link rel="stylesheet" href="../Style.css">
-</head>
-<body>
-    <img src="../Icon.png" width="128" height="128" alt="Tidy Icon">
-    <p class="eyebrow">TIDY · LOCAL-ONLY</p>
-    <h1>Your web, under control.</h1>
-    <p>Enable Tidy for All Websites in Safari Extensions, then open its dashboard from Safari’s Page Menu.</p>
-    <button id="learning-lab">Open Learning Clean lab</button>
-    <p class="note">Learning Clean uses an isolated on-device browser profile. Website requests still go to the website you test.</p>
+    <title>Tidy</title>
+  </head>
+  <body>
+    <main>
+      <header class="welcome">
+        <img src="../Icon.png" width="88" height="88" alt="">
+        <h1>Tidy</h1>
+        <p>Private website controls for Safari</p>
+      </header>
+
+      <section class="setup" aria-labelledby="setup-title">
+        <div class="section-heading">
+          <span class="status-icon" aria-hidden="true">✓</span>
+          <div>
+            <p class="overline">Safari extension</p>
+            <h2 id="setup-title">Get started</h2>
+          </div>
+        </div>
+        <ol>
+          <li><span>1</span><p>Open Safari’s <strong>Page Menu</strong>, then choose <strong>Manage Extensions</strong>.</p></li>
+          <li><span>2</span><p>Turn on <strong>Tidy</strong> and allow access to all websites.</p></li>
+          <li><span>3</span><p>Open Tidy from the Page Menu whenever a website needs attention.</p></li>
+        </ol>
+      </section>
+
+      <section class="learning" aria-labelledby="learning-title">
+        <div>
+          <p class="overline">Advanced</p>
+          <h2 id="learning-title">Test what a site needs</h2>
+          <p>Learning Clean uses an isolated browser to find site data that can be removed without breaking the page.</p>
+        </div>
+        <button id="learning-lab">Open Learning Clean</button>
+      </section>
+
+      <footer><span aria-hidden="true">◆</span> On-device. No account, analytics, or backend.</footer>
+    </main>
     <script src="../Main.js"></script>
-</body>
+  </body>
 </html>
