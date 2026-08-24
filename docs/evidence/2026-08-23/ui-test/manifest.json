@@ -1,0 +1,25 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "CA8F7500-CB1B-4DD2-A944-238AC3CD4544",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "439093B9-5390-443B-B69D-6E7B768753C0.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "Janitor Lab full cleanup_0_512F97A0-A728-4AE5-8B3F-B3F8D7FD376D.png",
+        "timestamp" : 1787540147.067
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "CA8F7500-CB1B-4DD2-A944-238AC3CD4544",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "9DEABBA6-26EB-401A-94B1-DF2F8A566FC6.txt",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "Janitor Lab full cleanup hierarchy_0_61F03FC6-30D8-4101-92E1-BF8B2688C060.txt",
+        "timestamp" : 1787540146.989
+      }
+    ],
+    "testIdentifier" : "Janitor_LabUITests/testPhaseZeroPermissionInspectionAndSelectiveCleanup()"
+  }
+]

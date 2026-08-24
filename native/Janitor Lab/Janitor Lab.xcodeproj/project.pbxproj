@@ -1,0 +1,846 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		745DECA5303BA98700FB6BBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745DECA4303BA98700FB6BBA /* AppDelegate.swift */; };
+		745DECA9303BA98700FB6BBA /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 745DECA7303BA98700FB6BBA /* Main.html */; };
+		745DECAB303BA98700FB6BBA /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 745DECAA303BA98700FB6BBA /* Icon.png */; };
+		745DECAD303BA98700FB6BBA /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 745DECAC303BA98700FB6BBA /* Style.css */; };
+		745DECAF303BA98700FB6BBA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745DECAE303BA98700FB6BBA /* SceneDelegate.swift */; };
+		745DECB1303BA98700FB6BBA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745DECB0303BA98700FB6BBA /* ViewController.swift */; };
+		745DECB4303BA98700FB6BBA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 745DECB2303BA98700FB6BBA /* LaunchScreen.storyboard */; };
+		745DECB7303BA98700FB6BBA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 745DECB5303BA98700FB6BBA /* Main.storyboard */; };
+		745DECC3303BA98700FB6BBA /* Janitor_LabTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745DECC2303BA98700FB6BBA /* Janitor_LabTests.swift */; };
+		745DECCD303BA98700FB6BBA /* Janitor_LabUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745DECCC303BA98700FB6BBA /* Janitor_LabUITests.swift */; };
+		745DECCF303BA98700FB6BBA /* Janitor_LabUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745DECCE303BA98700FB6BBA /* Janitor_LabUITestsLaunchTests.swift */; };
+		745DECD5303BA98700FB6BBA /* Janitor Lab Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 745DECD4303BA98700FB6BBA /* Janitor Lab Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		745DECDA303BA98700FB6BBA /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745DECD9303BA98700FB6BBA /* SafariWebExtensionHandler.swift */; };
+		745DECDC303BA98700FB6BBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 745DECB8303BA98700FB6BBA /* Assets.xcassets */; };
+		745DECF4303BA98700FB6BBA /* background in Resources */ = {isa = PBXBuildFile; fileRef = 745DECED303BA98700FB6BBA /* background */; };
+		745DECF5303BA98700FB6BBA /* popup in Resources */ = {isa = PBXBuildFile; fileRef = 745DECEE303BA98700FB6BBA /* popup */; };
+		745DECF6303BA98700FB6BBA /* images in Resources */ = {isa = PBXBuildFile; fileRef = 745DECEF303BA98700FB6BBA /* images */; };
+		745DECF7303BA98700FB6BBA /* content in Resources */ = {isa = PBXBuildFile; fileRef = 745DECF0303BA98700FB6BBA /* content */; };
+		745DECF8303BA98700FB6BBA /* shared in Resources */ = {isa = PBXBuildFile; fileRef = 745DECF1303BA98700FB6BBA /* shared */; };
+		745DECF9303BA98700FB6BBA /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 745DECF2303BA98700FB6BBA /* manifest.json */; };
+		745DECFA303BA98700FB6BBA /* rules in Resources */ = {isa = PBXBuildFile; fileRef = 745DECF3303BA98700FB6BBA /* rules */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		745DECBF303BA98700FB6BBA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 745DEC99303BA98700FB6BBA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 745DECA0303BA98700FB6BBA;
+			remoteInfo = "Janitor Lab";
+		};
+		745DECC9303BA98700FB6BBA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 745DEC99303BA98700FB6BBA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 745DECA0303BA98700FB6BBA;
+			remoteInfo = "Janitor Lab";
+		};
+		745DECD6303BA98700FB6BBA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 745DEC99303BA98700FB6BBA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 745DECD3303BA98700FB6BBA;
+			remoteInfo = "Janitor Lab Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		745DECE2303BA98700FB6BBA /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				745DECD5303BA98700FB6BBA /* Janitor Lab Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		745DECA1303BA98700FB6BBA /* Janitor Lab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Janitor Lab.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		745DECA4303BA98700FB6BBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		745DECA8303BA98700FB6BBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
+		745DECAA303BA98700FB6BBA /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		745DECAC303BA98700FB6BBA /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		745DECAE303BA98700FB6BBA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		745DECB0303BA98700FB6BBA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		745DECB3303BA98700FB6BBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		745DECB6303BA98700FB6BBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		745DECB8303BA98700FB6BBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		745DECB9303BA98700FB6BBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		745DECBE303BA98700FB6BBA /* Janitor LabTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Janitor LabTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		745DECC2303BA98700FB6BBA /* Janitor_LabTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Janitor_LabTests.swift; sourceTree = "<group>"; };
+		745DECC8303BA98700FB6BBA /* Janitor LabUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Janitor LabUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		745DECCC303BA98700FB6BBA /* Janitor_LabUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Janitor_LabUITests.swift; sourceTree = "<group>"; };
+		745DECCE303BA98700FB6BBA /* Janitor_LabUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Janitor_LabUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		745DECD4303BA98700FB6BBA /* Janitor Lab Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Janitor Lab Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		745DECD9303BA98700FB6BBA /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		745DECDB303BA98700FB6BBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		745DECED303BA98700FB6BBA /* background */ = {isa = PBXFileReference; lastKnownFileType = folder; name = background; path = Resources/background; sourceTree = "<group>"; };
+		745DECEE303BA98700FB6BBA /* popup */ = {isa = PBXFileReference; lastKnownFileType = folder; name = popup; path = Resources/popup; sourceTree = "<group>"; };
+		745DECEF303BA98700FB6BBA /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = Resources/images; sourceTree = "<group>"; };
+		745DECF0303BA98700FB6BBA /* content */ = {isa = PBXFileReference; lastKnownFileType = folder; name = content; path = Resources/content; sourceTree = "<group>"; };
+		745DECF1303BA98700FB6BBA /* shared */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shared; path = Resources/shared; sourceTree = "<group>"; };
+		745DECF2303BA98700FB6BBA /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = Resources/manifest.json; sourceTree = "<group>"; };
+		745DECF3303BA98700FB6BBA /* rules */ = {isa = PBXFileReference; lastKnownFileType = folder; name = rules; path = Resources/rules; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		745DEC9E303BA98700FB6BBA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		745DECBB303BA98700FB6BBA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		745DECC5303BA98700FB6BBA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		745DECD1303BA98700FB6BBA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		745DEC98303BA98700FB6BBA = {
+			isa = PBXGroup;
+			children = (
+				745DECA3303BA98700FB6BBA /* Janitor Lab */,
+				745DECC1303BA98700FB6BBA /* Janitor LabTests */,
+				745DECCB303BA98700FB6BBA /* Janitor LabUITests */,
+				745DECD8303BA98700FB6BBA /* Janitor Lab Extension */,
+				745DECA2303BA98700FB6BBA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		745DECA2303BA98700FB6BBA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				745DECA1303BA98700FB6BBA /* Janitor Lab.app */,
+				745DECBE303BA98700FB6BBA /* Janitor LabTests.xctest */,
+				745DECC8303BA98700FB6BBA /* Janitor LabUITests.xctest */,
+				745DECD4303BA98700FB6BBA /* Janitor Lab Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		745DECA3303BA98700FB6BBA /* Janitor Lab */ = {
+			isa = PBXGroup;
+			children = (
+				745DECA4303BA98700FB6BBA /* AppDelegate.swift */,
+				745DECAE303BA98700FB6BBA /* SceneDelegate.swift */,
+				745DECB0303BA98700FB6BBA /* ViewController.swift */,
+				745DECB2303BA98700FB6BBA /* LaunchScreen.storyboard */,
+				745DECB5303BA98700FB6BBA /* Main.storyboard */,
+				745DECB8303BA98700FB6BBA /* Assets.xcassets */,
+				745DECB9303BA98700FB6BBA /* Info.plist */,
+				745DECA6303BA98700FB6BBA /* Resources */,
+			);
+			path = "Janitor Lab";
+			sourceTree = "<group>";
+		};
+		745DECA6303BA98700FB6BBA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				745DECA7303BA98700FB6BBA /* Main.html */,
+				745DECAA303BA98700FB6BBA /* Icon.png */,
+				745DECAC303BA98700FB6BBA /* Style.css */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		745DECC1303BA98700FB6BBA /* Janitor LabTests */ = {
+			isa = PBXGroup;
+			children = (
+				745DECC2303BA98700FB6BBA /* Janitor_LabTests.swift */,
+			);
+			path = "Janitor LabTests";
+			sourceTree = "<group>";
+		};
+		745DECCB303BA98700FB6BBA /* Janitor LabUITests */ = {
+			isa = PBXGroup;
+			children = (
+				745DECCC303BA98700FB6BBA /* Janitor_LabUITests.swift */,
+				745DECCE303BA98700FB6BBA /* Janitor_LabUITestsLaunchTests.swift */,
+			);
+			path = "Janitor LabUITests";
+			sourceTree = "<group>";
+		};
+		745DECD8303BA98700FB6BBA /* Janitor Lab Extension */ = {
+			isa = PBXGroup;
+			children = (
+				745DECEC303BA98700FB6BBA /* Resources */,
+				745DECD9303BA98700FB6BBA /* SafariWebExtensionHandler.swift */,
+				745DECDB303BA98700FB6BBA /* Info.plist */,
+			);
+			path = "Janitor Lab Extension";
+			sourceTree = "<group>";
+		};
+		745DECEC303BA98700FB6BBA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				745DECED303BA98700FB6BBA /* background */,
+				745DECEE303BA98700FB6BBA /* popup */,
+				745DECEF303BA98700FB6BBA /* images */,
+				745DECF0303BA98700FB6BBA /* content */,
+				745DECF1303BA98700FB6BBA /* shared */,
+				745DECF2303BA98700FB6BBA /* manifest.json */,
+				745DECF3303BA98700FB6BBA /* rules */,
+			);
+			name = Resources;
+			path = "Janitor Lab Extension";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		745DECA0303BA98700FB6BBA /* Janitor Lab */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 745DECE3303BA98700FB6BBA /* Build configuration list for PBXNativeTarget "Janitor Lab" */;
+			buildPhases = (
+				745DEC9D303BA98700FB6BBA /* Sources */,
+				745DEC9E303BA98700FB6BBA /* Frameworks */,
+				745DEC9F303BA98700FB6BBA /* Resources */,
+				745DECE2303BA98700FB6BBA /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				745DECD7303BA98700FB6BBA /* PBXTargetDependency */,
+			);
+			name = "Janitor Lab";
+			packageProductDependencies = (
+			);
+			productName = "Janitor Lab";
+			productReference = 745DECA1303BA98700FB6BBA /* Janitor Lab.app */;
+			productType = "com.apple.product-type.application";
+		};
+		745DECBD303BA98700FB6BBA /* Janitor LabTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 745DECE6303BA98700FB6BBA /* Build configuration list for PBXNativeTarget "Janitor LabTests" */;
+			buildPhases = (
+				745DECBA303BA98700FB6BBA /* Sources */,
+				745DECBB303BA98700FB6BBA /* Frameworks */,
+				745DECBC303BA98700FB6BBA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				745DECC0303BA98700FB6BBA /* PBXTargetDependency */,
+			);
+			name = "Janitor LabTests";
+			packageProductDependencies = (
+			);
+			productName = "Janitor LabTests";
+			productReference = 745DECBE303BA98700FB6BBA /* Janitor LabTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		745DECC7303BA98700FB6BBA /* Janitor LabUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 745DECE9303BA98700FB6BBA /* Build configuration list for PBXNativeTarget "Janitor LabUITests" */;
+			buildPhases = (
+				745DECC4303BA98700FB6BBA /* Sources */,
+				745DECC5303BA98700FB6BBA /* Frameworks */,
+				745DECC6303BA98700FB6BBA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				745DECCA303BA98700FB6BBA /* PBXTargetDependency */,
+			);
+			name = "Janitor LabUITests";
+			packageProductDependencies = (
+			);
+			productName = "Janitor LabUITests";
+			productReference = 745DECC8303BA98700FB6BBA /* Janitor LabUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		745DECD3303BA98700FB6BBA /* Janitor Lab Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 745DECDF303BA98700FB6BBA /* Build configuration list for PBXNativeTarget "Janitor Lab Extension" */;
+			buildPhases = (
+				745DECD0303BA98700FB6BBA /* Sources */,
+				745DECD1303BA98700FB6BBA /* Frameworks */,
+				745DECD2303BA98700FB6BBA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Janitor Lab Extension";
+			packageProductDependencies = (
+			);
+			productName = "Janitor Lab Extension";
+			productReference = 745DECD4303BA98700FB6BBA /* Janitor Lab Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		745DEC99303BA98700FB6BBA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1610;
+				LastUpgradeCheck = 1610;
+				TargetAttributes = {
+					745DECA0303BA98700FB6BBA = {
+						CreatedOnToolsVersion = 16.1;
+					};
+					745DECBD303BA98700FB6BBA = {
+						CreatedOnToolsVersion = 16.1;
+						TestTargetID = 745DECA0303BA98700FB6BBA;
+					};
+					745DECC7303BA98700FB6BBA = {
+						CreatedOnToolsVersion = 16.1;
+						TestTargetID = 745DECA0303BA98700FB6BBA;
+					};
+					745DECD3303BA98700FB6BBA = {
+						CreatedOnToolsVersion = 16.1;
+					};
+				};
+			};
+			buildConfigurationList = 745DEC9C303BA98700FB6BBA /* Build configuration list for PBXProject "Janitor Lab" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 745DEC98303BA98700FB6BBA;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 745DECA2303BA98700FB6BBA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				745DECA0303BA98700FB6BBA /* Janitor Lab */,
+				745DECBD303BA98700FB6BBA /* Janitor LabTests */,
+				745DECC7303BA98700FB6BBA /* Janitor LabUITests */,
+				745DECD3303BA98700FB6BBA /* Janitor Lab Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		745DEC9F303BA98700FB6BBA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				745DECAB303BA98700FB6BBA /* Icon.png in Resources */,
+				745DECB7303BA98700FB6BBA /* Main.storyboard in Resources */,
+				745DECB4303BA98700FB6BBA /* LaunchScreen.storyboard in Resources */,
+				745DECA9303BA98700FB6BBA /* Main.html in Resources */,
+				745DECDC303BA98700FB6BBA /* Assets.xcassets in Resources */,
+				745DECAD303BA98700FB6BBA /* Style.css in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		745DECBC303BA98700FB6BBA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		745DECC6303BA98700FB6BBA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		745DECD2303BA98700FB6BBA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				745DECFA303BA98700FB6BBA /* rules in Resources */,
+				745DECF8303BA98700FB6BBA /* shared in Resources */,
+				745DECF6303BA98700FB6BBA /* images in Resources */,
+				745DECF4303BA98700FB6BBA /* background in Resources */,
+				745DECF7303BA98700FB6BBA /* content in Resources */,
+				745DECF9303BA98700FB6BBA /* manifest.json in Resources */,
+				745DECF5303BA98700FB6BBA /* popup in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		745DEC9D303BA98700FB6BBA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				745DECB1303BA98700FB6BBA /* ViewController.swift in Sources */,
+				745DECA5303BA98700FB6BBA /* AppDelegate.swift in Sources */,
+				745DECAF303BA98700FB6BBA /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		745DECBA303BA98700FB6BBA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				745DECC3303BA98700FB6BBA /* Janitor_LabTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		745DECC4303BA98700FB6BBA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				745DECCF303BA98700FB6BBA /* Janitor_LabUITestsLaunchTests.swift in Sources */,
+				745DECCD303BA98700FB6BBA /* Janitor_LabUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		745DECD0303BA98700FB6BBA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				745DECDA303BA98700FB6BBA /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		745DECC0303BA98700FB6BBA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 745DECA0303BA98700FB6BBA /* Janitor Lab */;
+			targetProxy = 745DECBF303BA98700FB6BBA /* PBXContainerItemProxy */;
+		};
+		745DECCA303BA98700FB6BBA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 745DECA0303BA98700FB6BBA /* Janitor Lab */;
+			targetProxy = 745DECC9303BA98700FB6BBA /* PBXContainerItemProxy */;
+		};
+		745DECD7303BA98700FB6BBA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 745DECD3303BA98700FB6BBA /* Janitor Lab Extension */;
+			targetProxy = 745DECD6303BA98700FB6BBA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		745DECA7303BA98700FB6BBA /* Main.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				745DECA8303BA98700FB6BBA /* Base */,
+			);
+			name = Main.html;
+			sourceTree = "<group>";
+		};
+		745DECB2303BA98700FB6BBA /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				745DECB3303BA98700FB6BBA /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		745DECB5303BA98700FB6BBA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				745DECB6303BA98700FB6BBA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		745DECDD303BA98700FB6BBA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		745DECDE303BA98700FB6BBA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		745DECE0303BA98700FB6BBA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Janitor Lab Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Janitor Lab Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.hrishi.Janitor-Lab.Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		745DECE1303BA98700FB6BBA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Janitor Lab Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Janitor Lab Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.hrishi.Janitor-Lab.Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		745DECE4303BA98700FB6BBA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Janitor Lab/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Janitor Lab";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.hrishi.Janitor-Lab";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		745DECE5303BA98700FB6BBA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Janitor Lab/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Janitor Lab";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.hrishi.Janitor-Lab";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		745DECE7303BA98700FB6BBA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.hrishi.Janitor-LabTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Janitor Lab.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Janitor Lab";
+			};
+			name = Debug;
+		};
+		745DECE8303BA98700FB6BBA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.hrishi.Janitor-LabTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Janitor Lab.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Janitor Lab";
+			};
+			name = Release;
+		};
+		745DECEA303BA98700FB6BBA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.hrishi.Janitor-LabUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Janitor Lab";
+			};
+			name = Debug;
+		};
+		745DECEB303BA98700FB6BBA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.hrishi.Janitor-LabUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Janitor Lab";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		745DEC9C303BA98700FB6BBA /* Build configuration list for PBXProject "Janitor Lab" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				745DECDD303BA98700FB6BBA /* Debug */,
+				745DECDE303BA98700FB6BBA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		745DECDF303BA98700FB6BBA /* Build configuration list for PBXNativeTarget "Janitor Lab Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				745DECE0303BA98700FB6BBA /* Debug */,
+				745DECE1303BA98700FB6BBA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		745DECE3303BA98700FB6BBA /* Build configuration list for PBXNativeTarget "Janitor Lab" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				745DECE4303BA98700FB6BBA /* Debug */,
+				745DECE5303BA98700FB6BBA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		745DECE6303BA98700FB6BBA /* Build configuration list for PBXNativeTarget "Janitor LabTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				745DECE7303BA98700FB6BBA /* Debug */,
+				745DECE8303BA98700FB6BBA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		745DECE9303BA98700FB6BBA /* Build configuration list for PBXNativeTarget "Janitor LabUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				745DECEA303BA98700FB6BBA /* Debug */,
+				745DECEB303BA98700FB6BBA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 745DEC99303BA98700FB6BBA /* Project object */;
+}

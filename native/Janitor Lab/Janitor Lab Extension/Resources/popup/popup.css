@@ -1,0 +1,109 @@
+:root {
+  color-scheme: light dark;
+  font: -apple-system-body;
+  background: Canvas;
+  color: CanvasText;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-width: 340px;
+  max-width: 390px;
+}
+
+main { padding: 18px; }
+
+.eyebrow {
+  margin: 0 0 5px;
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+h1 { margin: 0; font-size: 22px; overflow-wrap: anywhere; }
+h2 { margin: 18px 0 10px; font-size: 14px; }
+p { line-height: 1.35; }
+
+.status { margin: 5px 0 14px; color: #64748b; font-size: 12px; }
+
+.shield {
+  padding: 12px;
+  border: 1px solid color-mix(in srgb, CanvasText 12%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, #22c55e 8%, Canvas);
+}
+
+.shield div { display: flex; align-items: center; gap: 8px; }
+.shield p { margin: 5px 0 0 17px; color: #64748b; font-size: 11px; }
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+
+button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 11px 12px;
+  border: 0;
+  border-radius: 11px;
+  font: inherit;
+  font-weight: 650;
+}
+
+.primary { background: #2563eb; color: white; }
+.secondary { background: color-mix(in srgb, CanvasText 9%, Canvas); color: CanvasText; }
+.danger { background: color-mix(in srgb, #dc2626 12%, Canvas); color: #dc2626; }
+
+.confirmation {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid color-mix(in srgb, #dc2626 24%, transparent);
+  border-radius: 11px;
+}
+
+.confirmation p { margin: 5px 0 0; font-size: 12px; }
+.confirmation-actions { display: flex; gap: 8px; }
+.confirmation-actions button { flex: 1; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.metric {
+  padding: 10px;
+  border-radius: 10px;
+  background: color-mix(in srgb, CanvasText 6%, Canvas);
+}
+
+.metric strong { display: block; font-size: 20px; }
+.metric span { color: #64748b; font-size: 10px; }
+
+.note { color: #a16207; font-size: 11px; }
+
+details { margin-top: 10px; font-size: 12px; }
+details ul { margin: 6px 0 10px; padding-left: 18px; }
+
+.result {
+  margin-top: 12px;
+  padding: 11px;
+  border-radius: 10px;
+  background: color-mix(in srgb, #22c55e 9%, Canvas);
+  font-size: 12px;
+}
+
+.error { color: #dc2626; font-size: 12px; }
+
+footer {
+  margin-top: 14px;
+  color: #64748b;
+  font-size: 10px;
+  text-align: center;
+}

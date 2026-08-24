@@ -1,0 +1,196 @@
+Attributes: Application, 0x10215f070, pid: 80589, label: 'Safari'
+Element subtree:
+ →Application, 0x10215f070, pid: 80589, label: 'Safari'
+    Window (Main), 0x10215c3c0, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x102166d60, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x102166e80, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x102166ac0, {{-402.0, -874.0}, {1206.0, 2622.0}}, identifier: 'PopoverDismissRegion', label: 'dismiss popup'
+          Other, 0x102166be0, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'SafariWindow?View=Narrow&BarsKeptMinimized=false&UUID=7221B3B3-0A27-45E9-B94F-A30F365DDC05&SupportsTabBar=false&UsingLoweredBar=true&UsingUnifiedBar=false'
+            Other, 0x102166fa0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x1021670c0, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x1021671e0, {{0.0, 0.0}, {402.0, 62.0}}
+                  Other, 0x102167300, {{0.0, 0.0}, {402.0, 62.0}}
+                    Other, 0x102167420, {{0.0, 0.0}, {402.0, 62.0}}
+                Other, 0x102167540, {{0.0, 0.0}, {402.0, 62.0}}
+                ScrollView, 0x102167660, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x102167780, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'TabDocument?IsLoadedUsingDesktopUserAgent=false&InReaderMode=false&UUID=55F4A918-1178-40E6-A2A3-D17F99743A9A&IsPrivate=false&IsPageLoaded=true&WebViewProcessID=80592'
+                    WebView, 0x1021678a0, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'WebView'
+                      WebView, 0x1021679c0, {{0.0, 0.0}, {402.0, 874.0}}
+                        WebView, 0x102167ae0, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x102167c00, {{0.0, 0.0}, {402.0, 874.0}}
+                            Other, 0x101e39470, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x101e475b0, {{0.0, 62.0}, {402.0, 874.0}}
+                                Other, 0x101e476d0, {{0.0, 62.0}, {849.0, 888.0}}, label: 'Janitor Lab Fixture', Focused
+                                  Other, 0x101e477f0, {{20.0, 107.0}, {362.0, 24.0}}, Focused
+                                    StaticText, 0x101e47910, {{20.0, 108.0}, {289.0, 22.0}}, label: 'JANITOR LAB · CONTROLLED ORIGIN', value: JANITOR LAB · CONT..., Focused
+                                  Other, 0x101e47a30, {{20.0, 153.0}, {362.0, 99.0}}, label: 'Storage and blocking fixture', value: 1, Focused
+                                    StaticText, 0x101e47b50, {{20.0, 156.0}, {315.0, 92.0}}, label: 'Storage and blocking fixture', value: Storage and blocki..., Focused
+                                  Other, 0x101e47c70, {{20.0, 274.0}, {362.0, 73.0}}, Focused
+                                    StaticText, 0x101e47d90, {{20.0, 275.0}, {358.0, 71.0}}, label: 'This page creates synthetic functional and tracker-like state. None of the names belong to a real tracker.', value: This page creates ..., Focused
+                                  StaticText, 0x101e47eb0, {{37.0, 381.0}, {97.0, 23.0}}, label: 'Seed status', value: Seed status, Focused
+                                  Other, 0x101e47fd0, {{37.0, 417.0}, {812.0, 109.0}}, Focused
+                                    StaticText, 0x101e480f0, {{37.0, 417.0}, {812.0, 108.0}}, label: 'localStorage: _janitor_tracker_id, janitor_login_preference
+sessionStorage: _janitor_tracker_session, janitor_draft
+cookies sent to server: _janitor_embedded, _janitor_tracker, janitor_http_only_tracker, janitor_login
+IndexedDB: janitor-functional-db, janitor-tracker-db
+Cache Storage: janitor-functional-cache, janitor-tracker-cache
+Service worker: registration attempted', value: localStorage: _jan..., Focused
+                                  Button, 0x101e48530, {{37.0, 538.0}, {113.0, 45.0}}, label: 'Seed again', Focused
+                                  StaticText, 0x101e48650, {{37.0, 631.0}, {256.0, 23.0}}, label: 'Controlled cross-origin request', value: Controlled cross-o..., Focused
+                                  Other, 0x101e48770, {{37.0, 671.0}, {328.0, 97.0}}, Focused
+                                    StaticText, 0x101e48890, {{37.0, 672.0}, {153.0, 23.0}}, label: 'An image request to', value: An image request to, Focused
+                                    Other, 0x101e489b0, {{37.0, 700.0}, {193.0, 18.0}}, Focused
+                                      StaticText, 0x101e48ad0, {{37.0, 700.0}, {193.0, 18.0}}, label: '127.0.0.1:8766/pixel.gif', value: 127.0.0.1:8766/pix..., Focused
+                                    StaticText, 0x101e48bf0, {{37.0, 696.0}, {309.0, 71.0}}, label: 'appears below only when the DNR fixture rule does not block it.', value:  appears below onl..., Focused
+                                  Image, 0x101e48d10, {{37.0, 801.0}, {1.0, 2.0}}, label: 'tracker request loaded', Focused
+                                  Other, 0x101e48e30, {{37.0, 825.0}, {328.0, 49.0}}, Focused
+                                    StaticText, 0x101e48f50, {{37.0, 826.0}, {283.0, 47.0}}, label: 'Blocked or failed — check the tracker server counter for proof.', value: Blocked or failed ..., Focused
+                        Other, 0x101e49070, {{369.0, 62.0}, {30.0, 678.0}}, label: 'Vertical scroll bar, 2 pages', value: 0%
+                          Other, 0x101e49190, {{396.0, 65.0}, {3.0, 542.0}}
+                        Other, 0x101e492b0, {{0.0, 707.0}, {402.0, 30.0}}, label: 'Horizontal scroll bar, 3 pages', value: 0%
+                          Other, 0x101e493d0, {{3.0, 734.0}, {186.0, 3.0}}
+                        Other, 0x101e49530, {{369.0, 62.0}, {30.0, 678.0}}, label: 'Vertical scroll bar, 2 pages', value: 0%
+                          Other, 0x101e49650, {{396.0, 65.0}, {3.0, 542.0}}
+                        Other, 0x101e49770, {{0.0, 707.0}, {402.0, 30.0}}, label: 'Horizontal scroll bar, 3 pages', value: 0%
+                          Other, 0x101e49890, {{3.0, 734.0}, {186.0, 3.0}}
+                  Other, 0x101e499b0, {{56.0, 841.0}, {290.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                    Other, 0x101e49ad0, {{336.0, 868.0}, {7.0, 3.0}}
+                  Other, 0x101e49bf0, {{56.0, 841.0}, {290.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                    Other, 0x101e49d10, {{336.0, 868.0}, {7.0, 3.0}}
+            Other, 0x101e49e30, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'CapsuleViewController'
+              Other, 0x101e49f50, {{0.0, 0.0}, {402.0, 874.0}}
+                Image, 0x101e4a070, {{-384.0, 689.0}, {462.0, 163.0}}, identifier: 'capsule_with_toolbar_shadow'
+                Image, 0x101e4a190, {{-30.0, 689.0}, {462.0, 163.0}}, identifier: 'capsule_with_toolbar_shadow'
+                Other, 0x101e4a2b0, {{0.0, 740.0}, {402.0, 134.0}}
+                  Other, 0x101e4a3d0, {{0.0, 740.0}, {402.0, 134.0}}
+                  Other, 0x101e4a4f0, {{0.0, 740.0}, {402.0, 134.0}}
+                    Other, 0x101e4a610, {{0.0, 740.0}, {402.0, 0.3}}
+                Other, 0x101e4a730, {{28.0, 748.0}, {346.0, 45.0}}
+                  Other, 0x101e4a850, {{28.0, 748.0}, {346.0, 45.0}}
+                    Other, 0x101e4a970, {{28.0, 748.0}, {346.0, 45.0}}
+                    Other, 0x101e4aa90, {{28.0, 748.0}, {346.0, 45.0}}
+                    Other, 0x101e4abb0, {{28.0, 748.0}, {346.0, 45.0}}
+                  Other, 0x101e4acd0, {{28.0, 748.0}, {346.0, 45.0}}
+                    Other, 0x101e4adf0, {{28.0, 748.0}, {346.0, 45.0}}, identifier: 'CapsuleNavigationBar?isSelected=true', Selected
+                      Button, 0x101e4af10, {{28.0, 748.0}, {70.7, 45.0}}, identifier: 'PageFormatMenuButton', label: 'Page Menu'
+                        StaticText, 0x101d75d30, {{28.0, 748.0}, {0.0, 0.0}}
+                      TextField, 0x101d752b0, {{169.3, 760.3}, {63.7, 20.3}}, identifier: 'TabBarItemTitle', label: 'Address', value: ‎127.0.0.1
+                        Image, 0x101d77690, {{169.3, 760.0}, {12.3, 20.3}}, identifier: 'lock.fill', label: 'lock'
+                      Button, 0x101d777b0, {{343.3, 760.3}, {17.3, 20.3}}, identifier: 'ReloadButton', label: 'refresh'
+                Toolbar, 0x101d778d0, {{0.0, 796.0}, {402.0, 44.0}}, identifier: 'BottomBrowserToolbar', label: 'Toolbar'
+                  Other, 0x101d779f0, {{0.0, 796.0}, {402.0, 44.0}}
+                    Other, 0x101d77b10, {{0.0, 796.0}, {402.0, 44.0}}
+                      Button, 0x101d77c30, {{0.0, 796.0}, {60.0, 44.0}}, identifier: 'BackButton', label: 'Back', Disabled
+                      Button, 0x101d77d50, {{85.7, 796.0}, {60.0, 44.0}}, identifier: 'ForwardButton', label: 'Forward', Disabled
+                      Button, 0x101d77e70, {{171.0, 796.0}, {60.0, 44.0}}, identifier: 'ShareButton', label: 'Share'
+                      Button, 0x101d77f90, {{256.0, 796.0}, {61.0, 44.0}}, identifier: 'SidebarButton', label: 'Show Bookmarks'
+                      Button, 0x101d780b0, {{342.0, 796.0}, {60.0, 44.0}}, identifier: 'TabOverviewButton', label: 'Tabs'
+              Other, 0x101d781d0, {{0.0, 748.0}, {402.0, 126.0}}
+      Other, 0x101d782f0, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x101d78410, {{-402.0, -874.0}, {1206.0, 2622.0}}, identifier: 'PopoverDismissRegion', label: 'dismiss popup'
+        Other, 0x101d78530, {{0.0, 410.0}, {402.0, 464.0}}
+          Other, 0x101d78650, {{0.0, 410.0}, {402.0, 464.0}}
+            Other, 0x101d78770, {{0.0, 410.0}, {402.0, 464.0}}
+              Other, 0x101d78890, {{0.0, 410.0}, {402.0, 464.0}}
+                NavigationBar, 0x101d789b0, {{0.0, 410.0}, {402.0, 56.0}}, identifier: 'Janitor Lab'
+                  StaticText, 0x101d78ad0, {{156.7, 427.7}, {89.0, 20.3}}, label: 'Janitor Lab'
+                  Button, 0x101d78bf0, {{344.3, 416.0}, {49.7, 44.0}}, label: 'Done'
+                Other, 0x101d78d10, {{0.0, 410.0}, {402.0, 464.0}}
+                  Other, 0x101d78e30, {{0.0, 410.0}, {402.0, 464.0}}
+                    WebView, 0x101d78f50, {{0.0, 410.0}, {402.0, 464.0}}, label: 'Janitor Lab'
+                      WebView, 0x101d79070, {{0.0, 410.0}, {402.0, 464.0}}
+                        WebView, 0x101d79190, {{0.0, 410.0}, {402.0, 464.0}}
+                          Other, 0x101d792b0, {{0.0, 0.0}, {402.0, 464.0}}
+                            Other, 0x101d793d0, {{0.0, 0.0}, {402.0, 464.0}}
+                              Other, 0x101d794f0, {{0.0, 156.0}, {402.0, 464.0}}
+                                Other, 0x101d79610, {{0.0, 156.0}, {402.0, 1063.0}}, label: 'Janitor Lab'
+                                  Other, 0x101d79730, {{0.0, 156.0}, {390.0, 1063.0}}, label: 'main'
+                                    Other, 0x101d79850, {{18.0, 174.0}, {354.0, 13.0}}
+                                      StaticText, 0x101d79970, {{18.0, 174.0}, {149.0, 13.0}}, label: 'JANITOR LAB · PHASE 0', value: JANITOR LAB · PHAS...
+                                    Other, 0x101d79a90, {{18.0, 192.0}, {354.0, 27.0}}, label: '127.0.0.1', value: 1
+                                      StaticText, 0x101d79bb0, {{18.0, 192.0}, {89.0, 27.0}}, label: '127.0.0.1', value: 127.0.0.1
+                                    Other, 0x101d79cd0, {{18.0, 224.0}, {354.0, 16.0}}
+                                      StaticText, 0x101d79df0, {{18.0, 224.0}, {314.0, 15.0}}, label: 'Site access granted. Nothing is inspected until you ask.', value: Site access grante...
+                                    Other, 0x101d79f10, {{48.0, 267.0}, {179.0, 24.0}}
+                                      StaticText, 0x101d7a030, {{48.0, 268.0}, {180.0, 22.0}}, label: 'Fixture shield enabled', value: Fixture shield ena...
+                                    Other, 0x101d7a150, {{48.0, 296.0}, {311.0, 14.0}}
+                                      StaticText, 0x101d7a270, {{48.0, 296.0}, {307.0, 14.0}}, label: 'Blocking is declarative and does not inspect page content.', value: Blocking is declar...
+                                    Button, 0x101d7a390, {{18.0, 333.0}, {354.0, 46.0}}, label: 'Inspect accessible state'
+                                    Other, 0x101d7a4b0, {{18.0, 397.0}, {354.0, 18.0}}, label: 'Accessible state', value: 2
+                                      StaticText, 0x101d7a5d0, {{18.0, 397.0}, {114.0, 18.0}}, label: 'Accessible state', value: Accessible state
+                                    Other, 0x101d7a6f0, {{28.0, 435.0}, {153.0, 25.0}}
+                                      StaticText, 0x101d7a810, {{28.0, 435.0}, {14.0, 25.0}}, label: '0', value: 0
+                                    StaticText, 0x101d7a930, {{28.0, 468.0}, {39.0, 13.0}}, label: 'Cookies', value: Cookies
+                                    Other, 0x101d7aa50, {{209.0, 435.0}, {153.0, 25.0}}
+                                      StaticText, 0x101d7ab70, {{209.0, 435.0}, {14.0, 25.0}}, label: '0', value: 0
+                                    StaticText, 0x101d7ac90, {{209.0, 468.0}, {66.0, 13.0}}, label: 'Local storage', value: Local storage
+                                    Other, 0x101d7adb0, {{28.0, 512.0}, {153.0, 25.0}}
+                                      StaticText, 0x101d7aed0, {{28.0, 512.0}, {14.0, 25.0}}, label: '0', value: 0
+                                    StaticText, 0x101d7aff0, {{28.0, 545.0}, {78.0, 13.0}}, label: 'Session storage', value: Session storage
+                                    Other, 0x101d7b110, {{209.0, 512.0}, {153.0, 25.0}}
+                                      StaticText, 0x101d7b230, {{209.0, 512.0}, {14.0, 25.0}}, label: '0', value: 0
+                                    StaticText, 0x101d7b350, {{209.0, 545.0}, {52.0, 13.0}}, label: 'IndexedDB', value: IndexedDB
+                                    Other, 0x101d7b470, {{28.0, 589.0}, {153.0, 25.0}}
+                                      StaticText, 0x101d7b590, {{28.0, 589.0}, {14.0, 25.0}}, label: '0', value: 0
+                                    StaticText, 0x101d7b6b0, {{28.0, 622.0}, {36.0, 13.0}}, label: 'Caches', value: Caches
+                                    Other, 0x101d7b7d0, {{209.0, 589.0}, {153.0, 25.0}}
+                                      StaticText, 0x101d7b8f0, {{209.0, 589.0}, {14.0, 25.0}}, label: '0', value: 0
+                                    StaticText, 0x101d7ba10, {{209.0, 622.0}, {77.0, 13.0}}, label: 'Service workers', value: Service workers
+                                    Other, 0x101d7bb30, {{18.0, 658.0}, {354.0, 307.0}}
+                                      Button, 0x101d7bc50, {{18.0, 658.0}, {354.0, 17.0}}, label: 'Names and classifications', Focused
+                                        Button, 0x101d7bd70, {{30.0, 659.0}, {148.0, 15.0}}, label: 'Names and classifications', value: Names and classifi..., Focused
+                                      StaticText, 0x101d7be90, {{18.0, 676.0}, {49.0, 15.0}}, label: 'Cookies', value: Cookies
+                                      Other, 0x101d7bfb0, {{18.0, 698.0}, {354.0, 17.0}}
+                                        Other, 0x101d7c0d0, {{36.0, 698.0}, {336.0, 17.0}}, label: 'None observed'
+                                          Other, 0x101d7c1f0, {{20.0, 699.0}, {6.0, 15.0}}, label: '•'
+                                          StaticText, 0x101d7c310, {{36.0, 699.0}, {86.0, 15.0}}, label: 'None observed', value: • None observed
+                                      StaticText, 0x101d7c430, {{18.0, 726.0}, {77.0, 15.0}}, label: 'localStorage', value: localStorage
+                                      Other, 0x101d7c550, {{18.0, 748.0}, {354.0, 17.0}}
+                                        Other, 0x101d7c670, {{36.0, 748.0}, {336.0, 17.0}}, label: 'None observed'
+                                          Other, 0x101d7c790, {{20.0, 749.0}, {6.0, 15.0}}, label: '•'
+                                          StaticText, 0x101d7c8b0, {{36.0, 749.0}, {86.0, 15.0}}, label: 'None observed', value: • None observed
+                                      StaticText, 0x101d7c9d0, {{18.0, 776.0}, {94.0, 15.0}}, label: 'sessionStorage', value: sessionStorage
+                                      Other, 0x101d7caf0, {{18.0, 798.0}, {354.0, 17.0}}
+                                        Other, 0x101d7cc10, {{36.0, 798.0}, {336.0, 17.0}}, label: 'None observed'
+                                          Other, 0x101d7cd30, {{20.0, 799.0}, {6.0, 15.0}}, label: '•'
+                                          StaticText, 0x101d7ce50, {{36.0, 799.0}, {86.0, 15.0}}, label: 'None observed', value: • None observed
+                                      StaticText, 0x101d7cf70, {{18.0, 826.0}, {66.0, 15.0}}, label: 'IndexedDB', value: IndexedDB
+                                      Other, 0x101d7d090, {{18.0, 848.0}, {354.0, 17.0}}
+                                        Other, 0x101d7d1b0, {{36.0, 848.0}, {336.0, 17.0}}, label: 'None observed'
+                                          Other, 0x101d7d2d0, {{20.0, 849.0}, {6.0, 15.0}}, label: '•'
+                                          StaticText, 0x101d7d3f0, {{36.0, 849.0}, {86.0, 15.0}}, label: 'None observed', value: • None observed
+                                      StaticText, 0x101d7d510, {{18.0, 876.0}, {89.0, 15.0}}, label: 'Cache Storage', value: Cache Storage
+                                      Other, 0x101d7d630, {{18.0, 898.0}, {354.0, 17.0}}
+                                        Other, 0x101d7d750, {{36.0, 898.0}, {336.0, 17.0}}, label: 'None observed'
+                                          Other, 0x101d7d870, {{20.0, 899.0}, {6.0, 15.0}}, label: '•'
+                                          StaticText, 0x101d7d990, {{36.0, 899.0}, {86.0, 15.0}}, label: 'None observed', value: • None observed
+                                      StaticText, 0x101d7dab0, {{18.0, 926.0}, {97.0, 15.0}}, label: 'Service workers', value: Service workers
+                                      Other, 0x101d7dbd0, {{18.0, 948.0}, {354.0, 17.0}}
+                                        Other, 0x101d7dcf0, {{36.0, 948.0}, {336.0, 17.0}}, label: 'None observed'
+                                          Other, 0x101d7de10, {{20.0, 949.0}, {6.0, 15.0}}, label: '•'
+                                          StaticText, 0x101d7df30, {{36.0, 949.0}, {86.0, 15.0}}, label: 'None observed', value: • None observed
+                                    Other, 0x101d7e050, {{18.0, 975.0}, {354.0, 112.0}}
+                                      Button, 0x101d7e170, {{18.0, 985.0}, {354.0, 46.0}}, label: 'Clean tracker fixture'
+                                      Button, 0x101d7e290, {{18.0, 1041.0}, {354.0, 46.0}}, label: 'Forget accessible site data…'
+                                    Other, 0x101d7e3b0, {{18.0, 1099.0}, {354.0, 73.0}}
+                                      StaticText, 0x101d7e4d0, {{29.0, 1111.0}, {328.0, 49.0}}, label: 'Attempted: 5 storage categories and 2 cookies. Removed: 5 storage items and 2 cookies. Inaccessible: none reported. Failed: 0.', value: Attempted: 5 stora...
+                                    Other, 0x101d7e5f0, {{18.0, 1186.0}, {354.0, 15.0}}, label: 'footer'
+                                      StaticText, 0x101d7e710, {{67.0, 1187.0}, {256.0, 13.0}}, label: 'Values are never displayed or persisted by this build.', value: Values are never d...
+                        Other, 0x101d7e830, {{369.0, 466.0}, {30.0, 352.0}}, label: 'Vertical scroll bar, 3 pages', value: 45%
+                          Other, 0x101d7e950, {{396.0, 601.7}, {3.0, 198.7}}
+                        Other, 0x101d7ea70, {{56.0, 841.0}, {290.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                          Other, 0x101d7eb90, {{59.0, 868.0}, {284.0, 3.0}}
+                        Other, 0x101d7ecb0, {{369.0, 466.0}, {30.0, 352.0}}, label: 'Vertical scroll bar, 3 pages', value: 45%
+                          Other, 0x101d7edd0, {{396.0, 601.7}, {3.0, 198.7}}
+                        Other, 0x101d7eef0, {{56.0, 841.0}, {290.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0%
+                          Other, 0x101d7f010, {{59.0, 868.0}, {284.0, 3.0}}
+    Window, 0x101d7f130, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x101d7f250, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x101d7f370, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x10215f070, pid: 80589, label: 'Safari'
+Query chain:
+ →Find: Application 'com.apple.mobilesafari'
+  Output: {
+    Application, 0x102156640, pid: 80589, label: 'Safari'
+  }

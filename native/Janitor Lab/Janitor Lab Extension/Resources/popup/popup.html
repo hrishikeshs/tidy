@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Janitor Lab</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">JANITOR LAB · PHASE 0</p>
+        <h1 id="domain">Current site</h1>
+        <p id="permission" class="status">Checking access…</p>
+      </header>
+
+      <section class="shield">
+        <div>
+          <span class="dot" aria-hidden="true"></span>
+          <strong>Fixture shield enabled</strong>
+        </div>
+        <p>Blocking is declarative and does not inspect page content.</p>
+      </section>
+
+      <button id="grant" class="primary" hidden>Grant access to this site</button>
+      <button id="inspect" class="secondary" hidden>Inspect accessible state</button>
+
+      <section id="inventory" hidden>
+        <h2>Accessible state</h2>
+        <div id="summary" class="grid"></div>
+        <p id="cookie-note" class="note" hidden></p>
+        <details>
+          <summary>Names and classifications</summary>
+          <div id="details"></div>
+        </details>
+      </section>
+
+      <section id="actions" hidden>
+        <button id="clean" class="primary">Clean tracker fixture</button>
+        <button id="forget" class="danger">Forget accessible site data…</button>
+      </section>
+
+      <section id="confirmation" class="confirmation" hidden>
+        <strong>Forget this site?</strong>
+        <p>Remove every storage item this extension can access for this origin? This may sign you out.</p>
+        <div class="confirmation-actions">
+          <button id="cancel-forget" class="secondary">Cancel</button>
+          <button id="confirm-forget" class="danger">Remove accessible data</button>
+        </div>
+      </section>
+
+      <section id="result" class="result" hidden aria-live="polite"></section>
+      <p id="error" class="error" hidden aria-live="assertive"></p>
+
+      <footer>Values are never displayed or persisted by this build.</footer>
+    </main>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>
