@@ -13,7 +13,7 @@ import "../shared/catalog.js";
 const api = globalThis.browser ?? globalThis.chrome;
 const elements = Object.fromEntries(
   [
-    "domain", "permission", "site-icon", "dashboard", "loading", "grant", "inspect",
+    "domain", "permission", "site-icon", "dashboard", "done", "loading", "grant", "inspect",
     "learning-lab", "inventory", "recommendation", "recommendation-icon",
     "recommendation-kicker", "recommendation-title", "recommendation-copy", "site-data",
     "site-data-total", "summary", "cookie-note", "classifier-note", "learning-note",
@@ -28,6 +28,15 @@ let currentTab;
 let currentPattern;
 let currentLearnedPolicy = null;
 
+async function returnToSite({ reload = false } = {}) {
+  const [tidyTab] = await api.tabs.query({ active: true, currentWindow: true });
+  if (reload) await api.tabs.reload(currentTab.id);
+  await api.tabs.update(currentTab.id, { active: true });
+  if (tidyTab?.id !== undefined && tidyTab.id !== currentTab.id) {
+    await api.tabs.remove(tidyTab.id);
+  }
+}
+
 function itemLabel(count, singular, plural = `${singular}s`) {
   return `${count} ${count === 1 ? singular : plural}`;
 }
@@ -36,6 +45,7 @@ function setBusy(busy) {
   document.querySelector("main").setAttribute("aria-busy", String(busy));
   for (const button of [
     elements.dashboard,
+    elements.done,
     elements.grant,
     elements.inspect,
     elements.clean,
@@ -331,7 +341,12 @@ async function clean(mode) {
 }
 
 async function initialize() {
-  [currentTab] = await api.tabs.query({ active: true, currentWindow: true });
+  const requestedTabID = Number(new URLSearchParams(window.location.search).get("tab"));
+  if (Number.isInteger(requestedTabID) && requestedTabID >= 0) {
+    currentTab = await api.tabs.get(requestedTabID);
+  } else {
+    [currentTab] = await api.tabs.query({ active: true, currentWindow: true });
+  }
   if (!currentTab?.url) throw new Error("Safari did not expose an active page.");
 
   const url = new URL(currentTab.url);
@@ -355,8 +370,9 @@ async function initialize() {
 }
 
 elements.dashboard.addEventListener("click", () => {
-  api.tabs.create({ url: api.runtime.getURL("dashboard/dashboard.html") }).catch(showError);
+  window.location.assign(api.runtime.getURL("dashboard/dashboard.html"));
 });
+elements.done.addEventListener("click", () => returnToSite().catch(showError));
 
 elements.grant.addEventListener("click", async () => {
   clearMessages();
@@ -397,8 +413,7 @@ elements["confirm-forget"].addEventListener("click", async () => {
 });
 elements.reload.addEventListener("click", async () => {
   try {
-    await api.tabs.reload(currentTab.id);
-    window.close();
+    await returnToSite({ reload: true });
   } catch (error) {
     showError(error);
   }

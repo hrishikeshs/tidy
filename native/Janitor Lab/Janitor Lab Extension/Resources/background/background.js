@@ -45,6 +45,12 @@ async function scanCookies() {
 
 api.runtime.onInstalled.addListener(() => mutateCatalog((catalog) => catalog));
 
+api.action.onClicked.addListener((tab) => {
+  const url = new URL(api.runtime.getURL("popup/popup.html"));
+  if (Number.isInteger(tab?.id)) url.searchParams.set("tab", String(tab.id));
+  return api.tabs.create({ url: url.href });
+});
+
 api.runtime.onMessage.addListener((message) => {
   if (message?.type === "janitor.ping" || message?.type === "tidy.ping") {
     return Promise.resolve({ ok: true, manifestVersion: 3, schemaVersion: catalogTools.SCHEMA_VERSION });

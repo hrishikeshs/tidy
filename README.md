@@ -21,9 +21,9 @@ Xcode 16.1 and the iOS 18.1 simulator.
   Storage values into memory, and delta-debugs fresh isolated trials to find a
   1-minimal state set for the page's health oracle.
 - Learned names are shared with the Safari extension through an app group. For
-  14 days, the popup can remove only previously proven-removable names that are
+  14 days, the site workspace can remove only previously proven-removable names that are
   still present while leaving new or untested state alone.
-- Opening the Safari popup automatically checks the current website and leads
+- Opening Tidy from Safari opens a full-page site workspace, automatically checks the current website, and leads
   with one low-risk recommendation. Detailed names and classifications remain
   available behind the Site data inspector, and every cleanup offers to reload
   the page so stale banners or pop-ups can disappear immediately.

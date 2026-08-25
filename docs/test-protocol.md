@@ -39,7 +39,7 @@ a slow Safari first launch from being mistaken for a blocked request.
 
 ## 4. Dashboard cleanup
 
-1. Open the dashboard from the popup.
+1. Open the dashboard from the full-page site workspace.
 2. Confirm the catalog shows the paired fixture counts: 2 local, 2 session,
    2 IndexedDB, 2 caches, and 1 service worker.
 3. Choose **Check cookie jar** and retain its exact result. Zero is not treated

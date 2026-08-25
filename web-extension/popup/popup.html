@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Tidy</title>
     <link rel="stylesheet" href="popup.css">
   </head>
@@ -13,10 +13,13 @@
           <span class="brand-mark" aria-hidden="true">T</span>
           <strong>Tidy</strong>
         </div>
-        <button id="dashboard" class="toolbar-button">
-          All sites
-          <span aria-hidden="true">›</span>
-        </button>
+        <div class="toolbar-actions">
+          <button id="dashboard" class="toolbar-button">
+            All sites
+            <span aria-hidden="true">›</span>
+          </button>
+          <button id="done" class="toolbar-button">Done</button>
+        </div>
       </nav>
 
       <header class="site-header">

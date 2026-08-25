@@ -13,7 +13,9 @@ if (manifest.optional_host_permissions?.length) {
 
 const resources = [
   ...manifest.background.scripts,
-  manifest.action.default_popup,
+  "popup/popup.html",
+  "popup/popup.css",
+  "popup/popup.js",
   manifest.action.default_icon,
   ...Object.values(manifest.icons ?? {}),
   ...manifest.content_scripts.flatMap(({ js = [], css = [] }) => [...js, ...css]),
@@ -35,7 +37,7 @@ async function verifyPageReferences(pagePath) {
   }
 }
 
-await verifyPageReferences(manifest.action.default_popup);
+await verifyPageReferences("popup/popup.html");
 await verifyPageReferences("dashboard/dashboard.html");
 
 process.stdout.write("Extension manifest and referenced resources are valid.\n");

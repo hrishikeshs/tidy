@@ -59,7 +59,7 @@ final class Janitor_LabUITests: XCTestCase {
         address.typeText("http://127.0.0.1:8765/learning?tidy_seed=1\n")
         XCTAssertTrue(safari.staticTexts["All required state present"].waitForExistence(timeout: 10))
 
-        openTidyPopup(in: safari)
+        openTidyWorkspace(in: safari)
         grantAndInspectIfNeeded(in: safari)
 
         XCTAssertTrue(safari.staticTexts["Use the proven cleanup"].waitForExistence(timeout: 8))
@@ -67,8 +67,7 @@ final class Janitor_LabUITests: XCTestCase {
         XCTAssertTrue(cleanLearned.waitForExistence(timeout: 5))
         cleanLearned.tap()
 
-        let extensionWebView = safari.webViews["Tidy"].firstMatch
-        extensionWebView.swipeUp()
+        scrollTidyUp(in: safari)
         let cleanupReceipt = safari.buttons["Cleanup receipt"].firstMatch
         XCTAssertTrue(cleanupReceipt.waitForExistence(timeout: 8))
         cleanupReceipt.tap()
@@ -85,7 +84,7 @@ final class Janitor_LabUITests: XCTestCase {
     }
 
     @MainActor
-    private func openTidyPopup(in safari: XCUIApplication) {
+    private func openTidyWorkspace(in safari: XCUIApplication) {
         let pageMenu = safari.buttons["PageFormatMenuButton"]
         XCTAssertTrue(pageMenu.waitForExistence(timeout: 5))
         pageMenu.tap()
@@ -132,7 +131,23 @@ final class Janitor_LabUITests: XCTestCase {
                 }
             }
         }
-        XCTAssertTrue(safari.buttons["All sites"].waitForExistence(timeout: 5))
+        let allSites = safari.buttons["All sites"]
+        XCTAssertTrue(allSites.waitForExistence(timeout: 5))
+        XCTAssertLessThan(
+            allSites.frame.minY,
+            safari.windows.firstMatch.frame.height * 0.4,
+            "Tidy should use the full Safari viewport instead of starting in a bottom sheet."
+        )
+    }
+
+    @MainActor
+    private func scrollTidyUp(in safari: XCUIApplication) {
+        let extensionWebView = safari.webViews["Tidy"].firstMatch
+        if extensionWebView.exists {
+            extensionWebView.swipeUp()
+        } else {
+            safari.swipeUp()
+        }
     }
 
     @MainActor
@@ -186,7 +201,7 @@ final class Janitor_LabUITests: XCTestCase {
         ).firstMatch
         XCTAssertTrue(seededFixture.waitForExistence(timeout: 10))
 
-        openTidyPopup(in: safari)
+        openTidyWorkspace(in: safari)
         grantAndInspectIfNeeded(in: safari)
 
         let siteData = safari.buttons.containing(
@@ -218,8 +233,7 @@ final class Janitor_LabUITests: XCTestCase {
         XCTAssertTrue(cleanTrackers.waitForExistence(timeout: 5))
         cleanTrackers.tap()
 
-        let extensionWebView = safari.webViews["Tidy"].firstMatch
-        extensionWebView.swipeUp()
+        scrollTidyUp(in: safari)
         let cleanupReceipt = safari.buttons["Cleanup receipt"].firstMatch
         XCTAssertTrue(cleanupReceipt.waitForExistence(timeout: 8))
         cleanupReceipt.tap()
@@ -244,7 +258,7 @@ final class Janitor_LabUITests: XCTestCase {
 
         namesAndClassifications.tap()
         siteData.tap()
-        extensionWebView.swipeUp()
+        scrollTidyUp(in: safari)
         let forgetSiteData = safari.buttons["Reset this site"]
         XCTAssertTrue(forgetSiteData.waitForExistence(timeout: 5))
         forgetSiteData.tap()
@@ -253,7 +267,7 @@ final class Janitor_LabUITests: XCTestCase {
         XCTAssertTrue(confirmRemoval.waitForExistence(timeout: 5))
         confirmRemoval.tap()
 
-        extensionWebView.swipeUp()
+        scrollTidyUp(in: safari)
         XCTAssertTrue(cleanupReceipt.waitForExistence(timeout: 8))
         cleanupReceipt.tap()
         let fullCleanupResult = safari.staticTexts.containing(
@@ -303,7 +317,7 @@ final class Janitor_LabUITests: XCTestCase {
         ).firstMatch
         XCTAssertTrue(seededFixture.waitForExistence(timeout: 10))
 
-        openTidyPopup(in: safari)
+        openTidyWorkspace(in: safari)
         grantAndInspectIfNeeded(in: safari)
 
         let dashboardButton = safari.buttons["All sites"]

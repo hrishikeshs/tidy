@@ -12,7 +12,7 @@ there until the page represents the experience they want to preserve.
 
 ## Flow
 
-1. Open **Test what this site needs** from Tidy's Safari popup. The current URL is
+1. Open **Test what this site needs** from Tidy's full-page Safari site workspace. The current URL is
    passed to the app through the local `tidy://` URL scheme.
 2. In the Tidy profile, capture the baseline. The app reads same-site cookies
    through `WKHTTPCookieStore`, including HttpOnly cookies available to that

@@ -18,7 +18,6 @@
     "persistent": false
   },
   "action": {
-    "default_popup": "popup/popup.html",
     "default_title": "Open Tidy",
     "default_icon": "images/toolbar-icon.svg"
   },
