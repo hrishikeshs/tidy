@@ -6,11 +6,48 @@
 //
 
 import XCTest
+import StoreKitTest
 
 final class Janitor_LabUITests: XCTestCase {
+    private var storeKitSession: SKTestSession!
 
     override func setUpWithError() throws {
         continueAfterFailure = false
+        storeKitSession = try SKTestSession(configurationFileNamed: "TidyProducts")
+        storeKitSession.disableDialogs = true
+        storeKitSession.clearTransactions()
+    }
+
+    @MainActor
+    func testTipJarIsExplicitlyOptional() throws {
+        let app = XCUIApplication()
+        app.launch()
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5))
+
+        let leaveATip = app.buttons["Leave a tip"]
+        XCTAssertTrue(leaveATip.waitForExistence(timeout: 5))
+        leaveATip.tap()
+
+        XCTAssertTrue(app.navigationBars["Support Tidy"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Tidy is free for everyone."].exists)
+        let optionalCopy = app.staticTexts.containing(
+            NSPredicate(format: "label CONTAINS %@", "Tipping is entirely optional")
+        ).firstMatch
+        XCTAssertTrue(optionalCopy.exists)
+        XCTAssertTrue(app.staticTexts["Purchases are handled by Apple. Tidy never receives your payment details."].exists)
+        let smallTip = app.buttons["tipjar.io.hrishi.tidy.tip.small"]
+        XCTAssertTrue(smallTip.waitForExistence(timeout: 8))
+
+        let screenshot = XCTAttachment(screenshot: app.screenshot())
+        screenshot.name = "Optional tip jar"
+        screenshot.lifetime = .keepAlways
+        add(screenshot)
+
+        smallTip.tap()
+        let thankYou = app.alerts["Thank you!"]
+        XCTAssertTrue(thankYou.waitForExistence(timeout: 8))
+        XCTAssertTrue(thankYou.staticTexts["Your support helps keep Tidy independent, private, and available to everyone."].exists)
+        thankYou.buttons["OK"].tap()
     }
 
     @MainActor

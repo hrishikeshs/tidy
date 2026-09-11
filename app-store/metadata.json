@@ -13,5 +13,25 @@
   "keywords": "safari,cookies,privacy,website,data,storage,tracker,cleanup,extension,local",
   "supportUrl": "https://hrishikeshs.github.io/tidy/support.html",
   "privacyPolicyUrl": "https://hrishikeshs.github.io/tidy/privacy.html",
-  "description": "Tidy gives you clear, local controls for the data websites leave in Safari. When a page gets stuck behind a recurring banner, stale preference, or unwanted tracker, open Tidy from Safari's Page Menu to understand and clean the site without sending your browsing data anywhere.\n\nCLEAN THE CURRENT WEBSITE\n• Inspect accessible cookies and browser storage by name and purpose\n• Remove evidence-backed tracking state while keeping sign-in and security data\n• Reset accessible site data when you need a clean slate\n• Reload the page immediately after cleanup\n\nONE PRIVATE DASHBOARD\n• Review websites Tidy has observed on this device\n• See local storage counts and recent cleanup results\n• Clean selected websites or clear all accessible saved website data\n• Keep values out of Tidy's catalog and history\n\nLEARNING CLEAN\nUse Tidy's isolated browser to test which captured cookies and storage entries a page actually needs. Tidy tries removals in temporary on-device browser sessions and saves a short-lived, names-only cleanup policy. Captured values are used only in memory for those local trials.\n\nBUILT FOR HONEST BOUNDARIES\nSafari does not expose every kind of website data to extensions. Tidy clearly distinguishes what it can inspect or remove and keeps inaccessible or uncertain state untouched. Clearing data may sign you out or reset site preferences.\n\nTidy has no account, analytics, advertising SDK, backend, or cloud sync. Its catalog, classifications, policies, and cleanup history stay on your device. Websites still receive the ordinary requests Safari or Tidy's isolated browser makes when you choose to load them."
+  "description": "Tidy gives you clear, local controls for the data websites leave in Safari. When a page gets stuck behind a recurring banner, stale preference, or unwanted tracker, open Tidy from Safari's Page Menu to understand and clean the site without sending your browsing data anywhere.\n\nCLEAN THE CURRENT WEBSITE\n• Inspect accessible cookies and browser storage by name and purpose\n• Remove evidence-backed tracking state while keeping sign-in and security data\n• Reset accessible site data when you need a clean slate\n• Reload the page immediately after cleanup\n\nONE PRIVATE DASHBOARD\n• Review websites Tidy has observed on this device\n• See local storage counts and recent cleanup results\n• Clean selected websites or clear all accessible saved website data\n• Keep values out of Tidy's catalog and history\n\nLEARNING CLEAN\nUse Tidy's isolated browser to test which captured cookies and storage entries a page actually needs. Tidy tries removals in temporary on-device browser sessions and saves a short-lived, names-only cleanup policy. Captured values are used only in memory for those local trials.\n\nBUILT FOR HONEST BOUNDARIES\nSafari does not expose every kind of website data to extensions. Tidy clearly distinguishes what it can inspect or remove and keeps inaccessible or uncertain state untouched. Clearing data may sign you out or reset site preferences.\n\nTidy has no account, analytics, advertising SDK, backend, or cloud sync. Its catalog, classifications, policies, and cleanup history stay on your device. Websites still receive the ordinary requests Safari or Tidy's isolated browser makes when you choose to load them.\n\nTidy is free and fully unlocked. Optional one-time tips support its development but never unlock features; Apple processes purchases through the App Store.",
+  "inAppPurchases": [
+    {
+      "productId": "io.hrishi.tidy.tip.small",
+      "type": "CONSUMABLE",
+      "name": "Small Tip",
+      "usdPrice": "1.99"
+    },
+    {
+      "productId": "io.hrishi.tidy.tip.generous",
+      "type": "CONSUMABLE",
+      "name": "Generous Tip",
+      "usdPrice": "4.99"
+    },
+    {
+      "productId": "io.hrishi.tidy.tip.amazing",
+      "type": "CONSUMABLE",
+      "name": "Amazing Tip",
+      "usdPrice": "9.99"
+    }
+  ]
 }

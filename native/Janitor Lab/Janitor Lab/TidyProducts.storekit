@@ -1,0 +1,64 @@
+{
+  "identifier" : "A84C58EB-B847-4743-9420-E2C28C99F135",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : false,
+      "internalID" : "F9306152-7531-4D8A-B218-F86253BA573A",
+      "localizations" : [
+        {
+          "description" : "An optional one-time tip. Unlocks no features.",
+          "displayName" : "Small Tip",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "io.hrishi.tidy.tip.small",
+      "referenceName" : "Small Tip",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "A81D91CF-D5B3-4AA2-B6EC-EFF5F68F1838",
+      "localizations" : [
+        {
+          "description" : "An optional one-time tip. Unlocks no features.",
+          "displayName" : "Generous Tip",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "io.hrishi.tidy.tip.generous",
+      "referenceName" : "Generous Tip",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "9.99",
+      "familyShareable" : false,
+      "internalID" : "2C829BE4-A9C7-4F56-8E63-B4B275867528",
+      "localizations" : [
+        {
+          "description" : "An optional one-time tip. Unlocks no features.",
+          "displayName" : "Amazing Tip",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "io.hrishi.tidy.tip.amazing",
+      "referenceName" : "Amazing Tip",
+      "type" : "Consumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6811113067",
+    "_developerTeamID" : "F4W7H6AL6M"
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

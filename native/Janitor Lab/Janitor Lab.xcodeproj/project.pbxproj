@@ -35,6 +35,8 @@
 		A10000050000000000000005 /* Main.js in Resources */ = {isa = PBXBuildFile; fileRef = A10000150000000000000005 /* Main.js */; };
 		A20000010000000000000001 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A20000110000000000000001 /* PrivacyInfo.xcprivacy */; };
 		A20000020000000000000002 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A20000120000000000000002 /* PrivacyInfo.xcprivacy */; };
+		A30000010000000000000001 /* TipJarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30000110000000000000001 /* TipJarViewController.swift */; };
+		A30000020000000000000002 /* TidyProducts.storekit in Resources */ = {isa = PBXBuildFile; fileRef = A30000120000000000000002 /* TidyProducts.storekit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +111,8 @@
 		A10000150000000000000005 /* Main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Main.js; sourceTree = "<group>"; };
 		A20000110000000000000001 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		A20000120000000000000002 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		A30000110000000000000001 /* TipJarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarViewController.swift; sourceTree = "<group>"; };
+		A30000120000000000000002 /* TidyProducts.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = TidyProducts.storekit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +175,7 @@
 				745DECA4303BA98700FB6BBA /* AppDelegate.swift */,
 				745DECAE303BA98700FB6BBA /* SceneDelegate.swift */,
 				745DECB0303BA98700FB6BBA /* ViewController.swift */,
+				A30000110000000000000001 /* TipJarViewController.swift */,
 				A10000110000000000000001 /* LearningModels.swift */,
 				A10000120000000000000002 /* LearningMinimizer.swift */,
 				A10000130000000000000003 /* LearningWebKit.swift */,
@@ -180,6 +185,7 @@
 				745DECB8303BA98700FB6BBA /* Assets.xcassets */,
 				745DECB9303BA98700FB6BBA /* Info.plist */,
 				A20000110000000000000001 /* PrivacyInfo.xcprivacy */,
+				A30000120000000000000002 /* TidyProducts.storekit */,
 				745DECA6303BA98700FB6BBA /* Resources */,
 			);
 			path = "Janitor Lab";
@@ -334,6 +340,11 @@
 				TargetAttributes = {
 					745DECA0303BA98700FB6BBA = {
 						CreatedOnToolsVersion = 16.1;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 					745DECBD303BA98700FB6BBA = {
 						CreatedOnToolsVersion = 16.1;
@@ -397,6 +408,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A30000020000000000000002 /* TidyProducts.storekit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,6 +438,7 @@
 				A10000020000000000000002 /* LearningMinimizer.swift in Sources */,
 				A10000030000000000000003 /* LearningWebKit.swift in Sources */,
 				A10000040000000000000004 /* LearningLabViewController.swift in Sources */,
+				A30000010000000000000001 /* TipJarViewController.swift in Sources */,
 				745DECB1303BA98700FB6BBA /* ViewController.swift in Sources */,
 				745DECA5303BA98700FB6BBA /* AppDelegate.swift in Sources */,
 				745DECAF303BA98700FB6BBA /* SceneDelegate.swift in Sources */,

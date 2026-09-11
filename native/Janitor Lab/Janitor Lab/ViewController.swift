@@ -11,6 +11,7 @@ import WebKit
 class ViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler {
 
     @IBOutlet var webView: WKWebView!
+    private let tipJar = TipJarStore.shared
     private var didHandleLaunchEnvironment = false
 
     override func viewDidLoad() {
@@ -37,6 +38,8 @@ class ViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHan
         }
 
         switch action {
+        case "openTipJar":
+            openTipJar()
         case "openLearningLab":
             let url = (payload["url"] as? String).flatMap(URL.init(string:))
             openLearningLab(url: url)
@@ -66,6 +69,14 @@ class ViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHan
         guard presentedViewController == nil else { return }
         let learningLab = LearningLabViewController(initialURL: url)
         let navigation = UINavigationController(rootViewController: learningLab)
+        navigation.modalPresentationStyle = .fullScreen
+        present(navigation, animated: true)
+    }
+
+    func openTipJar() {
+        guard presentedViewController == nil else { return }
+        let tipJar = TipJarViewController()
+        let navigation = UINavigationController(rootViewController: tipJar)
         navigation.modalPresentationStyle = .fullScreen
         present(navigation, animated: true)
     }

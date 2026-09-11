@@ -11,6 +11,15 @@ import Testing
 
 struct Janitor_LabTests {
 
+    @Test @MainActor func tipJarProductsAreConsumableChoicesWithoutEntitlements() {
+        #expect(TipJarStore.productIDs == [
+            "io.hrishi.tidy.tip.small",
+            "io.hrishi.tidy.tip.generous",
+            "io.hrishi.tidy.tip.amazing"
+        ])
+        #expect(Set(TipJarStore.productIDs).count == TipJarStore.productIDs.count)
+    }
+
     private func item(_ name: String, value: String = "value") -> WebStateItem {
         .storage(kind: .localStorage, name: name, value: value)
     }

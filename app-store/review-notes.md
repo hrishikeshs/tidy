@@ -1,7 +1,8 @@
 # App Review notes — Tidy 1.0.0
 
 Tidy is a containing app plus Safari Web Extension. It has no account, login,
-subscription, analytics, advertising SDK, backend, or cloud sync.
+subscription, analytics, advertising SDK, backend, or cloud sync. The app is
+free and offers three optional consumable tips through StoreKit.
 
 ## Review flow
 
@@ -16,6 +17,17 @@ The app also includes **Learning Clean**, an isolated `WKWebView` browser. Enter
 a complete HTTPS address, establish the page state you want to preserve, capture
 it, and choose **Find what is required**. Trials occur in non-persistent WebKit
 stores on the device.
+
+## Optional tip jar
+
+The containing app's **Support Tidy** section opens a full-screen tip jar with
+Small, Generous, and Amazing one-time tips. Each is a consumable In-App Purchase
+and can be purchased repeatedly. Tipping unlocks no content, functionality, or
+privileges; the same complete app remains available without a purchase.
+
+For review, launch Tidy, choose **Leave a tip**, and select any tier. The screen
+explicitly states that tips are optional and that purchases are handled by
+Apple.
 
 ## All-sites permission
 

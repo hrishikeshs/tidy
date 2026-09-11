@@ -39,6 +39,9 @@ Xcode 16.1 and the iOS 18.1 simulator.
   sign-in, security, preference, and uncertain data. **Reset this site** is the
   explicit escape hatch for a stuck page or persistent pop-up; it removes all
   reachable site state after warning that sign-in and preferences may be lost.
+- The containing app is free and fully unlocked. Its optional StoreKit tip jar
+  offers three repeatable, one-time consumable tips; purchases unlock nothing,
+  and Tidy never receives payment details.
 
 The simulator UI test removed 9 storage objects and 3 script-visible cookies,
 returned to Tidy, and re-scanned every displayed category to zero.
@@ -60,9 +63,10 @@ medium-confidence analytics/marketing matches backed by the public database or
 the controlled fixture are eligible for automatic cleanup. A suggestive name
 alone is labeled for review and kept. See [classifier design](docs/classifier.md).
 
-Tidy does not have analytics, an account, a server, or a network client of its
-own. Cleaning a site necessarily loads that site in a short-lived Safari tab;
-the confirmation UI says so before doing it.
+Tidy does not have analytics, an account, a server, or a developer-operated
+network client. Cleaning a site necessarily loads that site in a short-lived
+Safari tab; the confirmation UI says so before doing it. Optional tips use
+Apple's StoreKit purchase flow.
 
 The clear-all action retains Tidy's value-free catalog as local cleanup history.
 It does not clear Safari history or saved passwords, and it cannot remove data
