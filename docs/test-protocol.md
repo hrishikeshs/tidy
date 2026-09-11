@@ -110,10 +110,10 @@ Storage items and 1 script-visible cookie, and verifies no learned removable
 items remain. Each trial makes ordinary network requests to the fixture, just
 as a real run necessarily contacts its target site.
 
-## 7. DNR diagnostic
+## 7. Historical DNR diagnostic
 
-`npm run test:dnr` is now a diagnostic, not a release gate. The strengthened
-harness proves both Safari navigations completed. On iOS 18.1, toggling the
+The synthetic DNR harness was a capability diagnostic, not a release gate. The
+strengthened harness proved both Safari navigations completed. On iOS 18.1, toggling the
 extension with `pluginkit` also loses or bypasses the website-access state the
 rule needs, so a request in the enabled leg must not be interpreted as a broken
 dashboard. A production blocker needs a separate post-consent test and a real,

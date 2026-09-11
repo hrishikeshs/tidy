@@ -32,12 +32,24 @@ class ViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHan
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         guard message.name == "controller",
               let payload = message.body as? [String: Any],
-              payload["action"] as? String == "openLearningLab",
-              let rawURL = payload["url"] as? String,
-              let url = URL(string: rawURL) else {
+              let action = payload["action"] as? String else {
             return
         }
-        openLearningLab(url: url)
+
+        switch action {
+        case "openLearningLab":
+            let url = (payload["url"] as? String).flatMap(URL.init(string:))
+            openLearningLab(url: url)
+        case "openExternal":
+            guard let rawURL = payload["url"] as? String,
+                  let url = URL(string: rawURL),
+                  url.scheme == "https" else {
+                return
+            }
+            UIApplication.shared.open(url)
+        default:
+            return
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -50,7 +62,7 @@ class ViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHan
         }
     }
 
-    func openLearningLab(url: URL) {
+    func openLearningLab(url: URL?) {
         guard presentedViewController == nil else { return }
         let learningLab = LearningLabViewController(initialURL: url)
         let navigation = UINavigationController(rootViewController: learningLab)

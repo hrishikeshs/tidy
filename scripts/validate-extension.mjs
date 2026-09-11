@@ -19,7 +19,7 @@ const resources = [
   manifest.action.default_icon,
   ...Object.values(manifest.icons ?? {}),
   ...manifest.content_scripts.flatMap(({ js = [], css = [] }) => [...js, ...css]),
-  ...manifest.declarative_net_request.rule_resources.map(({ path }) => path),
+  ...(manifest.declarative_net_request?.rule_resources ?? []).map(({ path }) => path),
   "dashboard/dashboard.html",
   "dashboard/dashboard.css",
   "dashboard/dashboard.js"

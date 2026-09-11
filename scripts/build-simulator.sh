@@ -7,7 +7,7 @@ project_root="${0:A:h:h}"
 
 xcodebuild \
   -project "$project_root/native/Janitor Lab/Janitor Lab.xcodeproj" \
-  -scheme "Janitor Lab" \
+  -scheme "Tidy" \
   -sdk iphonesimulator \
   -destination 'generic/platform=iOS Simulator' \
   -derivedDataPath "$project_root/DerivedData" \

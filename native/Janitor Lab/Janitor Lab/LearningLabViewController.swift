@@ -6,7 +6,7 @@ final class LearningLabViewController: UIViewController, WKNavigationDelegate, U
     private static let profileIdentifier = UUID(uuidString: "7A3A7ED7-57AF-4CC9-9B35-C70828F14897")!
     private static let policyLifetime: TimeInterval = 14 * 24 * 60 * 60
 
-    private let initialURL: URL
+    private let initialURL: URL?
     private let policyStore = LearningPolicyStore()
     private var baselineState: CapturedWebState?
     private var baselineHealth: HealthSnapshot?
@@ -25,7 +25,7 @@ final class LearningLabViewController: UIViewController, WKNavigationDelegate, U
         field.keyboardType = .URL
         field.textContentType = .URL
         field.returnKeyType = .go
-        field.text = initialURL.absoluteString
+        field.text = initialURL?.absoluteString
         field.accessibilityIdentifier = "learning.address"
         field.delegate = self
         return field
@@ -110,7 +110,7 @@ final class LearningLabViewController: UIViewController, WKNavigationDelegate, U
         return view
     }()
 
-    init(initialURL: URL) {
+    init(initialURL: URL?) {
         self.initialURL = initialURL
         super.init(nibName: nil, bundle: nil)
     }
@@ -137,7 +137,12 @@ final class LearningLabViewController: UIViewController, WKNavigationDelegate, U
         super.viewDidAppear(animated)
         guard !didLoadInitialURL else { return }
         didLoadInitialURL = true
-        loadAddress()
+        if initialURL != nil {
+            loadAddress()
+        } else {
+            statusLabel.text = "Enter the full address of the page you want to test. This browser uses a separate on-device Tidy profile."
+            addressField.becomeFirstResponder()
+        }
     }
 
     private func configureLayout() {

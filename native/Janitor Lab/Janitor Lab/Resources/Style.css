@@ -44,8 +44,12 @@ button { width: 100%; min-height: 46px; padding: 11px 14px; border: 0; border-ra
 button:active { background: var(--accent-pressed); }
 button:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 38%, transparent); outline-offset: 2px; }
 
-footer { display: flex; align-items: center; justify-content: center; gap: 6px; padding-top: 20px; color: var(--secondary-label); font-size: 10px; text-align: center; }
-footer span { color: var(--success); font-size: 7px; }
+footer { padding-top: 20px; color: var(--secondary-label); font-size: 10px; text-align: center; }
+footer p { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 9px; }
+footer p span { color: var(--success); font-size: 7px; }
+footer nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 13px; }
+footer nav button { width: auto; min-height: 28px; padding: 4px 0; border-radius: 0; background: transparent; color: var(--accent); font-size: 11px; font-weight: 550; }
+footer nav button:active { background: transparent; opacity: .6; }
 
 @media (prefers-color-scheme: dark) {
   :root {

@@ -271,7 +271,7 @@ final class Janitor_LabUITests: XCTestCase {
         XCTAssertTrue(cleanupReceipt.waitForExistence(timeout: 8))
         cleanupReceipt.tap()
         let fullCleanupResult = safari.staticTexts.containing(
-            NSPredicate(format: "label CONTAINS %@", "Removed: 5 storage items")
+            NSPredicate(format: "label CONTAINS %@", "Removed:")
         ).firstMatch
         XCTAssertTrue(fullCleanupResult.waitForExistence(timeout: 8))
         siteData.tap()

@@ -99,9 +99,9 @@ normal browser profile. See [Learning Clean](docs/learning-clean.md).
 - Inactive Safari tabs did not reliably accept script injection or return
   message results. Tidy's temporary active-tab workflow is the validated
   workaround.
-- The included declarative rule is only a synthetic fixture, not a production
-  tracker list. The strengthened DNR harness shows Safari 18 couples its effect
-  to website-access state; see the capability matrix.
+- A synthetic declarative-network-request rule was used only to probe Safari's
+  boundary. It is intentionally absent from the production extension; the
+  historical result remains in the capability matrix.
 - Profiles, Private Browsing, force-quit, memory pressure, locking, and physical
   device lifecycle behavior remain device gates.
 
@@ -122,9 +122,10 @@ docs/            Capability ledger, protocol, and dated evidence
 tests/           Pure JavaScript privacy/model tests
 ```
 
-`web-extension/` is the source of truth. The native target and bundle IDs keep
-their original `Janitor Lab` names to avoid unnecessary Xcode-project churn;
-the installed app and extension display as Tidy.
+`web-extension/` is the source of truth. Native target names keep their original
+`Janitor Lab` labels to avoid unnecessary Xcode-project churn; production bundle
+identifiers are `io.hrishi.tidy` and `io.hrishi.tidy.extension`, while the
+installed app and extension display as Tidy.
 
 ## Quick start
 
@@ -141,9 +142,10 @@ Physical-device forks must register or substitute the app-group identifier
 
 See the [simulator protocol](docs/test-protocol.md), [capability
 matrix](docs/capability-matrix.md), [initial dashboard evidence](docs/evidence/2026-08-23/README.md),
-[classifier evidence](docs/evidence/2026-08-24/classifier-observations.md), and
+[classifier evidence](docs/evidence/2026-08-24/classifier-observations.md),
 [Learning Clean evidence](docs/evidence/2026-08-24/learning-clean-observations.md),
-and [clear-all evidence](docs/evidence/2026-08-24/clear-all-observations.md).
+[clear-all evidence](docs/evidence/2026-08-24/clear-all-observations.md), and the
+[App Store release metadata](app-store/metadata.json).
 
 ## Platform references
 

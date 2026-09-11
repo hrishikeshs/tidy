@@ -1,6 +1,14 @@
 document.querySelector("#learning-lab").addEventListener("click", () => {
   webkit.messageHandlers.controller.postMessage({
-    action: "openLearningLab",
-    url: "http://127.0.0.1:8765/learning?tidy_seed=1"
+    action: "openLearningLab"
   });
 });
+
+for (const link of document.querySelectorAll("[data-external-url]")) {
+  link.addEventListener("click", () => {
+    webkit.messageHandlers.controller.postMessage({
+      action: "openExternal",
+      url: link.dataset.externalUrl
+    });
+  });
+}
